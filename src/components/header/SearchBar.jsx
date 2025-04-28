@@ -1,33 +1,39 @@
-import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
 import { useTranslation } from "react-i18next";
+import { Flex } from "antd";
+import { motion } from "framer-motion";
+import { SMOOTH } from "../../config/motionConfig.js";
+import useHasScrolled from "../../hooks/useHasScrolled.js";
 
 function SearchBar() {
-  const [isFocused, setIsFocused] = useState(false);
   const { t } = useTranslation();
+  const hasScrolled = useHasScrolled();
 
   return (
-    <div className="border-border-grey shadow-search relative h-[56px] w-full rounded-full border-[0.5px] duration-300">
-      <input
-        type="text"
-        className="focus:outline-primary flex size-full items-center justify-center rounded-full px-4 text-sm outline-1 outline-transparent duration-300"
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
-
-      <div
-        className={clsx(
-          "pointer-events-none absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center gap-2 duration-300",
-          isFocused && "opacity-0",
-        )}
-      >
-        <Icon icon="material-symbols:search" width="18" height="18" />
-        <span className="text-md text-center font-semibold text-black">
-          {t("search_placeholder")}
-        </span>
-      </div>
-    </div>
+    <motion.div
+      animate={{ translateY: hasScrolled ? "-130%" : 0 }}
+      transition={{ duration: 0, ease: SMOOTH }}
+      className={clsx(
+        "border-border-grey shadow-search relative h-[56px] rounded-full border-[0.5px] px-2 duration-300 md:h-[50px] md:shadow-md",
+        hasScrolled ? "-translate-x-33 lg:translate-x-0" : "translate-x-0",
+      )}
+    >
+      <Flex align="center" justify="space-between" className="h-full">
+        <button className="h-full cursor-pointer !text-[15px]">
+          <span className="border-r px-4.5 font-bold">Anywhere</span>
+        </button>
+        <button className="h-full cursor-pointer !text-[15px]">
+          <span className="border-r px-4.5 font-bold">Any week</span>
+        </button>
+        <button className="cursor-pointe !text-[15px]r h-full">
+          <span className="text-text-secondary px-4.5">Add guests</span>
+        </button>
+        <div className="bg-primary flex size-9 cursor-pointer items-center justify-center rounded-full">
+          <Icon icon="mdi:magnify" className="text-white" width={18} />
+        </div>
+      </Flex>
+    </motion.div>
   );
 }
 

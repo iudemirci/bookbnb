@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
 const types = {
-  primary: "px-[8px] py-[6px]",
-  secondary: "",
+  primary: "px-[14px] py-[12px] rounded-full",
+  secondary: "px-[8px] py-[6px] rounded-lg",
 };
 
 function Button({
@@ -17,7 +17,7 @@ function Button({
       href={to}
       target="_blank"
       className={clsx(
-        "cursor-pointer rounded-lg font-semibold duration-300 hover:bg-gray-200 active:translate-y-0.5",
+        "!text-text-primary hover:!bg-text-secondary/10 cursor-pointer !text-[15px] !font-bold !duration-300 select-none",
         types[type],
         className,
       )}

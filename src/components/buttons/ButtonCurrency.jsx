@@ -1,7 +1,7 @@
 import Button from "./Button.jsx";
 
 function ButtonCurrency() {
-  return <Button>₺ TRY</Button>;
+  return <Button type="secondary">₺ TRY</Button>;
 }
 
 export default ButtonCurrency;
