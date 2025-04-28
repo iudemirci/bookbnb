@@ -11,6 +11,7 @@ function Home() {
       <MainWrapper as="main">
         <HomeList />
       </MainWrapper>
+
       <Footer />
 
       <Navigation />
