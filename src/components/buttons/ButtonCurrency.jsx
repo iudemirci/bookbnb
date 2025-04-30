@@ -1,7 +1,7 @@
-import Button from "./Button.jsx";
+import { Button } from "antd";
 
 function ButtonCurrency() {
-  return <Button>₺ TRY</Button>;
+  return <Button type="text">₺ TRY</Button>;
 }
 
 export default ButtonCurrency;

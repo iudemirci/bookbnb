@@ -1,17 +1,27 @@
 import { Col, Flex, Row } from "antd";
+const { Title, Text } = Typography;
 import { Typography } from "antd";
 import { Icon } from "@iconify/react";
-const { Title, Text } = Typography;
+
+import HomeCardCarousel from "./HomeCardCarousel.jsx";
 
 function HomeCard() {
   return (
-    <Flex vertical={true} className="!py-6">
-      <div className="relative aspect-14/13 w-full rounded-3xl bg-purple-200 shadow-sm">
-        <span className="absolute top-3 right-3">
-          <Icon icon="stash:heart-duotone" width={30} />
+    <Flex vertical={true}>
+      <div className="relative aspect-14/13 w-full rounded-3xl shadow-sm">
+        <span className="bg-bg-primary pointer-events-none absolute top-4 left-4 z-10 rounded-full px-3 py-1.5 font-medium shadow-xl">
+          Guest favourite
         </span>
+        <span className="absolute top-4 right-4 z-10">
+          <Icon
+            icon="line-md:heart-twotone"
+            width={28}
+            className="text-primary cursor-pointer duration-200 hover:scale-105"
+          />
+        </span>
+        <HomeCardCarousel />
       </div>
-      <div className="pt-2">
+      <div className="cursor-pointer pt-2">
         <Row justify="space-between" align="middle">
           <Col>
             <Title level={5}>Adalar, Turkey</Title>
@@ -38,7 +48,7 @@ function HomeCard() {
         <Row>
           <Col>
             <Text type="secondary">
-              <Text strong underline>
+              <Text underline className="!font-bold">
                 38,865 $
               </Text>{" "}
               for 5 nights

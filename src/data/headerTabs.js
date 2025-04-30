@@ -1,98 +1,29 @@
 export const headerTabs = [
+  { key: "trending", icon: "iconamoon:trend-up-thin" },
+  { key: "beach", icon: "material-symbols-light:beach-access-outline" },
+  { key: "castles", icon: "material-symbols-light:castle-outline" },
+  { key: "cabins", icon: "material-symbols-light:cabin" },
+  { key: "caves", icon: "game-icons:mountain-cave" },
+  { key: "rooms", icon: "guidance:hotel-room" },
+  { key: "pools", icon: "material-symbols-light:pool-rounded" },
+  { key: "arctic", icon: "ph:snowflake-thin" },
+  { key: "lake", icon: "mdi:lake" },
+  { key: "countryside", icon: "healthicons:forest-outline" },
+  { key: "mansion", icon: "material-symbols-light:house-outline" },
+  { key: "camping", icon: "material-symbols-light:camping-outline" },
+  { key: "parks", icon: "material-symbols-light:park-outline" },
+  { key: "tropical", icon: "material-symbols-light:forest-outline" },
+  { key: "skiing", icon: "material-symbols-light:downhill-skiing-outline" },
+  { key: "vineyards", icon: "material-symbols-light:glass-cup-outline" },
+  { key: "windmills", icon: "ph:windmill-thin" },
+  { key: "desert", icon: "hugeicons:desert" },
+  { key: "barns", icon: "ph:barn-light" },
+  { key: "towers", icon: "iconoir:tower" },
+  { key: "surfing", icon: "material-symbols-light:surfing-sharp" },
+  { key: "golfing", icon: "maki:golf" },
+  { key: "tinyHomes", icon: "material-symbols-light:home-outline-rounded" },
   {
-    label: "Trending",
-    icon: "iconamoon:trend-up-thin",
-  },
-  {
-    label: "Beach",
-    icon: "material-symbols-light:beach-access-outline",
-  },
-  {
-    label: "Castles",
-    icon: "material-symbols-light:castle-outline",
-  },
-  {
-    label: "Cabins",
-    icon: "material-symbols-light:cabin",
-  },
-  {
-    label: "Caves",
-    icon: "game-icons:mountain-cave",
-  },
-  {
-    label: "Rooms",
-    icon: "guidance:hotel-room",
-  },
-  {
-    label: "Pools",
-    icon: "material-symbols-light:pool-rounded",
-  },
-  {
-    label: "Arctic",
-    icon: "ph:snowflake-thin",
-  },
-  {
-    label: "Lake",
-    icon: "mdi:lake",
-  },
-  {
-    label: "Countryside",
-    icon: "healthicons:forest-outline",
-  },
-  {
-    label: "Mansion",
-    icon: "material-symbols-light:house-outline",
-  },
-  {
-    label: "Camping",
-    icon: "material-symbols-light:camping-outline",
-  },
-  {
-    label: "Parks",
-    icon: "material-symbols-light:park-outline",
-  },
-  {
-    label: "Tropical",
-    icon: "material-symbols-light:forest-outline",
-  },
-  {
-    label: "Skiing",
-    icon: "material-symbols-light:downhill-skiing-outline",
-  },
-  {
-    label: "Vineyards",
-    icon: "material-symbols-light:glass-cup-outline",
-  },
-  {
-    label: "Windmills",
-    icon: "ph:windmill-thin",
-  },
-  {
-    label: "Desert",
-    icon: "hugeicons:desert",
-  },
-  {
-    label: "Barns",
-    icon: "ph:barn-light",
-  },
-  {
-    label: "Towers",
-    icon: "iconoir:tower",
-  },
-  {
-    label: "Surfing",
-    icon: "material-symbols-light:surfing-sharp",
-  },
-  {
-    label: "Golfing",
-    icon: "maki:golf",
-  },
-  {
-    label: "Tiny Homes",
-    icon: "material-symbols-light:home-outline-rounded",
-  },
-  {
-    label: "Boats",
+    key: "boats",
     icon: "material-symbols-light:directions-boat-outline-rounded",
   },
 ];

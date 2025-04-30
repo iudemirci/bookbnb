@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -9,15 +8,42 @@
   --color-bg-primary: #FFFFFF;
   --color-bg-secondary: #F7F7F7;
   --color-bg-primary-hover: #F7F7F7;
-  --color-border-grey: rgba(0, 0, 0, 0.08);
+  --color-border-grey: rgba(0, 0, 0, 0.15);
   --color-text-primary: #222222;
   --color-text-secondary: #6A6A6A;
 
-  --font-primary: "Montserrat", "sans-serif";
+  --font-primary: "Nunito", "sans-serif";
+  --shadow-theme:0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-theme-hover: 0px 0px 0px 1px rgba(0, 0, 0, 0.02), 0px 2px 4px 0px rgba(0, 0, 0, 0.16);
 
-  --shadow-search: 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+  --breakpoint-3xl: 100rem;
+  --breakpoint-4xl: 115rem;
+
+  --padding-header: "calc(100vw - 100%)";
 }
 
 html, body {
   font-family: var(--font-primary);
 }
+
+a, a:hover, a:focus {
+  color: var(--color-text-primary);
+}
+
+.swiper-pagination-bullet {
+  background-color: var(--color-bg-primary-hover);
+  width: 6px;
+  height: 6px;
+  margin: 0 2px 0 2px !important;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--color-bg-primary);
+  opacity: 1;
+}
+
+.ant-typography-secondary {
+  color: var(--color-text-secondary) !important;
+}
+

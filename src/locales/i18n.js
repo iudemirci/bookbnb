@@ -1,7 +1,11 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import enTranslations from "./en.json";
-import trTranslations from "./tr.json";
+import enCommon from "./en/common.json";
+import trCommon from "./tr/common.json";
+import enTabs from "./en/tabs.json";
+import trTabs from "./tr/tabs.json";
+import enFooter from "./en/footer.json";
+import trFooter from "./tr/footer.json";
 
 const storedLocale = localStorage.getItem("locale");
 const defaultLocale = "en";
@@ -9,10 +13,14 @@ const defaultLocale = "en";
 i18n.use(initReactI18next).init({
   resources: {
     en: {
-      translation: enTranslations,
+      translation: enCommon,
+      tabs: enTabs,
+      footer: enFooter,
     },
     tr: {
-      translation: trTranslations,
+      translation: trCommon,
+      tabs: trTabs,
+      footer: trFooter,
     },
   },
   lng: storedLocale || defaultLocale,
@@ -20,6 +28,11 @@ i18n.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
+  backend: {
+    loadPath: "/locales/{{lng}}/{{ns}}.json",
+  },
+  ns: ["translation", "tabs", "footer"],
+  defaultNS: "translation",
 });
 
 i18n.on("languageChanged", (lng) => {

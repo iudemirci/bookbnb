@@ -1,32 +1,52 @@
-import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
 import { useTranslation } from "react-i18next";
+import { Button, Col, Row } from "antd";
 
 function SearchBar() {
-  const [isFocused, setIsFocused] = useState(false);
   const { t } = useTranslation();
-
   return (
-    <div className="border-border-grey shadow-search relative h-[56px] w-full rounded-full border-[0.5px] duration-300">
-      <input
-        type="text"
-        className="focus:outline-primary flex size-full items-center justify-center rounded-full px-4 text-sm outline-1 outline-transparent duration-300"
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
-
-      <div
-        className={clsx(
-          "pointer-events-none absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center gap-2 duration-300",
-          isFocused && "opacity-0",
-        )}
+    <div
+      className={clsx(
+        "border-border-grey shadow-theme hover:shadow-theme-hover relative h-[56px] min-w-[290px] rounded-full border-[0.5px] px-2 duration-300 md:h-[50px]",
+      )}
+    >
+      <Row
+        align="center"
+        justify="space-between"
+        className="h-full"
+        wrap={false}
       >
-        <Icon icon="material-symbols:search" width="18" height="18" />
-        <span className="text-md text-center font-semibold text-black">
-          {t("search_placeholder")}
-        </span>
-      </div>
+        <Col className="min-w-0">
+          <button className="flex size-full cursor-pointer items-center !text-[15px]">
+            <span className="truncate border-r px-4.5 font-bold">
+              {t("search_anywhere")}
+            </span>
+          </button>
+        </Col>
+        <Col className="min-w-0">
+          <button className="flex size-full cursor-pointer items-center !text-[15px]">
+            <span className="truncate border-r px-4.5 font-bold">
+              {t("search_anyweek")}
+            </span>
+          </button>
+        </Col>
+        <Col className="flex min-w-0 items-center justify-center">
+          <button className="flex size-full cursor-pointer items-center px-4.5 !text-[15px]">
+            <span className="text-text-secondary truncate">
+              {t("search_guests")}
+            </span>
+          </button>
+        </Col>
+        <Col className="flex h-full items-center">
+          {/*<div className="bg-primary flex size-9 cursor-pointer items-center justify-center rounded-full">*/}
+          {/*  <Icon icon="mdi:magnify" className="text-white" width={18} />*/}
+          {/*</div>*/}
+          <Button type="primary">
+            <Icon icon="mdi:magnify" className="text-white" width={15} />
+          </Button>
+        </Col>
+      </Row>
     </div>
   );
 }
