@@ -13,11 +13,7 @@ function Logo({ width = 45 }) {
         />
         <Typography.Title
           level={1}
-<<<<<<< HEAD
-          className="!font-extrabold !tracking-tighter !text-[#fd514d] md:hidden lg:block"
-=======
           className="!font-extrabold !tracking-tighter !text-[#fd514d] md:hidden xl:block"
->>>>>>> 24748d013c382da4d2e244a5211dc51fbd97f588
         >
           bookbnb
         </Typography.Title>

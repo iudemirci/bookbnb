@@ -78,7 +78,6 @@ function SignupModal() {
               { required: true, message: "Please input your email!" },
               { type: "email", message: "Please enter a valid email address" },
             ]}
-            validateStatus="error"
           >
             <Input size="large" placeholder="Email" status={undefined} />
           </Form.Item>
@@ -104,17 +103,15 @@ function SignupModal() {
             <Checkbox>{t("remember_me")}</Checkbox>
           </Form.Item>
 
-          <Form.Item>
-            <Button
-              size="large"
-              type="primary"
-              className="w-full"
-              loading={isPending}
-              htmlType="submit"
-            >
-              {t("continue")}
-            </Button>
-          </Form.Item>
+          <Button
+            size="large"
+            type="primary"
+            className="w-full"
+            loading={isPending}
+            htmlType="submit"
+          >
+            {t("continue")}
+          </Button>
         </Form>
       </Flex>
     </Modal>

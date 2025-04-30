@@ -21,28 +21,20 @@ export const antd = {
       paddingSM: 0,
       lineHeight: 1.4,
       fontSizeHeading1: 22,
-<<<<<<< HEAD
       fontSizeHeading2: 20,
-=======
-      fontSizeHeading2: 24,
->>>>>>> 24748d013c382da4d2e244a5211dc51fbd97f588
       fontSizeHeading3: 18,
       fontSizeHeading4: 16,
       fontSizeHeading5: 15,
       fontWeightStrong: 700,
-<<<<<<< HEAD
       lineHeightHeading1: 1,
       lineHeightHeading2: 1,
       lineHeightHeading3: 1,
       lineHeightHeading4: 1,
       lineHeightHeading5: 1,
-=======
->>>>>>> 24748d013c382da4d2e244a5211dc51fbd97f588
     },
     Dropdown: {
       paddingBlock: 8,
       boxShadowPopoverArrow: "0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-<<<<<<< HEAD
     },
     Modal: {
       borderRadiusLG: 15,
@@ -80,8 +72,6 @@ export const antd = {
     },
     Message: {
       contentPadding: "12px 12px",
-=======
->>>>>>> 24748d013c382da4d2e244a5211dc51fbd97f588
     },
   },
 };

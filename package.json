@@ -24,10 +24,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^15.5.1",
-<<<<<<< HEAD
     "react-redux": "^9.2.0",
-=======
->>>>>>> 24748d013c382da4d2e244a5211dc51fbd97f588
     "react-responsive": "^10.0.1",
     "react-router-dom": "^7.5.2",
     "swiper": "^11.2.6"

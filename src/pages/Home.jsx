@@ -6,11 +6,8 @@ import HomeList from "../components/home/HomeList.jsx";
 import Footer from "../components/Footer.jsx";
 import Navigation from "../components/nav/Navigation.jsx";
 import MainContainer from "../components/MainContainer.jsx";
-<<<<<<< HEAD
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-=======
->>>>>>> 24748d013c382da4d2e244a5211dc51fbd97f588
 
 function Home() {
   const { t } = useTranslation();
