@@ -13,6 +13,7 @@
   --color-text-secondary: #6A6A6A;
 
   --font-primary: "Nunito", "sans-serif";
+<<<<<<< HEAD
   --shadow-theme:0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-theme-hover: 0px 0px 0px 1px rgba(0, 0, 0, 0.02), 0px 2px 4px 0px rgba(0, 0, 0, 0.16);
 
@@ -20,16 +21,26 @@
   --breakpoint-4xl: 115rem;
 
   --padding-header: "calc(100vw - 100%)";
+=======
+
+  --shadow-search: 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+
+  --breakpoint-3xl: 100rem;
+  --breakpoint-4xl: 115rem;
+>>>>>>> 24748d013c382da4d2e244a5211dc51fbd97f588
 }
 
 html, body {
   font-family: var(--font-primary);
 }
 
+<<<<<<< HEAD
 a, a:hover, a:focus {
   color: var(--color-text-primary);
 }
 
+=======
+>>>>>>> 24748d013c382da4d2e244a5211dc51fbd97f588
 .swiper-pagination-bullet {
   background-color: var(--color-bg-primary-hover);
   width: 6px;
@@ -41,9 +52,13 @@ a, a:hover, a:focus {
 .swiper-pagination-bullet-active {
   background-color: var(--color-bg-primary);
   opacity: 1;
+<<<<<<< HEAD
 }
 
 .ant-typography-secondary {
   color: var(--color-text-secondary) !important;
 }
 
+=======
+}
+>>>>>>> 24748d013c382da4d2e244a5211dc51fbd97f588
