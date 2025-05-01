@@ -43,7 +43,6 @@ function HomeCardCarousel() {
         onSwiper={(swiper) => {
           setIsBeginning(swiper.isBeginning);
           setIsEnd(swiper.isEnd);
-
           swiper.on("slideChange", updateNavigationState);
           swiper.on("resize", updateNavigationState);
           swiper.on("orientationchange", updateNavigationState);
@@ -82,7 +81,7 @@ function HomeCardCarousel() {
             <img
               src={img}
               alt="slide img"
-              className="pointer-events-none size-full bg-black object-cover object-center select-none"
+              className="pointer-events-none size-full object-cover object-center select-none"
             />
           </SwiperSlide>
         ))}

@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Checkbox,
@@ -9,32 +8,28 @@ import {
   Modal,
   Typography,
 } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsLoginOpen, setIsSignupOpen } from "../../store/modalSlice.js";
 import { useTranslation } from "react-i18next";
-import useSignup from "../../hooks/auth/useSignup.js";
+import useLogin from "../../hooks/auth/useLogin.js";
 
-function SignupModal() {
+function LoginModal() {
   const { t } = useTranslation();
-  const isModalOpen = useSelector((state) => state.modal.isSignupOpen);
+  const isModalOpen = useSelector((state) => state.modal.isLoginOpen);
   const dispatch = useDispatch();
-
-  const { mutate, isPending } = useSignup();
-  function hideModal() {
-    dispatch(setIsSignupOpen());
-  }
+  const { mutate, isPending } = useLogin();
 
   function onFinish(values) {
-    const newValues = {
-      ...values,
-      role: "user",
-    };
-
-    mutate(newValues);
+    mutate(values);
   }
 
-  function handleLoginClick() {
-    dispatch(setIsSignupOpen());
+  function hideModal() {
     dispatch(setIsLoginOpen());
+  }
+
+  function handleSignupLogin() {
+    dispatch(setIsLoginOpen());
+    dispatch(setIsSignupOpen());
   }
 
   return (
@@ -46,7 +41,7 @@ function SignupModal() {
       footer={null}
       title={
         <Typography.Title level={4} className="text-center">
-          {t("register")}
+          {t("login")}
         </Typography.Title>
       }
     >
@@ -54,14 +49,14 @@ function SignupModal() {
 
       <Flex vertical={true} justify="center" gap={12} className="!pt-4">
         <Typography.Title level={2} className="!font-extrabold">
-          {t("welcome_to_bookbnb")}
+          {t("welcome_back")}
         </Typography.Title>
         <Typography.Title level={4} type="secondary">
-          {t("create_account")}
+          {t("login_account")}
         </Typography.Title>
 
         <Form
-          name="signup"
+          name="login"
           initialValues={{ remember: true }}
           autoComplete="off"
           layout="vertical"
@@ -71,28 +66,11 @@ function SignupModal() {
           <Form.Item
             name="email"
             rules={[
-              {
-                pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                required: true,
-                message: "Please input your email!",
-              },
+              { required: true, message: "Please input your email!" },
               { type: "email", message: "Please enter a valid email address" },
             ]}
           >
             <Input size="large" placeholder="Email" status={undefined} />
-          </Form.Item>
-
-          <Form.Item
-            name="username"
-            rules={[
-              {
-                pattern: /^[a-zA-Z0-9_-]{3,20}$/,
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
-            <Input size="large" placeholder={t("username")} />
           </Form.Item>
 
           <Form.Item
@@ -119,17 +97,18 @@ function SignupModal() {
             {t("continue")}
           </Button>
         </Form>
+
         <Divider />
 
         <Flex gap={6} justify="center" align="center">
           <Typography.Text type="secondary">
-            {t("account_have")}
+            {t("account_dont_have")}
           </Typography.Text>
           <Typography.Text
-            onClick={handleLoginClick}
+            onClick={handleSignupLogin}
             className="cursor-pointer"
           >
-            {t("login")}
+            {t("sign_up")}
           </Typography.Text>
         </Flex>
       </Flex>
@@ -137,4 +116,4 @@ function SignupModal() {
   );
 }
 
-export default SignupModal;
+export default LoginModal;

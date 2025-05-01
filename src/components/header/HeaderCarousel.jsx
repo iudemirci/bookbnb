@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import clsx from "clsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, FreeMode, Navigation } from "swiper/modules";
@@ -8,16 +8,13 @@ import { Typography } from "antd";
 
 import ButtonsCarousel from "../buttons/ButtonsCarousel.jsx";
 
-import Container from "../Container.jsx";
-import CarouselButtons from "../CarouselButtons.jsx";
-
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-import { headerTabs } from "../../data/headerTabs.js";
+import { categories } from "../../data/categories.js";
 
 function HeaderCarousel() {
-  const [selectedTab, setSelectedTab] = useState(headerTabs[0].label);
+  const [selectedTab, setSelectedTab] = useState(categories[0].label);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
 
@@ -62,7 +59,7 @@ function HeaderCarousel() {
         !isEnd ? "after:opacity-100" : "after:opacity-0",
       )}
     >
-      {headerTabs.map(({ key, icon }, idx) => (
+      {categories.map(({ key, icon }, idx) => (
         <SwiperSlide
           key={idx}
           className={clsx(
@@ -96,4 +93,4 @@ function HeaderCarousel() {
   );
 }
 
-export default HeaderCarousel;
+export default memo(HeaderCarousel);

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLanguageAndCurrencyOpen } from "../../store/modalSlice.js";
+import clsx from "clsx";
 
 function LanguageAndCurrencyModal() {
   const isModalOpen = useSelector(
@@ -12,9 +13,19 @@ function LanguageAndCurrencyModal() {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
 
-  function hideModal() {
-    dispatch(setIsLanguageAndCurrencyOpen());
-  }
+  const languages = useMemo(() => {
+    return [
+      { language: "English", country: "United States", code: "en" },
+      { language: "Turkish", country: "Türkiye", code: "tr" },
+    ];
+  }, []);
+
+  const currencies = useMemo(() => {
+    return [
+      { currency: "United States Dollar", abbr: "$ Dollar", code: "dollar" },
+      { currency: "Turkish Lira", abbr: "₺ TRY", code: "lira" },
+    ];
+  }, []);
 
   const items = useMemo(() => {
     return [
@@ -27,30 +38,24 @@ function LanguageAndCurrencyModal() {
               {t("choose_language_title")}
             </Typography.Title>
             <Row gutter={[12, 12]} role="list" wrap={false}>
-              <Col role="listitem" className="min-w-35 flex-1">
-                <button
-                  className="hover:bg-bg-secondary flex w-full cursor-pointer flex-col rounded-lg border px-4 py-1.5 text-start text-nowrap"
-                  onClick={() => handleClick("en")}
-                >
-                  <Typography.Text className="text-text-secondary">
-                    English
-                  </Typography.Text>
-                  <Typography.Text type="secondary">
-                    United States
-                  </Typography.Text>
-                </button>
-              </Col>
-              <Col role="listitem" className="min-w-35 flex-1">
-                <button
-                  className="hover:bg-bg-secondary flex w-full cursor-pointer flex-col rounded-lg border px-4 py-1.5 text-start text-nowrap"
-                  onClick={() => handleClick("tr")}
-                >
-                  <Typography.Text className="text-text-secondary">
-                    Türkçe
-                  </Typography.Text>
-                  <Typography.Text type="secondary">Turkiye</Typography.Text>
-                </button>
-              </Col>
+              {languages.map(({ language, country, code }) => (
+                <Col key={code} role="listitem" className="min-w-35 flex-1">
+                  <button
+                    className={clsx(
+                      "hover:bg-bg-secondary flex w-full cursor-pointer flex-col rounded-lg px-4 py-1.5 text-start text-nowrap",
+                      i18n.language === code && "border",
+                    )}
+                    onClick={() => handleClick(code)}
+                  >
+                    <Typography.Text className="text-text-secondary">
+                      {language}
+                    </Typography.Text>
+                    <Typography.Text type="secondary">
+                      {country}
+                    </Typography.Text>
+                  </button>
+                </Col>
+              ))}
             </Row>
           </Space>
         ),
@@ -64,28 +69,16 @@ function LanguageAndCurrencyModal() {
               {t("choose_currency")}
             </Typography.Title>
             <Row gutter={[12, 12]} role="list" wrap={false}>
-              <Col role="listitem" className="min-w-35 flex-1">
-                <button
-                  className="hover:bg-bg-secondary flex w-full cursor-pointer flex-col rounded-lg border px-4 py-1.5 text-start text-nowrap"
-                  onClick={() => handleClick("en")}
-                >
-                  <Typography.Text className="text-text-secondary truncate">
-                    United States Dollar
-                  </Typography.Text>
-                  <Typography.Text type="secondary">$ USD</Typography.Text>
-                </button>
-              </Col>
-              <Col role="listitem" className="min-w-35 flex-1">
-                <button
-                  className="hover:bg-bg-secondary flex w-full cursor-pointer flex-col rounded-lg border px-4 py-1.5 text-start text-nowrap"
-                  onClick={() => handleClick("tr")}
-                >
-                  <Typography.Text className="text-text-secondary truncate">
-                    Turkish Lira
-                  </Typography.Text>
-                  <Typography.Text type="secondary">₺ TRY</Typography.Text>
-                </button>
-              </Col>
+              {currencies.map(({ currency, abbr, code }) => (
+                <Col key={code} role="listitem" className="min-w-35 flex-1">
+                  <button className="hover:bg-bg-secondary flex w-full cursor-pointer flex-col rounded-lg border px-4 py-1.5 text-start text-nowrap">
+                    <Typography.Text className="text-text-secondary truncate">
+                      {currency}
+                    </Typography.Text>
+                    <Typography.Text type="secondary">{abbr}</Typography.Text>
+                  </button>
+                </Col>
+              ))}
             </Row>
           </Space>
         ),
@@ -100,6 +93,10 @@ function LanguageAndCurrencyModal() {
       localStorage.setItem("locale", "en");
     }
     i18n.changeLanguage(lang === "tr" ? "tr" : "en");
+  }
+
+  function hideModal() {
+    dispatch(setIsLanguageAndCurrencyOpen());
   }
 
   return (

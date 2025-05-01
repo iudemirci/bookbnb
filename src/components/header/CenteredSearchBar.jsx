@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import SearchBar from "./SearchBar.jsx";
 import useHasScrolled from "../../hooks/useHasScrolled.js";
 import clsx from "clsx";
@@ -76,9 +76,9 @@ const CenteredSearchBar = () => {
       initial={{ opacity: 1 }}
       animate={{
         opacity: hasScrolled ? 1 : 0,
-        x: hasScrolled ? 0 : centerPos.x,
+        // x: hasScrolled ? 0 : centerPos.x,
         translateY: hasScrolled ? 0 : "58px",
-        scale: hasScrolled ? 1 : 2,
+        scale: hasScrolled ? 1 : 1.5,
       }}
       transition={{ duration: 0.2, ease: SMOOTH }}
       onAnimationComplete={() => {
@@ -86,13 +86,10 @@ const CenteredSearchBar = () => {
           setInteractive(true);
         }
       }}
-      className={clsx(
-        "w-full",
-        !interactive && "pointer-events-none invisible",
-      )}
+      className={clsx("w-full", !interactive && "pointer-events-none")}
     >
       <SearchBar />
     </motion.div>
   );
 };
-export default CenteredSearchBar;
+export default memo(CenteredSearchBar);

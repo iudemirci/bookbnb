@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { Icon } from "@iconify/react";
 import { useTranslation } from "react-i18next";
 import { Button, Col, Row } from "antd";
+import { memo } from "react";
 
 function SearchBar() {
   const { t } = useTranslation();
@@ -48,4 +49,4 @@ function SearchBar() {
   );
 }
 
-export default SearchBar;
+export default memo(SearchBar);

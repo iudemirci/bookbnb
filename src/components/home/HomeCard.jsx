@@ -16,7 +16,7 @@ function HomeCard() {
           <Icon
             icon="line-md:heart-twotone"
             width={28}
-            className="text-primary cursor-pointer duration-200 hover:scale-105"
+            className="text-primary cursor-pointer duration-200 hover:scale-115 active:scale-108"
           />
         </span>
         <HomeCardCarousel />

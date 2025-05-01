@@ -6,13 +6,13 @@ import { SMOOTH } from "../../config/motionConfig.js";
 import useHasScrolled from "../../hooks/useHasScrolled.js";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
-import { useMediaQuery } from "react-responsive";
+import { useBreakpoints } from "../../hooks/useBreakpoints.js";
 
 function HeaderTabs() {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const hasScrolled = useHasScrolled();
-  const isLarge = useMediaQuery({ query: "(max-width: 1024px)" });
+  const { large } = useBreakpoints();
   const tabs = useMemo(() => {
     return [
       { label: t("explore"), to: "/" },
@@ -22,9 +22,12 @@ function HeaderTabs() {
 
   return (
     <motion.div
-      initial={{ translateY: "-200%", opacity: 0 }}
+      initial={{
+        translateY: hasScrolled ? "-200%" : large ? "180%" : 0,
+        opacity: hasScrolled ? 0 : 1,
+      }}
       animate={{
-        translateY: hasScrolled ? "-200%" : isLarge ? "180%" : 0,
+        translateY: hasScrolled ? "-200%" : large ? "180%" : 0,
         opacity: hasScrolled ? 0 : 1,
       }}
       transition={{ duration: 0.3, ease: SMOOTH }}

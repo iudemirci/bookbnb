@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLanguageAndCurrencyOpen: false,
   isSignupOpen: false,
+  isLoginOpen: false,
+  isBookBnbOpen: false,
 };
 
 const modalSlice = createSlice({
@@ -15,9 +17,19 @@ const modalSlice = createSlice({
     setIsSignupOpen: (state) => {
       state.isSignupOpen = !state.isSignupOpen;
     },
+    setIsLoginOpen: (state) => {
+      state.isLoginOpen = !state.isLoginOpen;
+    },
+    setIsBookBnbOpen: (state) => {
+      state.isBookBnbOpen = !state.isBookBnbOpen;
+    },
   },
 });
 
-export const { setIsLanguageAndCurrencyOpen, setIsSignupOpen } =
-  modalSlice.actions;
+export const {
+  setIsLanguageAndCurrencyOpen,
+  setIsSignupOpen,
+  setIsLoginOpen,
+  setIsBookBnbOpen,
+} = modalSlice.actions;
 export default modalSlice.reducer;

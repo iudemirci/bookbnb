@@ -2,31 +2,37 @@ import { Icon } from "@iconify/react";
 import { Dropdown, Flex, Typography } from "antd";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { setIsSignupOpen } from "../../store/modalSlice.js";
-import SignupModal from "../modals/SignupModal.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsLoginOpen, setIsSignupOpen } from "../../store/modalSlice.js";
+import useLogout from "../../hooks/auth/useLogout.js";
 
 function HeaderAccount() {
+  const session = useSelector((state) => state.auth.session);
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { mutate: logout } = useLogout();
 
   const menuItems = useMemo(() => {
     return [
-      {
+      !session && {
         key: "signup",
-        label: <Typography.Text>{t("sign_up")}</Typography.Text>,
+        label: (
+          <Typography.Text className="!font-semibold">
+            {t("sign_up")}
+          </Typography.Text>
+        ),
         onClick: () => {
           dispatch(setIsSignupOpen());
         },
       },
-      {
+      !session && {
         key: "login",
         label: <Typography.Text>{t("login")}</Typography.Text>,
         onClick: () => {
-          console.log("Login clicked");
+          dispatch(setIsLoginOpen());
         },
       },
-      {
+      !session && {
         type: "divider",
       },
       {
@@ -36,8 +42,16 @@ function HeaderAccount() {
           console.log("Become a host clicked");
         },
       },
+      session && {
+        type: "divider",
+      },
+      session && {
+        key: "logout",
+        label: <Typography.Text>{t("logout")}</Typography.Text>,
+        onClick: () => logout(),
+      },
     ];
-  }, [t]);
+  }, [t, dispatch, session, logout]);
 
   return (
     <>
@@ -62,8 +76,6 @@ function HeaderAccount() {
           />
         </Flex>
       </Dropdown>
-
-      <SignupModal />
     </>
   );
 }
