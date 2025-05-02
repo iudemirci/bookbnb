@@ -1,25 +1,26 @@
 import { Col, Divider, Flex, Form, InputNumber, Row, Space, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import StepTitle from './StepTitle.jsx';
 
 function StepBasics({ form }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('bookbnb');
 
   const tabs = useMemo(() => {
     return [
       {
-        title: t('bookbnb_guests'),
-        subtitle: t('bookbnb_guests_subtitle'),
+        title: t('guests'),
+        subtitle: t('guests_subtitle'),
         name: 'guests',
       },
       {
-        title: t('bookbnb_rooms'),
-        subtitle: t('bookbnb_rooms_subtitle'),
+        title: t('rooms'),
+        subtitle: t('rooms_subtitle'),
         name: 'rooms',
       },
       {
-        title: t('bookbnb_bathrooms'),
-        subtitle: t('bookbnb_bathrooms_subtitle'),
+        title: t('bathrooms'),
+        subtitle: t('bathrooms_subtitle'),
         name: 'bathrooms',
       },
     ];
@@ -27,14 +28,7 @@ function StepBasics({ form }) {
 
   return (
     <Space direction='vertical' size={2} className='w-full'>
-      <Flex vertical={true} justify='center' gap={12} className='!mb-4'>
-        <Typography.Title level={2} className='!font-extrabold'>
-          {t('bookbnb_category_title')}
-        </Typography.Title>
-        <Typography.Title level={4} type='secondary'>
-          {t('bookbnb_category_subtitle')}
-        </Typography.Title>
-      </Flex>
+      <StepTitle title={t('basics_title')} subtitle={t('basics_subtitle')} />
 
       {tabs.map(({ title, subtitle, name }, idx) => (
         <div>

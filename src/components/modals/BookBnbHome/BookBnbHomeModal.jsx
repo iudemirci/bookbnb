@@ -1,12 +1,18 @@
-import { Button, Divider, Flex, Form, Input, Modal, Steps, Typography } from 'antd';
+import { Button, Divider, Flex, Form, Input, message, Modal, Steps, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsBookBnbOpen } from '../../../store/modalSlice.js';
 import { useTranslation } from 'react-i18next';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import StepCategories from './StepCategories.jsx';
 import StepLocation from './StepLocation.jsx';
 import StepBasics from './StepBasics.jsx';
 import StepPhoto from './StepPhoto.jsx';
+import StepDescription from './StepDescription.jsx';
+import StepPrice from './StepPrice.jsx';
+import { useListing } from '../../../hooks/useListing.js';
+import { useConvertCurrency } from '../../../hooks/useConvertCurrency.js';
+import { clearFiles, clearLatlng } from '../../../store/bookbnbSlice.js';
+import { usePhotoUpload } from '../../../hooks/usePhotoUpload.js';
 
 const initialValues = {
   category: '',
@@ -14,29 +20,70 @@ const initialValues = {
   guests: 1,
   rooms: 1,
   bathrooms: 1,
-  imageSrc: '',
-  price: 1,
+  photos: [],
   title: '',
   description: '',
+  price: 1,
 };
 
 function BookBnbHomeModal() {
-  const isModalOpen = useSelector((state) => state.modal.isBookBnbOpen);
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
   const [step, setStep] = useState(0);
+  const isModalOpen = useSelector((state) => state.modal.isBookBnbOpen);
+  const photos = useSelector((state) => state.bookbnb.fileList);
+  const dispatch = useDispatch();
+  const { t } = useTranslation('bookbnb');
   const [form] = Form.useForm();
-
-  const onFinish = useCallback(() => {
-    const values = form.getFieldValue();
-    console.log('🚀 ~ BookBnbHomeModal ~ values: ', values);
-  }, []);
+  const { insertListing, isInsertPending } = useListing();
+  const currentCurrency = useSelector((state) => state.app.currency);
+  const { mutate: convertCurrency, isPending: isConvertingPending } = useConvertCurrency();
+  const { deletePhoto, isDeleting } = usePhotoUpload();
+  const submitRef = useRef(null);
 
   const hideModal = useCallback(() => {
     dispatch(setIsBookBnbOpen());
+    dispatch(clearFiles());
+    dispatch(clearLatlng());
+
+    if (!submitRef.current) {
+      photos.forEach((photo) => {
+        deletePhoto(photo);
+      });
+    }
+
     form.resetFields();
     setStep(0);
-  }, [dispatch, form]);
+    submitRef.current = null;
+  }, [dispatch, form, photos, deletePhoto]);
+
+  const onFinish = useCallback(() => {
+    const values = form.getFieldValue();
+
+    convertCurrency(
+      { amount: values.price, fromCurrency: currentCurrency, toCurrency: 'USD' },
+      {
+        onSuccess: (data) => {
+          console.log('🚀 ~ onSuccess ~ data: ', data);
+          insertListing(
+            {
+              ...values,
+              price: data,
+            },
+            {
+              onSuccess: () => {
+                message.success(t('home_success'));
+                hideModal();
+              },
+              onError: (err) => {
+                message.error(err.message);
+              },
+            },
+          );
+
+          submitRef.current = true;
+        },
+      },
+    );
+  }, [form, t, convertCurrency, currentCurrency, insertListing, hideModal]);
 
   const next = useCallback(() => {
     form
@@ -52,39 +99,36 @@ function BookBnbHomeModal() {
   const steps = useMemo(() => {
     return [
       {
-        title: 'Category',
-        content: (
-          <Form.Item name='category' rules={[{ required: true, message: 'Please select a category' }]}>
-            <StepCategories form={form} />
-          </Form.Item>
-        ),
+        title: t('category'),
+        content: <StepCategories form={form} />,
       },
       {
-        title: 'Location',
-        content: (
-          <Form.Item name='location' rules={[{ required: true, message: 'Please select a location' }]}>
-            <StepLocation form={form} />
-          </Form.Item>
-        ),
+        title: t('location'),
+        content: <StepLocation form={form} />,
       },
-
       {
-        title: 'Basics',
+        title: t('basics'),
         content: <StepBasics form={form} />,
       },
       {
-        title: 'Photo',
+        title: t('photo'),
+
         content: (
-          <Form.Item name='photos' rules={[{ required: true, message: 'Please upload a photo' }]}>
+          <Form.Item name='photos' rules={[{ required: true, message: t('enter_photo') }]}>
             <StepPhoto form={form} />
           </Form.Item>
         ),
       },
       {
-        title: 'Test',
+        title: t('description'),
+        content: <StepDescription />,
+      },
+      {
+        title: t('price'),
+        content: <StepPrice currency={currentCurrency} />,
       },
     ];
-  }, []);
+  }, [t, form]);
 
   return (
     <Modal
@@ -96,15 +140,28 @@ function BookBnbHomeModal() {
       destroyOnClose={true}
       styles={{
         body: {
-          maxHeight: '55vh',
+          maxHeight: '50vh',
           overflowY: 'auto',
           overflowX: 'hidden',
         },
       }}
       title={
-        <Typography.Title level={4} className='text-center'>
-          {t('bookbnb_your_home')}
-        </Typography.Title>
+        <>
+          <Typography.Title level={4} className='text-center'>
+            {t('your_home')}
+          </Typography.Title>
+          <Steps
+            current={step}
+            size='small'
+            type='inline'
+            className='!mt-2 !w-full items-center justify-center'
+            responsive={false}
+          >
+            {steps.map((item) => (
+              <div key={item.title} title={item.title} />
+            ))}
+          </Steps>
+        </>
       }
       footer={
         <Flex gap={8}>
@@ -119,26 +176,21 @@ function BookBnbHomeModal() {
             </Button>
           )}
           {step === steps.length - 1 && (
-            <Button size='large' type='primary' className='w-full' onClick={() => form.submit()}>
+            <Button
+              size='large'
+              type='primary'
+              className='w-full'
+              onClick={() => form.submit()}
+              loading={isInsertPending || isConvertingPending || isDeleting}
+              disabled={isInsertPending || isConvertingPending || isDeleting}
+            >
               Submit
             </Button>
           )}
         </Flex>
       }
     >
-      <Divider className='!mt-4' />
-
-      <Steps
-        current={step}
-        size='small'
-        className='!my-6'
-        // progressDot={true}
-        responsive={false}
-      >
-        {steps.map((item) => (
-          <div key={item.title} title={item.title} />
-        ))}
-      </Steps>
+      <Divider className='!mt-0' />
 
       <Form requiredMark={false} form={form} initialValues={initialValues} onFinish={onFinish}>
         {steps[step].content}

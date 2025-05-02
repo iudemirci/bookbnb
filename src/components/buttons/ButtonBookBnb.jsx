@@ -1,13 +1,13 @@
-import { Button } from "antd";
-import { setIsBookBnbOpen, setIsLoginOpen } from "../../store/modalSlice.js";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { Button } from 'antd';
+import { setIsBookBnbOpen, setIsLoginOpen } from '../../store/modalSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function ButtonBookBnb() {
   const session = useSelector((state) => state.auth.session);
 
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t } = useTranslation('bookbnb');
 
   function handleClick() {
     if (!session) {
@@ -18,8 +18,8 @@ function ButtonBookBnb() {
   }
 
   return (
-    <Button type="text" onClick={handleClick}>
-      {t("bookbnb_your_home")}
+    <Button type='text' onClick={handleClick}>
+      {t('your_home')}
     </Button>
   );
 }

@@ -8,7 +8,7 @@ const formattedCountries = countries.map((country) => ({
   region: country.region,
 }));
 
-function useCountries() {
+function getCountries() {
   const getAll = () => formattedCountries;
 
   const getByValue = (value) => formattedCountries.find((item) => item.value === value);
@@ -16,4 +16,4 @@ function useCountries() {
   return { getAll, getByValue };
 }
 
-export default useCountries;
+export default getCountries;

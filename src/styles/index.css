@@ -51,4 +51,7 @@ a, a:hover, a:focus {
   color: var(--color-text-secondary) !important;
 }
 
+.custom-steps-nav .ant-steps-item-title {
+  color: #1890ff; /* Your desired color */
+}
 
