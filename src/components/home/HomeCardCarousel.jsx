@@ -7,6 +7,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import ButtonsCarousel from '../buttons/ButtonsCarousel.jsx';
+import { Image } from 'antd';
 
 const BASE_URL = import.meta.env.VITE_SUPABASE_IMG_URL;
 
@@ -74,12 +75,15 @@ function HomeCardCarousel({ photos }) {
           const fullUrl = `${BASE_URL}${path}`.replace(/&quot;|"/g, '').replace(/;/g, '');
 
           return (
-            <SwiperSlide key={idx}>
-              <img
+            <SwiperSlide key={idx} className='shadow-lg'>
+              <Image
                 src={fullUrl}
-                alt='slide img'
+                height='100%'
+                width='100%'
+                alt='listing-image'
+                preview={false}
                 loading='lazy'
-                className='pointer-events-none aspect-square size-full object-cover object-center select-none'
+                className='pointer-events-none aspect-square !object-cover !object-center select-none'
               />
             </SwiperSlide>
           );

@@ -1,16 +1,16 @@
-import { motion } from "framer-motion";
-import { useState, useEffect, useRef, memo } from "react";
-import SearchBar from "./SearchBar.jsx";
-import useHasScrolled from "../../hooks/useHasScrolled.js";
-import clsx from "clsx";
-import { SMOOTH } from "../../config/motionConfig.js";
+import { motion } from 'framer-motion';
+import { useState, useEffect, useRef, memo } from 'react';
+import SearchBar from './SearchBar.jsx';
+import useHasScrolled from '../../hooks/useHasScrolled.js';
+import clsx from 'clsx';
+import { SMOOTH } from '../../config/motionConfig.js';
 
 const CenteredSearchBar = () => {
   const containerRef = useRef(null);
   const [initialPosition, setInitialPosition] = useState({ top: 0, left: 0 });
   const [windowSize, setWindowSize] = useState({
-    width: typeof window !== "undefined" ? window.innerWidth : 0,
-    height: typeof window !== "undefined" ? window.innerHeight : 0,
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
   });
 
   const hasScrolled = useHasScrolled();
@@ -23,8 +23,8 @@ const CenteredSearchBar = () => {
       });
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -72,21 +72,22 @@ const CenteredSearchBar = () => {
 
   return (
     <motion.div
+      layout
       ref={containerRef}
       initial={{ opacity: 1 }}
-      animate={{
-        opacity: hasScrolled ? 1 : 0,
-        // x: hasScrolled ? 0 : centerPos.x,
-        translateY: hasScrolled ? 0 : "58px",
-        scale: hasScrolled ? 1 : 1.5,
-      }}
-      transition={{ duration: 0.2, ease: SMOOTH }}
-      onAnimationComplete={() => {
-        if (hasScrolled) {
-          setInteractive(true);
-        }
-      }}
-      className={clsx("w-full", !interactive && "pointer-events-none")}
+      // animate={{
+      //   opacity: hasScrolled ? 1 : 0,
+      //   // x: hasScrolled ? 0 : centerPos.x,
+      //   translateY: hasScrolled ? 0 : '58px',
+      //   scale: hasScrolled ? 1 : 1.5,
+      // }}
+      // transition={{ duration: 0.2, ease: SMOOTH }}
+      // onAnimationComplete={() => {
+      //   if (hasScrolled) {
+      //     setInteractive(true);
+      //   }
+      // }}
+      className={clsx('w-full', !interactive && 'pointer-events-none')}
     >
       <SearchBar />
     </motion.div>

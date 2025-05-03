@@ -9,10 +9,11 @@ import StepBasics from './StepBasics.jsx';
 import StepPhoto from './StepPhoto.jsx';
 import StepDescription from './StepDescription.jsx';
 import StepPrice from './StepPrice.jsx';
-import { useListing } from '../../../hooks/useListing.js';
+import { useInsertListing } from '../../../hooks/listings/useInsertListing.js';
 import { useConvertCurrency } from '../../../hooks/useConvertCurrency.js';
 import { clearFiles, clearLatlng } from '../../../store/bookbnbSlice.js';
 import { usePhotoUpload } from '../../../hooks/usePhotoUpload.js';
+import { useReverseGeocode } from '../../../hooks/useReverseGeocode.js';
 
 const initialValues = {
   category: '',
@@ -33,11 +34,12 @@ function BookBnbHomeModal() {
   const dispatch = useDispatch();
   const { t } = useTranslation('bookbnb');
   const [form] = Form.useForm();
-  const { insertListing, isInsertPending } = useListing();
+  const { insertListing, isInsertPending } = useInsertListing();
   const currentCurrency = useSelector((state) => state.app.currency);
   const { mutate: convertCurrency, isPending: isConvertingPending } = useConvertCurrency();
   const { deletePhoto, isDeleting } = usePhotoUpload();
   const submitRef = useRef(null);
+  const { mutate: reverseGeocode, isPending: isReversePending } = useReverseGeocode();
 
   const hideModal = useCallback(() => {
     dispatch(setIsBookBnbOpen());
@@ -55,35 +57,57 @@ function BookBnbHomeModal() {
     submitRef.current = null;
   }, [dispatch, form, photos, deletePhoto]);
 
-  const onFinish = useCallback(() => {
+  const onFinish = useCallback(async () => {
     const values = form.getFieldValue();
+    const { price, location } = values;
+    const { lat, lng } = location;
 
-    convertCurrency(
-      { amount: values.price, fromCurrency: currentCurrency, toCurrency: 'USD' },
-      {
-        onSuccess: (data) => {
-          console.log('🚀 ~ onSuccess ~ data: ', data);
-          insertListing(
-            {
-              ...values,
-              price: data,
-            },
-            {
-              onSuccess: () => {
-                message.success(t('home_success'));
-                hideModal();
-              },
-              onError: (err) => {
-                message.error(err.message);
-              },
-            },
-          );
-
-          submitRef.current = true;
+    const locationData = await new Promise((resolve, reject) => {
+      reverseGeocode(
+        { lat, lng },
+        {
+          onSuccess: (data) => resolve(data),
+          onError: (error) => reject(error),
         },
-      },
-    );
-  }, [form, t, convertCurrency, currentCurrency, insertListing, hideModal]);
+      );
+    });
+    const { town, province, state, suburb, country } = locationData.address;
+    const primary = town || province || state || suburb;
+    const finalLocation = primary ? `${primary}, ${country}` : `${country}`;
+
+    const convertedPrice = await new Promise((resolve, reject) => {
+      convertCurrency(
+        { amount: price, fromCurrency: currentCurrency, toCurrency: 'USD' },
+        {
+          onSuccess: (data) => resolve(data),
+          onError: (error) => reject(error),
+        },
+      );
+    });
+
+    await new Promise((resolve, reject) => {
+      insertListing(
+        {
+          ...values,
+          price: convertedPrice,
+          location: finalLocation,
+          coords: location,
+        },
+        {
+          onSuccess: () => {
+            message.success(t('home_success'));
+            submitRef.current = true;
+            hideModal();
+            resolve();
+          },
+          onError: (err) => {
+            message.error(err.message);
+            reject(err);
+          },
+        },
+      );
+    });
+  }, [form, t, convertCurrency, currentCurrency, insertListing, hideModal, reverseGeocode]);
 
   const next = useCallback(() => {
     form
@@ -181,8 +205,8 @@ function BookBnbHomeModal() {
               type='primary'
               className='w-full'
               onClick={() => form.submit()}
-              loading={isInsertPending || isConvertingPending || isDeleting}
-              disabled={isInsertPending || isConvertingPending || isDeleting}
+              loading={isInsertPending || isConvertingPending || isDeleting || isReversePending}
+              disabled={isInsertPending || isConvertingPending || isDeleting || isReversePending}
             >
               Submit
             </Button>
@@ -191,7 +215,6 @@ function BookBnbHomeModal() {
       }
     >
       <Divider className='!mt-0' />
-
       <Form requiredMark={false} form={form} initialValues={initialValues} onFinish={onFinish}>
         {steps[step].content}
       </Form>

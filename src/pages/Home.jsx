@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Header from '../components/header/Header.jsx';
+import HeaderHome from '../components/header/HeaderHome.jsx';
 import Container from '../components/Container.jsx';
 import HomeList from '../components/home/HomeList.jsx';
 import Footer from '../components/Footer.jsx';
@@ -19,7 +19,7 @@ function Home() {
 
   return (
     <MainContainer>
-      <Header />
+      <HeaderHome />
       <SignupModal />
       <LoginModal />
       <BookBnbHomeModal />

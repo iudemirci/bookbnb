@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { categories } from '../data/categories.js';
 
 const initialState = {
   currency: localStorage.getItem('currency') || 'USD',
+  category: categories[0].key,
 };
 
 const appSlice = createSlice({
@@ -11,8 +13,11 @@ const appSlice = createSlice({
     setCurrency: (state, action) => {
       state.currency = action.payload;
     },
+    setCategory: (state, action) => {
+      state.category = action.payload;
+    },
   },
 });
 
-export const { setCurrency } = appSlice.actions;
+export const { setCurrency, setCategory } = appSlice.actions;
 export default appSlice.reducer;

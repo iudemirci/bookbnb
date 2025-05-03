@@ -7,14 +7,12 @@ import HeaderAccount from './HeaderAccount.jsx';
 import SearchBarMobile from './SearchBarMobile.jsx';
 import ButtonFilters from '../buttons/ButtonFilters.jsx';
 import HeaderPrices from './HeaderPrices.jsx';
-import HeaderTabs from './HeaderTabs.jsx';
 import { memo } from 'react';
 import CenteredSearchBar from './CenteredSearchBar.jsx';
 import HeaderFixedPlaceholder from './HeaderFixedPlaceholder.jsx';
-import HeaderSearchbarPlaceholder from '../home/HeaderSearchbarPlaceholder.jsx';
 import ButtonBookBnb from '../buttons/ButtonBookBnb.jsx';
 
-function Header() {
+function HeaderHome() {
   return (
     <>
       <header className='bg-bg-primary fixed z-20 w-full shadow-md shadow-gray-200/50 md:shadow-none'>
@@ -23,9 +21,9 @@ function Header() {
 
           <Flex align='center' justify='between' className='!relative !hidden !min-h-[80px] w-full px-4 md:!flex'>
             {/* Tabs */}
-            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-              <HeaderTabs />
-            </div>
+            {/*<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>*/}
+            {/*  <HeaderTabs />*/}
+            {/*</div>*/}
 
             {/*  Logo */}
             <div className='min-w-0 flex-1 shrink-0 basis-auto md:flex lg:basis-[140px]'>
@@ -47,9 +45,8 @@ function Header() {
             </nav>
           </Flex>
 
-          <HeaderSearchbarPlaceholder />
+          {/*<HeaderSearchbarPlaceholder />*/}
         </Container>
-
         <div className='border-border-grey md:border-t'>
           <Container className='flex items-center justify-between'>
             <div className='min-w-0 flex-1'>
@@ -70,4 +67,4 @@ function Header() {
   );
 }
 
-export default memo(Header);
+export default memo(HeaderHome);
