@@ -4,13 +4,15 @@ import { Flex, Button, Typography } from 'antd';
 import ButtonCurrency from './buttons/ButtonCurrency.jsx';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
+import DotDivider from './DotDivider.jsx';
+import clsx from 'clsx';
 const { Text, Title } = Typography;
 
-function Footer() {
+function Footer({ className, ...props }) {
   const { t } = useTranslation('footer');
 
   return (
-    <footer className='bg-bg-secondary mt-auto w-full py-8 md:pt-12'>
+    <footer className={clsx('bg-bg-secondary mt-auto w-full py-8 md:pt-12', className)} {...props}>
       <Container as='div' className='divide-border-grey flex flex-col divide-y'>
         <Title className='pb-2'>{t('footer_title')}</Title>
 
@@ -30,7 +32,7 @@ function Footer() {
           </div>
           <div className='mt-1.5 flex flex-col md:order-1'>
             <Text className='!font-medium'>
-              {t('footer_text_one')} <span className='text-black'>&middot;</span> {t('footer_text_two')}
+              {t('footer_text_one')} <DotDivider /> {t('footer_text_two')}
             </Text>
           </div>
         </Flex>

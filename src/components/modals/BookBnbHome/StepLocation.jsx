@@ -1,7 +1,7 @@
 import { Col, Flex, Form, Row, Select, Space, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import getCountries from '../../../utils/getCountries.js';
-import Map from './Map.jsx';
+import Map from './FormMap.jsx';
 import StepTitle from './StepTitle.jsx';
 import { useState } from 'react';
 

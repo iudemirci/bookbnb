@@ -1,4 +1,4 @@
-import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +27,7 @@ function MapClickHandler({ onLocationSelect }) {
   return null;
 }
 
-function Map({ center, form }) {
+function FormMap({ center, form }) {
   const [selectedPoint, setSelectedPoint] = useState(useSelector((state) => state.bookbnb.latlng) || null);
   const dispatch = useDispatch();
 
@@ -58,4 +58,4 @@ function Map({ center, form }) {
   );
 }
 
-export default memo(Map);
+export default memo(FormMap);

@@ -4,13 +4,15 @@ import { Typography } from 'antd';
 import { Icon } from '@iconify/react';
 
 import HomeCardCarousel from './HomeCardCarousel.jsx';
-import { useReverseGeocode } from '../../hooks/useReverseGeocode.js';
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useMemo } from 'react';
 import { getRandomDateRangeForNextWeek } from '../../utils/getRandomDateRangeForNextWeek.js';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function HomeCard({ listing }) {
-  const { id, location, photos, price } = listing;
+  const { t: tabs } = useTranslation('tabs');
+
+  const { id, location, photos, price, category } = listing;
   const randomBetween3And5 = useMemo(() => (Math.random() * (5 - 3) + 3).toFixed(1), []);
   const randomDate = getRandomDateRangeForNextWeek();
 
@@ -25,7 +27,7 @@ function HomeCard({ listing }) {
             <Icon
               icon='line-md:heart-twotone'
               width={28}
-              className='text-primary cursor-pointer duration-200 hover:scale-115 active:scale-108'
+              className='cursor-pointer text-white duration-200 hover:scale-115 active:scale-108'
             />
           </span>
           <HomeCardCarousel photos={photos} />
@@ -47,7 +49,7 @@ function HomeCard({ listing }) {
           <Row>
             <Col>
               <Text type='secondary' size='24'>
-                321 kilometers away
+                {tabs(category)}
               </Text>
             </Col>
           </Row>

@@ -47,9 +47,9 @@ export const antd = {
     },
     Button: {
       paddingInlineLG: 15,
-      borderRadiusLG: 40,
       paddingInlineSM: 5,
       controlHeightSM: 30,
+      borderRadiusLG: 10,
       borderRadiusSM: 40,
       paddingInline: 10,
       controlHeight: 35,
@@ -74,6 +74,17 @@ export const antd = {
     },
     Message: {
       contentPadding: '12px 12px',
+    },
+    DatePicker: {
+      colorBorder: 'rgb(0,0,0)',
+    },
+    Select: {
+      borderRadiusLG: 0,
+      colorBorder: 'rgb(0,0,0)',
+      hoverBorderColor: 'rgb(0,0,0)',
+    },
+    Menu: {
+      lineType: 'none',
     },
   },
 };

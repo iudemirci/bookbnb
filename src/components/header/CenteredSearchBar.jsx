@@ -87,7 +87,8 @@ const CenteredSearchBar = () => {
       //     setInteractive(true);
       //   }
       // }}
-      className={clsx('w-full', !interactive && 'pointer-events-none')}
+      // className={clsx('w-full', !interactive && 'pointer-events-none')}
+      className='w-full'
     >
       <SearchBar />
     </motion.div>

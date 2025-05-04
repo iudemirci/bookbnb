@@ -1,18 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLanguageAndCurrencyOpen: false,
+  languageAndCurrencyTab: '1',
   isSignupOpen: false,
   isLoginOpen: false,
   isBookBnbOpen: false,
 };
 
 const modalSlice = createSlice({
-  name: "modal",
+  name: 'modal',
   initialState,
   reducers: {
-    setIsLanguageAndCurrencyOpen: (state) => {
+    setIsLanguageAndCurrencyOpen: (state, action) => {
       state.isLanguageAndCurrencyOpen = !state.isLanguageAndCurrencyOpen;
+      state.languageAndCurrencyTab = action.payload;
     },
     setIsSignupOpen: (state) => {
       state.isSignupOpen = !state.isSignupOpen;
@@ -26,10 +28,5 @@ const modalSlice = createSlice({
   },
 });
 
-export const {
-  setIsLanguageAndCurrencyOpen,
-  setIsSignupOpen,
-  setIsLoginOpen,
-  setIsBookBnbOpen,
-} = modalSlice.actions;
+export const { setIsLanguageAndCurrencyOpen, setIsSignupOpen, setIsLoginOpen, setIsBookBnbOpen } = modalSlice.actions;
 export default modalSlice.reducer;

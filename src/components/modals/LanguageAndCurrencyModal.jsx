@@ -9,6 +9,7 @@ import { setCurrency } from '../../store/appSlice.js';
 function LanguageAndCurrencyModal() {
   const isModalOpen = useSelector((state) => state.modal.isLanguageAndCurrencyOpen);
   const currentCurrency = useSelector((state) => state.app.currency);
+  const currentTab = useSelector((state) => state.modal.languageAndCurrencyTab);
   const currentLocalCurrency = localStorage.getItem('currency');
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -116,6 +117,7 @@ function LanguageAndCurrencyModal() {
     <Modal open={isModalOpen} onCancel={hideModal} width={410} footer={null}>
       <Tabs
         defaultActiveKey='1'
+        activeKey={currentTab}
         items={items}
         indicator={{
           origin: '30',

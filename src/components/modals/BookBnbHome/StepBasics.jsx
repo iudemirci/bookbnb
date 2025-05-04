@@ -30,25 +30,27 @@ function StepBasics({ form }) {
     <Space direction='vertical' size={2} className='w-full'>
       <StepTitle title={t('basics_title')} subtitle={t('basics_subtitle')} />
 
-      {tabs.map(({ title, subtitle, name }, idx) => (
-        <div>
-          <Row key={title} gutter={[6, 12]} role='list' justify='space-between' align='middle'>
-            <Col>
-              <Flex vertical={true} justify='center'>
-                <Typography.Text>{title}</Typography.Text>
-                <Typography.Text type='secondary'>{subtitle}</Typography.Text>
-              </Flex>
-            </Col>
-            <Col>
-              <Form.Item name={name}>
-                <InputNumber min={1} step={1} />
-              </Form.Item>
-            </Col>
-          </Row>
+      <div className='pt-4'>
+        {tabs.map(({ title, subtitle, name }, idx) => (
+          <div>
+            <Row key={title} gutter={[6, 12]} role='list' justify='space-between' align='middle'>
+              <Col>
+                <Flex vertical={true} justify='center'>
+                  <Typography.Text>{title}</Typography.Text>
+                  <Typography.Text type='secondary'>{subtitle}</Typography.Text>
+                </Flex>
+              </Col>
+              <Col>
+                <Form.Item name={name}>
+                  <InputNumber min={1} step={1} />
+                </Form.Item>
+              </Col>
+            </Row>
 
-          {idx < tabs.length - 1 && <Divider />}
-        </div>
-      ))}
+            {idx < tabs.length - 1 && <Divider />}
+          </div>
+        ))}
+      </div>
     </Space>
   );
 }

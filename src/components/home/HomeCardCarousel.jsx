@@ -8,10 +8,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import ButtonsCarousel from '../buttons/ButtonsCarousel.jsx';
 import { Image } from 'antd';
+import clsx from 'clsx';
 
 const BASE_URL = import.meta.env.VITE_SUPABASE_IMG_URL;
 
 function HomeCardCarousel({ photos }) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef(null);
@@ -83,7 +85,11 @@ function HomeCardCarousel({ photos }) {
                 alt='listing-image'
                 preview={false}
                 loading='lazy'
-                className='pointer-events-none aspect-square !object-cover !object-center select-none'
+                className={clsx(
+                  'pointer-events-none aspect-square !object-cover !object-center duration-200 select-none',
+                  isLoaded ? 'opacity-100' : 'opacity-0',
+                )}
+                onLoad={() => setIsLoaded(true)}
               />
             </SwiperSlide>
           );

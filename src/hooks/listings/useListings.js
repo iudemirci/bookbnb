@@ -33,7 +33,8 @@ export function useListings() {
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.length < 20 ? undefined : allPages.length;
     },
-    // staleTime: 10 * 60 * 1000,
+    staleTime: 10 * 60 * 1000,
+    // gcTime: 5 * 60 * 1000,
     gcTime: 0,
   });
 

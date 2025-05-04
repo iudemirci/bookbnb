@@ -1,7 +1,19 @@
-import { Button } from "antd";
+import { Button } from 'antd';
+import { setIsLanguageAndCurrencyOpen } from '../../store/modalSlice.js';
+import { useDispatch } from 'react-redux';
 
 function ButtonCurrency() {
-  return <Button type="text">₺ TRY</Button>;
+  const dispatch = useDispatch();
+
+  function showModal() {
+    dispatch(setIsLanguageAndCurrencyOpen('2'));
+  }
+
+  return (
+    <Button type='text' onClick={showModal}>
+      ₺ TRY
+    </Button>
+  );
 }
 
 export default ButtonCurrency;

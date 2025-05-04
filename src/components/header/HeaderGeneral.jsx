@@ -13,7 +13,7 @@ function HeaderGeneral() {
       <header className='bg-bg-primary z-20 w-full'>
         <Container>
           <Flex align='center' justify='space-between' className='!flex h-[64px] md:!hidden'>
-            <Button type='text'>
+            <Button type='text' href='/'>
               <Icon icon='mdi:chevron-left' width={20} />
               Homes
             </Button>
