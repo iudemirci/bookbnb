@@ -1,6 +1,7 @@
-import { Avatar, Button, Divider, Flex, Space, Typography } from 'antd';
+import { Avatar, Button, Divider, Flex, Skeleton, Space, Typography } from 'antd';
 import { useParams } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { useTranslation } from 'react-i18next';
 
 import HeaderGeneral from '../components/header/HeaderGeneral.jsx';
 import SignupModal from '../components/modals/SignupModal.jsx';
@@ -12,18 +13,19 @@ import Container from '../components/Container.jsx';
 import DetailsMap from '../components/details/DetailsMap.jsx';
 import BedroomCard from '../components/details/BedroomCard.jsx';
 import FixedBarMobile from '../components/details/FixedBarMobile.jsx';
-
-import { useGetUser } from '../hooks/useGetUser.jsx';
-import { useListing } from '../hooks/listings/useListing.js';
-import listingData from '../data/listingData.json';
-import { getElapsedHostingTime } from '../utils/getElapsedHostingTime.js';
-import { categories } from '../data/categories.js';
-import { useTranslation } from 'react-i18next';
-import BookbnbCalendar from '../components/details/BookbnbCalendar.jsx';
 import DotDivider from '../components/DotDivider.jsx';
 import PriceCard from '../components/details/PriceCard.jsx';
 import DetailsImageDesktop from '../components/details/DetailsImageDesktop.jsx';
 import FixedDetailsHeader from '../components/details/FixedDetailsHeader.jsx';
+import RangeAndGuestPicker from '../components/RangeAndGuestPicker.jsx';
+import ButtonWishlist from '../components/buttons/ButtonWishlist.jsx';
+
+import { useGetUser } from '../hooks/useGetUser.js';
+import { useListing } from '../hooks/listings/useListing.js';
+import listingData from '../data/listingData.json';
+import { getElapsedHostingTime } from '../utils/getElapsedHostingTime.js';
+import { categories } from '../data/categories.js';
+import ConfirmationModal from '../components/modals/ConfirmationModal.jsx';
 
 const { Title, Text, Paragraph } = Typography;
 const { specs, amenities } = listingData;
@@ -33,21 +35,22 @@ function Details() {
   const { listing, isListingPending } = useListing(id);
   const { data: user, isPending: isUserNamePending } = useGetUser(listing?.user_id);
   const { t: tabs } = useTranslation('tabs');
+  const { t } = useTranslation('details');
   const { photos, title, description, location, rooms, bathrooms, guests, coords, price, category } = listing || [];
   const categoryIcon = categories.find((cat) => cat.key === category)?.icon;
   const { created_at, username } = user || {};
 
   const details = [
     {
-      label: 'Guests',
+      label: t('guests'),
       value: guests,
     },
     {
-      label: 'Rooms',
+      label: t('rooms'),
       value: rooms,
     },
     {
-      label: 'Bathrooms',
+      label: t('bathrooms'),
       value: bathrooms,
     },
   ];
@@ -60,21 +63,28 @@ function Details() {
         <SignupModal />
         <LoginModal />
         <BookBnbHomeModal />
+        <ConfirmationModal />
 
         <Container as='main' className='pb-6'>
           <Flex align='center' justify='space-between'>
-            <div>
-              <Title level={1} className='!mt-4' underline={true}>
-                {title}
-              </Title>
-              <Title level={3} type='secondary' className='pt-2 pb-8'>
-                {location}
-              </Title>
+            {isListingPending ? (
+              <Space direction='vertical' className='!my-4'>
+                <Skeleton.Input active size='small' style={{ width: '300px' }} />
+                <Skeleton.Input active size='small' style={{ width: '200px' }} />
+              </Space>
+            ) : (
+              <div>
+                <Title level={1} className='!mt-4' underline={true}>
+                  {title}
+                </Title>
+                <Title level={3} type='secondary' className='pt-2 pb-8'>
+                  {location}
+                </Title>
+              </div>
+            )}
+            <div className='!hidden md:!block'>
+              {isListingPending ? <Skeleton.Button size='small' style={{ width: '70px' }} /> : <ButtonWishlist />}
             </div>
-            <Button type='text' className='flex items-center underline'>
-              <Icon icon='mdi:heart-outline' width={17} />
-              Save
-            </Button>
           </Flex>
           <Flex vertical={true} align='start'>
             {/* Image masonary */}
@@ -85,25 +95,43 @@ function Details() {
               <Flex vertical={true} className='w-full md:w-[66.6%]'>
                 {/* details */}
                 <Flex align='center' className='!pt-8'>
-                  {details.map(({ label, value }, idx) => (
-                    <div key={label}>
-                      <Text type='secondary'>
-                        {value} {label}
-                      </Text>
-                      {details.length - 1 !== idx && <DotDivider />}
-                    </div>
-                  ))}
+                  {isListingPending
+                    ? details.map((_, idx) => (
+                        <Skeleton.Input key={idx} active size='small' style={{ marginRight: '5px' }} />
+                      ))
+                    : details.map(({ label, value }, idx) => (
+                        <div key={label}>
+                          <Text type='secondary'>
+                            {value} {label}
+                          </Text>
+                          {details.length - 1 !== idx && <DotDivider />}
+                        </div>
+                      ))}
                 </Flex>
 
                 {/* host */}
                 <Flex className='!pt-5 !pb-7' gap={12}>
-                  <Avatar
-                    icon={<Icon icon='mdi:account' width={30} className='text-text-secondary/50' />}
-                    size='large'
-                  />
+                  {isListingPending ? (
+                    <Skeleton.Avatar active size='large' />
+                  ) : (
+                    <Avatar
+                      icon={<Icon icon='mdi:account' width={30} className='text-text-secondary/50' />}
+                      size='large'
+                    />
+                  )}
                   <Flex vertical={true}>
-                    <Title level={3}>Hosted by {username}</Title>
-                    <Text type='secondary'>{getElapsedHostingTime(created_at)}</Text>
+                    {isListingPending ? (
+                      <Space direction='vertical' size={4}>
+                        {[...Array(2)].map((_, idx) => (
+                          <Skeleton.Input key={idx} active style={{ width: '100px', height: '15px' }} />
+                        ))}
+                      </Space>
+                    ) : (
+                      <>
+                        <Title level={3}>{t('hosted_by', { username })}</Title>
+                        <Text type='secondary'>{getElapsedHostingTime(created_at)}</Text>
+                      </>
+                    )}
                   </Flex>
                 </Flex>
 
@@ -112,10 +140,20 @@ function Details() {
                 {/* category */}
                 <div className='px-2 py-6'>
                   <Flex gap={16} align='start'>
-                    <Icon icon={categoryIcon} width={30} />
+                    {isListingPending ? <Skeleton.Avatar shape='square' /> : <Icon icon={categoryIcon} width={30} />}
                     <Flex vertical={true} gap={4}>
-                      <Title level={3}>{tabs(category)}</Title>
-                      <Text type='secondary'>{tabs(`${category}_text`)}</Text>
+                      {isListingPending ? (
+                        <Space direction='vertical' size={4}>
+                          {[...Array(2)].map((_, idx) => (
+                            <Skeleton.Input key={idx} active style={{ width: '100px', height: '15px' }} />
+                          ))}
+                        </Space>
+                      ) : (
+                        <>
+                          <Title level={3}>{tabs(category)}</Title>
+                          <Text type='secondary'>{tabs(`${category}_text`)}</Text>
+                        </>
+                      )}
                     </Flex>
                   </Flex>
                 </div>
@@ -123,7 +161,11 @@ function Details() {
                 {/* description */}
                 <Divider />
                 <div className='w-full pt-6 pb-2'>
-                  <Paragraph>{description}</Paragraph>
+                  {isListingPending ? (
+                    <Skeleton title={false} paragraph={{ rows: 2 }} active block={true} />
+                  ) : (
+                    <Paragraph>{description}</Paragraph>
+                  )}
                 </div>
                 <Divider />
 
@@ -134,8 +176,8 @@ function Details() {
                       <Flex key={title} gap={16} align='start'>
                         <Icon icon={icon} width={30} />
                         <Flex vertical={true}>
-                          <Title level={3}>{title}</Title>
-                          <Text type='secondary'>{description}</Text>
+                          <Title level={3}>{t(title)}</Title>
+                          <Text type='secondary'>{t(description)}</Text>
                         </Flex>
                       </Flex>
                     ))}
@@ -145,11 +187,11 @@ function Details() {
 
                 {/* beds */}
                 <Flex id='beds' className='!py-5' vertical={true} gap={16}>
-                  <Title level={1}>Where you'll sleep</Title>
+                  <Title level={1}>{t('where_sleep')}</Title>
 
                   <Flex gap={12}>
-                    <BedroomCard title='Bedroom 1' bedCount={3} bedType='single' />
-                    <BedroomCard title='Bedroom 2' bedCount={2} bedType='double' />
+                    <BedroomCard title={t('beds')} bedCount={3} bedType='single' />
+                    <BedroomCard title={t('beds')} bedCount={2} bedType='double' />
                   </Flex>
                 </Flex>
                 <Divider />
@@ -157,13 +199,13 @@ function Details() {
                 {/* amenities */}
                 <Space id='amenities' direction='vertical' className='!py-5'>
                   <Title level={1} className='!py-2'>
-                    What this place offers
+                    {t('offers')}
                   </Title>
                   <Space direction='vertical' className='w-full'>
                     {amenities.map(({ label, icon, available }) => (
                       <Flex key={label} align='center' gap={16}>
                         <Icon icon={icon} width={25} />
-                        <Text className={!available && 'line-through'}>{label}</Text>
+                        <Text className={!available && 'line-through'}>{t(label)}</Text>
                       </Flex>
                     ))}
                   </Space>
@@ -177,9 +219,13 @@ function Details() {
                 className='!ml-12 !hidden min-h-full w-[33.3%] !pt-8 md:!flex lg:!ml-28'
               >
                 <Flex align='center' gap={8} vertical className='sticky top-28 mb-4 w-full'>
-                  <PriceCard price={price} guests={guests} />
+                  {isListingPending ? (
+                    <Skeleton.Input active className='!h-[291px] !w-full lg:px-4' />
+                  ) : (
+                    <PriceCard price={price} guests={guests} />
+                  )}{' '}
                   <Button type='text' className='underline' icon={<Icon icon='mdi:flag-outline' width={20} />}>
-                    Report this listing
+                    {t('report_listing')}
                   </Button>
                 </Flex>
               </Flex>
@@ -190,30 +236,28 @@ function Details() {
           {/* map */}
           <Space id='location' direction='vertical' className='w-full !py-4'>
             <Title level={1} className='!py-2'>
-              Where you'll be
+              {t('where_be')}
             </Title>
 
             <div className='-z-10 h-[470px] min-w-full overflow-hidden rounded-xl'>
-              {!isListingPending && <DetailsMap coords={coords} />}
+              {isListingPending ? <Skeleton.Input active className='!size-full' /> : <DetailsMap coords={coords} />}
             </div>
           </Space>
-          <Divider />
+          <Divider className='block md:!hidden' />
 
           {/* mobile calendar */}
           <Space direction='vertical' className='!flex w-full !py-5 md:!hidden'>
             <Title level={1} className='!py-2'>
-              Select checkout date
+              {t('select_checkout_date')}
             </Title>
-            <Flex align='center'>
-              <BookbnbCalendar />
-            </Flex>
+            <RangeAndGuestPicker guests={guests} />
           </Space>
         </Container>
 
         {/* mobile price */}
         <FixedBarMobile price={price} />
       </div>
-      <Footer className='!pb-[95px] md:!pb-0' />
+      <Footer className='!pb-[105px] md:!pb-8' />
     </>
   );
 }

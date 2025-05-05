@@ -2,7 +2,7 @@ import { Col, Modal, Row, Space, Tabs, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsLanguageAndCurrencyOpen } from '../../store/modalSlice.js';
+import { setIsLanguageAndCurrencyOpen, setLanguageAndCurrencyTab } from '../../store/modalSlice.js';
 import clsx from 'clsx';
 import { setCurrency } from '../../store/appSlice.js';
 
@@ -18,7 +18,7 @@ function LanguageAndCurrencyModal() {
   const languages = useMemo(() => {
     return [
       { language: 'English', country: 'United States', code: 'en' },
-      { language: 'Turkish', country: 'Türkiye', code: 'tr' },
+      { language: 'Türkçe', country: 'Türkiye', code: 'tr' },
     ];
   }, []);
 
@@ -118,6 +118,7 @@ function LanguageAndCurrencyModal() {
       <Tabs
         defaultActiveKey='1'
         activeKey={currentTab}
+        onChange={(key) => dispatch(setLanguageAndCurrencyTab(key))}
         items={items}
         indicator={{
           origin: '30',

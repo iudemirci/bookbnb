@@ -13,5 +13,7 @@ export function useGetUser(userId) {
       return data;
     },
     enabled: !!userId,
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 30,
   });
 }

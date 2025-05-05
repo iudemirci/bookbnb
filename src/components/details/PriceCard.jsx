@@ -1,51 +1,60 @@
-import { Button, Card, Flex, Select, Space, Typography } from 'antd';
-import { useSelector } from 'react-redux';
+import { Button, Card, Flex, Form, message, Skeleton, Space, Typography } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { calculateTotalPrice, formatDateRange, formatPrice, getStayDurationText } from '../../utils/bookingUtils.js';
-import BookbnbCalendar from './BookbnbCalendar.jsx';
+import { calculateTotalPrice, formatPrice, getStayDurationText } from '../../utils/bookingUtils.js';
+import RangeAndGuestPicker from '../RangeAndGuestPicker.jsx';
+import { useConvertedPrice } from '../../hooks/useConvertedPrice.js';
+import { memo, useCallback } from 'react';
+import { setIsConfirmationOpen } from '../../store/modalSlice.js';
+import { setFinalForm } from '../../store/appSlice.js';
+import { useTranslation } from 'react-i18next';
 const { Title, Text } = Typography;
 
 function PriceCard({ price, guests }) {
+  const { t } = useTranslation('details');
   const dateRange = useSelector((state) => state.app.dateRange);
   const currency = useSelector((state) => state.app.currency);
 
-  const finalPrice = calculateTotalPrice(price, dateRange);
+  const { data: convertedPrice } = useConvertedPrice({
+    amount: price,
+    fromCurrency: 'USD',
+    toCurrency: currency === 'USD' ? null : currency,
+  });
+
+  const dispatch = useDispatch();
+  const guestsValue = useSelector((state) => state.app.guests);
+  const finalPrice = calculateTotalPrice(convertedPrice || price, dateRange);
   const formattedPrice = formatPrice(finalPrice, currency);
   const durationText = getStayDurationText(dateRange);
 
-  const guestOptions = [...Array(guests)].map((num, idx) => ({
-    value: idx + 1,
-    label: `${idx + 1} guest${idx + 1 > 1 ? 's' : ''}`,
-  }));
+  const onFinish = useCallback(() => {
+    switch (true) {
+      case !dateRange:
+        return message.warning(t('select_date_warning'));
+      case !guestsValue:
+        return message.warning(t('select_guests_warning'));
+      default:
+        dispatch(setFinalForm({ date: dateRange, guests: guestsValue, price: Math.round(finalPrice) }));
+        dispatch(setIsConfirmationOpen());
+    }
+  }, [dispatch, guestsValue, dateRange, finalPrice, t]);
 
   return (
     <Card className='!cursor-auto shadow-md' hoverable>
       <Space direction='vertical' size={24} className='w-full'>
         <Flex vertical={true}>
           <Title className='!font-extrabold underline'>{formattedPrice}</Title>
-          <Text>for {durationText}</Text>
+          <Text>{t('for_duration', { duration: durationText })}</Text>
         </Flex>
 
-        <Flex vertical={true}>
-          <BookbnbCalendar />
-          <div className='internal-label-rangepicker-wrapper relative w-full'>
-            <Select
-              size='large'
-              placeholder={guestOptions[0].label}
-              popupClassName='!rounded-b-none'
-              className='internal-label-select absolute !h-[50px] w-full !rounded-b-lg !border-black'
-              dropdownStyle={{ fontSize: '14px' }}
-              options={guestOptions}
-            />
-            <Typography.Text className='internal-label-select-label'>GUESTS</Typography.Text>
-          </div>
-        </Flex>
-        <Button type='primary' size='large' className='w-full'>
-          Reserve
+        <RangeAndGuestPicker guests={guests} />
+
+        <Button onClick={onFinish} type='primary' size='large' className='w-full'>
+          {t('reserve')}
         </Button>
       </Space>
     </Card>
   );
 }
 
-export default PriceCard;
+export default memo(PriceCard);

@@ -3,6 +3,7 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import DotDivider from '../DotDivider.jsx';
 import { calculateTotalPrice, formatDateRange, getStayDurationText } from '../../utils/bookingUtils.js';
+import { useTranslation } from 'react-i18next';
 
 const formatPrice = (price, currency) => {
   const formatter = new Intl.NumberFormat('tr-TR', {
@@ -24,6 +25,8 @@ function FixedBarMobile({ price }) {
   const formattedDateRange = formatDateRange(dateRange);
   const durationText = getStayDurationText(dateRange);
 
+  const { t } = useTranslation('details');
+
   return (
     <Flex
       align='center'
@@ -32,15 +35,15 @@ function FixedBarMobile({ price }) {
     >
       <Flex vertical={true}>
         <Typography.Text className='!font-extrabold underline'>{formattedPrice}</Typography.Text>
-        <Typography.Text className='!text-base' type='secondary'>
-          for {durationText}
+        <Typography.Text className='!text-sm' type='secondary'>
+          {t('for_duration', { duration: durationText })}
           {formattedDateRange && <DotDivider className='text-text-secondary px-1' />}
           {formattedDateRange}
         </Typography.Text>
       </Flex>
 
-      <Button type='primary' size='large'>
-        Reserve
+      <Button type='primary' size='large' className='w-40'>
+        {t('reserve')}
       </Button>
     </Flex>
   );

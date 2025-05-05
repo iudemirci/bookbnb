@@ -45,12 +45,19 @@ function HeaderAccount() {
         type: 'divider',
       },
       session && {
+        key: 'wishlist',
+        label: <Typography.Text>{t('wishlist')}</Typography.Text>,
+      },
+      session && {
+        type: 'divider',
+      },
+      session && {
         key: 'logout',
         label: <Typography.Text>{t('logout')}</Typography.Text>,
         onClick: () => logout(),
       },
     ];
-  }, [t, dispatch, session, logout]);
+  }, [t, dispatch, session, logout, handleBookbnb]);
 
   return (
     <>

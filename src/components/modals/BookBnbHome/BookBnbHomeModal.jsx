@@ -1,4 +1,4 @@
-import { Button, Divider, Flex, Form, Input, message, Modal, Steps, Typography } from 'antd';
+import { Button, Divider, Flex, Form, message, Modal, Steps, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsBookBnbOpen } from '../../../store/modalSlice.js';
 import { useTranslation } from 'react-i18next';
@@ -152,7 +152,7 @@ function BookBnbHomeModal() {
         content: <StepPrice currency={currentCurrency} />,
       },
     ];
-  }, [t, form]);
+  }, [t, form, currentCurrency]);
 
   return (
     <Modal

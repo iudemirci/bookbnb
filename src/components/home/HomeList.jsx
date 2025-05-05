@@ -54,7 +54,7 @@ function HomeList() {
             lg={6}
             className='3xl:!max-w-[20%] 3xl:!basis-[20%] 4xl:!max-w-[16.6%] 4xl:!basis-[16.6%] 2xl:!max-w-[25%] 2xl:!basis-[25%]'
           >
-            <HomeCard listing={listing} />
+            <HomeCard listing={listing} idx={idx} />
           </Col>
         ))}
 

@@ -10,7 +10,6 @@ export function useListing(id) {
         .select('*')
         .eq('id', id)
         .single();
-      console.log('🚀 ~ queryFn ~ listingData: ', listingData);
 
       if (listingError) {
         throw new Error(listingError.message);

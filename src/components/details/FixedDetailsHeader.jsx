@@ -3,52 +3,50 @@ import Container from '../Container.jsx';
 import { Menu } from 'antd';
 
 import useHasScrolled from '../../hooks/useHasScrolled.js';
+import { useTranslation } from 'react-i18next';
 
 function FixedDetailsHeader() {
   const hasScrolled = useHasScrolled(500);
+  const { t } = useTranslation('details');
 
   const tabs = [
     {
-      label: 'Photos',
+      label: t('photos'),
       key: 'photos',
     },
     {
-      label: 'Beds',
+      label: t('beds'),
       key: 'beds',
     },
     {
-      label: 'Amenities',
+      label: t('amenities_title'),
       key: 'amenities',
     },
-
     {
-      label: 'Location',
+      label: t('location'),
       key: 'location',
     },
   ];
 
   return (
-    <div
-      className={clsx(
-        'bg-bg-primary border-border-grey fixed top-0 z-20 hidden h-[80px] w-full justify-center border-b md:flex',
-        hasScrolled ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
-      )}
-    >
-      <Container className='flex h-full w-[1280px] items-center'>
-        <Menu
-          items={tabs}
-          mode={'horizontal'}
-          selectable={false}
-          className='!-ml-4'
-          onClick={(info) => {
-            const el = document.getElementById(info.key);
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-        />
-      </Container>
-    </div>
+    hasScrolled && (
+      <div className='bg-bg-primary border-border-grey pointer-events-none invisible fixed top-0 z-20 flex h-[80px] w-full justify-center border-b md:pointer-events-auto md:visible'>
+        <Container className='flex h-full w-[1280px] items-center'>
+          <Menu
+            items={tabs}
+            mode='horizontal'
+            selectable={false}
+            onClick={(info) => {
+              const el = document.getElementById(info.key);
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className='w-full'
+          />
+        </Container>
+      </div>
+    )
   );
 }
 

@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
 import { getDateDiff } from './getDateDiff.js';
 
+import { t } from 'i18next';
+
 export const formatPrice = (price, currency, locale = 'tr-TR') => {
   if (price === null || price === undefined || currency === null || currency === undefined) {
     return '';
@@ -36,5 +38,5 @@ export const formatDateRange = (dateRange, format = 'MMM D') => {
 
 export const getStayDurationText = (dateRange) => {
   const duration = getDateDiff(dateRange) || 1;
-  return `${duration} night${duration > 1 ? 's' : ''}`;
+  return duration === 1 ? t('details:night', { count: duration }) : t('details:night_plural', { count: duration });
 };

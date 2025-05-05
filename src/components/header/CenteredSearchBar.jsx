@@ -4,6 +4,7 @@ import SearchBar from './SearchBar.jsx';
 import useHasScrolled from '../../hooks/useHasScrolled.js';
 import clsx from 'clsx';
 import { SMOOTH } from '../../config/motionConfig.js';
+import { useSelector } from 'react-redux';
 
 const CenteredSearchBar = () => {
   const containerRef = useRef(null);
@@ -59,7 +60,7 @@ const CenteredSearchBar = () => {
   const [interactive, setInteractive] = useState(true);
 
   useEffect(() => {
-    if (!hasScrolled) {
+    if (hasScrolled) {
       const timeout = setTimeout(() => {
         setInteractive(false);
       }, 200);
@@ -74,16 +75,16 @@ const CenteredSearchBar = () => {
     <motion.div
       layout
       ref={containerRef}
-      initial={{ opacity: 1 }}
+      // initial={{ opacity: 1 }}
       // animate={{
-      //   opacity: hasScrolled ? 1 : 0,
-      //   // x: hasScrolled ? 0 : centerPos.x,
-      //   translateY: hasScrolled ? 0 : '58px',
-      //   scale: hasScrolled ? 1 : 1.5,
+      // opacity: hasSscrolled ? 1 : 0,
+      // x: hasSscrolled ? 0 : centerPos.x,
+      //   translateY: hasSscrolled ? 0 : '58px',
+      //   scale: hasSscrolled ? 1 : 1.5,
       // }}
       // transition={{ duration: 0.2, ease: SMOOTH }}
       // onAnimationComplete={() => {
-      //   if (hasScrolled) {
+      //   if (hasSscrolled) {
       //     setInteractive(true);
       //   }
       // }}

@@ -6,6 +6,7 @@ const initialState = {
   isSignupOpen: false,
   isLoginOpen: false,
   isBookBnbOpen: false,
+  isConfirmationOpen: false,
 };
 
 const modalSlice = createSlice({
@@ -14,6 +15,9 @@ const modalSlice = createSlice({
   reducers: {
     setIsLanguageAndCurrencyOpen: (state, action) => {
       state.isLanguageAndCurrencyOpen = !state.isLanguageAndCurrencyOpen;
+      state.languageAndCurrencyTab = action.payload;
+    },
+    setLanguageAndCurrencyTab: (state, action) => {
       state.languageAndCurrencyTab = action.payload;
     },
     setIsSignupOpen: (state) => {
@@ -25,8 +29,18 @@ const modalSlice = createSlice({
     setIsBookBnbOpen: (state) => {
       state.isBookBnbOpen = !state.isBookBnbOpen;
     },
+    setIsConfirmationOpen: (state) => {
+      state.isConfirmationOpen = !state.isConfirmationOpen;
+    },
   },
 });
 
-export const { setIsLanguageAndCurrencyOpen, setIsSignupOpen, setIsLoginOpen, setIsBookBnbOpen } = modalSlice.actions;
+export const {
+  setIsLanguageAndCurrencyOpen,
+  setLanguageAndCurrencyTab,
+  setIsSignupOpen,
+  setIsLoginOpen,
+  setIsBookBnbOpen,
+  setIsConfirmationOpen,
+} = modalSlice.actions;
 export default modalSlice.reducer;

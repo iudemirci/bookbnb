@@ -1,28 +1,28 @@
 {
   "amenities": [
-    { "label": "Free WiFi", "icon": "mdi:wifi", "available": true },
-    { "label": "Free parking on premises", "icon": "mdi:car", "available": true },
-    { "label": "Pets allowed", "icon": "mdi:paw", "available": true },
-    { "label": "Indoor fireplace", "icon": "mdi:fireplace", "available": true },
-    { "label": "Breakfast", "icon": "mdi:food", "available": true },
-    { "label": "Carbon monoxide alarm", "icon": "material-symbols-light:alarm-off", "available": false },
-    { "label": "Smoke alarm", "icon": "mdi:alarm-off", "available": false }
+    { "label": "amenities.wifi", "icon": "mdi:wifi", "available": true },
+    { "label": "amenities.parking", "icon": "mdi:car", "available": true },
+    { "label": "amenities.pets", "icon": "mdi:paw", "available": true },
+    { "label": "amenities.fireplace", "icon": "mdi:fireplace", "available": true },
+    { "label": "amenities.breakfast", "icon": "mdi:food", "available": true },
+    { "label": "amenities.carbon_monoxide_alarm", "icon": "material-symbols-light:alarm-off", "available": false },
+    { "label": "amenities.smoke_alarm", "icon": "mdi:alarm-off", "available": false }
   ],
   "specs": [
     {
       "icon": "mdi:door",
-      "title": "Self check-in",
-      "description": "You can check in with the building staff."
+      "title": "specs.self_checkin_title",
+      "description": "specs.self_checkin_desc"
     },
     {
       "icon": "mdi:paw-outline",
-      "title": "Furry friends welcome",
-      "description": "Bring your pets along for the stay."
+      "title": "specs.pets_title",
+      "description": "specs.pets_desc"
     },
     {
       "icon": "mdi:location-on-outline",
-      "title": "Beautiful and walkable",
-      "description": "Guests say this area is scenic and it’s easy to get around."
+      "title": "specs.walkable_title",
+      "description": "specs.walkable_desc"
     }
   ]
 }

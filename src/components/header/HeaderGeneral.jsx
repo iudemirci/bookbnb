@@ -6,8 +6,11 @@ import ButtonBookBnb from '../buttons/ButtonBookBnb.jsx';
 import ButtonLanguage from '../buttons/ButtonLanguage.jsx';
 import HeaderAccount from './HeaderAccount.jsx';
 import { Icon } from '@iconify/react';
+import ButtonWishlist from '../buttons/ButtonWishlist.jsx';
+import { useTranslation } from 'react-i18next';
 
 function HeaderGeneral() {
+  const { t } = useTranslation('details');
   return (
     <>
       <header className='bg-bg-primary z-20 w-full'>
@@ -15,11 +18,9 @@ function HeaderGeneral() {
           <Flex align='center' justify='space-between' className='!flex h-[64px] md:!hidden'>
             <Button type='text' href='/'>
               <Icon icon='mdi:chevron-left' width={20} />
-              Homes
+              {t('homes')}
             </Button>
-            <Button type='text'>
-              <Icon icon='line-md:heart-twotone' width={20} />
-            </Button>
+            <ButtonWishlist text={false} iconSize={20} />
           </Flex>
 
           <Flex align='center' justify='between' className='!relative !hidden !min-h-[80px] w-full px-4 md:!flex'>

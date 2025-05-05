@@ -32,8 +32,8 @@ function StepBasics({ form }) {
 
       <div className='pt-4'>
         {tabs.map(({ title, subtitle, name }, idx) => (
-          <div>
-            <Row key={title} gutter={[6, 12]} role='list' justify='space-between' align='middle'>
+          <div key={title}>
+            <Row gutter={[6, 12]} role='list' justify='space-between' align='middle'>
               <Col>
                 <Flex vertical={true} justify='center'>
                   <Typography.Text>{title}</Typography.Text>

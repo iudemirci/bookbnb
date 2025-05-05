@@ -9,10 +9,13 @@ import ButtonFilters from '../buttons/ButtonFilters.jsx';
 import HeaderPrices from './HeaderPrices.jsx';
 import { memo } from 'react';
 import CenteredSearchBar from './CenteredSearchBar.jsx';
-import HeaderFixedPlaceholder from './HeaderFixedPlaceholder.jsx';
 import ButtonBookBnb from '../buttons/ButtonBookBnb.jsx';
+import { useDispatch } from 'react-redux';
+import SearchLocation from './SearchLocation.jsx';
 
 function HeaderHome() {
+  const dispatch = useDispatch();
+
   return (
     <>
       <header className='bg-bg-primary fixed z-20 w-full shadow-md shadow-gray-200/50 md:shadow-none'>
@@ -44,10 +47,11 @@ function HeaderHome() {
               </Flex>
             </nav>
           </Flex>
-
-          {/*<HeaderSearchbarPlaceholder />*/}
         </Container>
-        <div className='border-border-grey md:border-t'>
+        {/*<SearchLocation />*/}
+
+        {/*<HeaderSearchbarPlaceholder />*/}
+        <div className='bg-bg-primary shadow-theme absolute top-0 !-z-10 w-full pt-[80px] shadow-md'>
           <Container className='flex items-center justify-between'>
             <div className='min-w-0 flex-1'>
               <HeaderCarousel />
@@ -62,7 +66,7 @@ function HeaderHome() {
       </header>
 
       {/* empty div for fixed nav */}
-      <HeaderFixedPlaceholder />
+      <div className='pt-[157px]' />
     </>
   );
 }

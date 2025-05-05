@@ -5,6 +5,8 @@ import { createRoot } from 'react-dom/client';
 import { antd } from './styles/antd.js';
 import { ConfigProvider } from 'antd';
 import { Provider } from 'react-redux';
+import trTR from 'antd/es/locale/tr_TR';
+import enUS from 'antd/es/locale/en_US';
 
 import App from './App.jsx';
 
@@ -13,6 +15,7 @@ import 'antd/dist/reset.css';
 import '@ant-design/v5-patch-for-react-19';
 import './styles/index.css';
 import './locales/i18n';
+import i18n from 'i18next';
 
 const queryClient = new QueryClient();
 
@@ -22,6 +25,7 @@ createRoot(document.getElementById('root')).render(
       <ReactQueryDevtools initialIsOpen={false} />
       <Provider store={store}>
         <ConfigProvider
+          locale={i18n.language === 'tr' ? trTR : enUS}
           theme={antd}
           getPopupContainer={(trigger) => trigger?.parentNode || document.querySelector('header')}
           message={{

@@ -2,6 +2,7 @@
   "document_title": "Bookbnb | Kiralık tatil yerleri, kabinler, sahil evleri ve daha fazlası",
   "search_placeholder": "Aramaya başla",
   "explore": "Keşfet",
+  "wishlists": "İstek listesi",
   "my_homes": "Evlerim",
   "sign_up": "Kayıt ol",
   "login": "Giriş yap",
@@ -31,5 +32,12 @@
   "choose_currency": "Bir para birimi seçin",
   "search_anywhere": "Herhangi bir yer",
   "search_anyweek": "Herhangi bir hafta",
-  "search_guests": "Misafir ekleyin"
+  "search_guests": "Misafir ekleyin",
+  "wishlist": "İstek listesi",
+  "save": "Kaydet",
+  "saved": "Kaydedildi",
+  "added_to_wishlist": "İstek listesine kaydedildi",
+  "removed_from_wishlist": "İstek listesinden kaldırıldı",
+  "error_saving": "İstek listesine kaydedilemedi",
+  "guest_fav": "Misafir Favorisi"
 }
