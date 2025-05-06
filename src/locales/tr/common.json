@@ -39,5 +39,10 @@
   "added_to_wishlist": "İstek listesine kaydedildi",
   "removed_from_wishlist": "İstek listesinden kaldırıldı",
   "error_saving": "İstek listesine kaydedilemedi",
-  "guest_fav": "Misafir Favorisi"
+  "guest_fav": "Misafir Favorisi",
+  "guests": "Misafirler",
+  "check-in": "Giriş",
+  "check-out": "Çıkış",
+  "where": "Nereye",
+  "search_destinations": "Gideceğiniz yeri arayın"
 }

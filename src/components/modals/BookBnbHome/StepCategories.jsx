@@ -3,6 +3,7 @@ import CategoryInput from '../../CategoryInput.jsx';
 import { useTranslation } from 'react-i18next';
 import { categories } from '../../../data/categories.js';
 import StepTitle from './StepTitle.jsx';
+import { memo } from 'react';
 
 const newCategories = categories.slice(1, categories.length);
 
@@ -29,4 +30,4 @@ function StepCategories({ form }) {
   );
 }
 
-export default StepCategories;
+export default memo(StepCategories);

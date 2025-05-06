@@ -1,7 +1,7 @@
 import { Flex, Typography, Upload, message, Form } from 'antd';
 import { Icon } from '@iconify/react';
 import { usePhotoUpload } from '../../../hooks/usePhotoUpload.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFile, setFileList } from '../../../store/bookbnbSlice.js';
@@ -150,4 +150,4 @@ function StepPhoto({ form }) {
   );
 }
 
-export default StepPhoto;
+export default memo(StepPhoto);

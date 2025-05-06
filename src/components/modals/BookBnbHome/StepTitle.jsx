@@ -1,4 +1,5 @@
 import { Flex, Typography } from 'antd';
+import { memo } from 'react';
 
 function StepTitle({ title, subtitle }) {
   return (
@@ -13,4 +14,4 @@ function StepTitle({ title, subtitle }) {
   );
 }
 
-export default StepTitle;
+export default memo(StepTitle);

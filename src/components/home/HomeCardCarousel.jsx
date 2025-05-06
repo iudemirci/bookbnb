@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { memo, useCallback, useRef, useState } from 'react';
+import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { Navigation, Pagination, Mousewheel, FreeMode } from 'swiper/modules';
 
 import 'swiper/css';
@@ -17,6 +17,11 @@ function HomeCardCarousel({ photos }) {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef(null);
+
+  const imageUrls = useMemo(
+    () => photos.map((path) => `${BASE_URL}${path}`.replace(/&quot;|"/g, '').replace(/;/g, '')),
+    [photos],
+  );
 
   const updateNavigationState = useCallback(() => {
     if (!swiperRef.current) return;
@@ -37,23 +42,9 @@ function HomeCardCarousel({ photos }) {
           prevEl: '.custom-prev',
           nextEl: '.custom-next',
         }}
-        onSwiper={(swiper) => {
-          setIsBeginning(swiper.isBeginning);
-          setIsEnd(swiper.isEnd);
-          swiper.on('slideChange', updateNavigationState);
-          swiper.on('resize', updateNavigationState);
-          swiper.on('orientationchange', updateNavigationState);
-          swiper.on('beforeTransitionStart', updateNavigationState);
-          swiper.on('afterTransitionStart', updateNavigationState);
-          swiper.on('fromEdge', updateNavigationState);
-          swiper.on('toEdge', updateNavigationState);
-          swiper.on('reachBeginning', () => setIsBeginning(true));
-          swiper.on('reachEnd', () => setIsEnd(true));
-        }}
         onSlideChange={updateNavigationState}
         onReachBeginning={() => setIsBeginning(true)}
         onReachEnd={() => setIsEnd(true)}
-        onFromEdge={updateNavigationState}
         pagination={{ clickable: true }}
         grabCursor={false}
         freeMode={{
@@ -61,7 +52,6 @@ function HomeCardCarousel({ photos }) {
           sticky: true,
         }}
         simulateTouch={true}
-        allowTouchMove={window.innerWidth < 768}
         noSwiping={false}
         touchRatio={1}
         mousewheel={{
@@ -73,27 +63,23 @@ function HomeCardCarousel({ photos }) {
         resistanceRatio={0}
         className='group relative size-full cursor-pointer'
       >
-        {photos.map((path, idx) => {
-          const fullUrl = `${BASE_URL}${path}`.replace(/&quot;|"/g, '').replace(/;/g, '');
-
-          return (
-            <SwiperSlide key={idx} className='shadow-lg'>
-              <Image
-                src={fullUrl}
-                height='100%'
-                width='100%'
-                alt='listing-image'
-                preview={false}
-                loading='lazy'
-                className={clsx(
-                  'pointer-events-none aspect-square !object-cover !object-center duration-200 select-none',
-                  isLoaded ? 'opacity-100' : 'opacity-0',
-                )}
-                onLoad={() => setIsLoaded(true)}
-              />
-            </SwiperSlide>
-          );
-        })}
+        {imageUrls.map((url, idx) => (
+          <SwiperSlide key={idx} className='shadow-lg'>
+            <Image
+              src={url}
+              height='100%'
+              width='100%'
+              alt='listing-image'
+              preview={false}
+              loading='lazy'
+              onLoad={() => setIsLoaded(true)}
+              className={clsx(
+                'pointer-events-none aspect-square !object-cover !object-center duration-200 select-none',
+                isLoaded ? 'opacity-100' : 'opacity-0',
+              )}
+            />
+          </SwiperSlide>
+        ))}
 
         <ButtonsCarousel isBeginning={isBeginning} isEnd={isEnd} />
       </Swiper>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import getCountries from '../../../utils/getCountries.js';
 import Map from './FormMap.jsx';
 import StepTitle from './StepTitle.jsx';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 function StepLocation({ form }) {
   const { t } = useTranslation('bookbnb');
@@ -48,4 +48,4 @@ function StepLocation({ form }) {
   );
 }
 
-export default StepLocation;
+export default memo(StepLocation);

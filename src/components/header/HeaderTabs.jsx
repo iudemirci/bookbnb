@@ -3,15 +3,15 @@ import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { SMOOTH } from '../../config/motionConfig.js';
-import useHasScrolled from '../../hooks/useHasScrolled.js';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { useBreakpoints } from '../../hooks/useBreakpoints.js';
+import { useSelector } from 'react-redux';
 
 function HeaderTabs() {
+  const expanded = useSelector((state) => state.app.expanded);
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const hasScrolled = useHasScrolled();
   const { large } = useBreakpoints();
   const tabs = useMemo(() => {
     return [
@@ -23,14 +23,13 @@ function HeaderTabs() {
   return (
     <motion.div
       initial={{
-        translateY: hasScrolled ? '-200%' : large ? '180%' : 0,
-        opacity: hasScrolled ? 0 : 1,
+        translateY: -200,
       }}
       animate={{
-        translateY: hasScrolled ? '-200%' : large ? '180%' : 0,
-        opacity: hasScrolled ? 0 : 1,
+        translateY: expanded ? 20 : -200,
       }}
-      transition={{ duration: 0.3, ease: SMOOTH }}
+      transition={{ duration: 0.2, ease: SMOOTH }}
+      className='absolute top-0 left-1/2 hidden -translate-x-[110%] md:block lg:-translate-x-1/2'
     >
       <Flex align='center' justify='center' gap={8}>
         {tabs.map(({ label, to }, idx) => (

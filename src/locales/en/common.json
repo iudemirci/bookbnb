@@ -39,5 +39,10 @@
   "added_to_wishlist": "Saved to wishlist",
   "removed_from_wishlist": "Removed from wishlist",
   "error_saving": "Failed to save to wishlist",
-  "guest_fav": "Guest Favourite"
+  "guest_fav": "Guest Favourite",
+  "guests": "Guests",
+  "check-in": "Check in",
+  "check-out": "Check out",
+  "where": "Where",
+  "search_destinations": "Search destinations"
 }

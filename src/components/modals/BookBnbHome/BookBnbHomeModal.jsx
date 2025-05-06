@@ -161,7 +161,7 @@ function BookBnbHomeModal() {
       onOk={onFinish}
       width={500}
       onFinish={onFinish}
-      destroyOnClose={true}
+      // destroyOnClose={true}
       styles={{
         body: {
           maxHeight: '50vh',

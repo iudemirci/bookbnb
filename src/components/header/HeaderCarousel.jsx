@@ -7,19 +7,18 @@ import { useTranslation } from 'react-i18next';
 import { Typography } from 'antd';
 
 import ButtonsCarousel from '../buttons/ButtonsCarousel.jsx';
+import { useSearchParams } from 'react-router-dom';
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import { categories } from '../../data/categories.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCategory } from '../../store/appSlice.js';
 
 function HeaderCarousel() {
-  const selectedCategory = useSelector((state) => state.app.category);
-  const dispatch = useDispatch();
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategory = searchParams.get('category');
 
   const swiperRef = useRef(null);
   const { t } = useTranslation('tabs');
@@ -36,9 +35,13 @@ function HeaderCarousel() {
 
   const handleClick = useCallback(
     (key) => {
-      dispatch(setCategory(key));
+      const newParams = new URLSearchParams(searchParams.toString());
+
+      newParams.set('category', key);
+
+      setSearchParams(newParams);
     },
-    [dispatch],
+    [searchParams, setSearchParams],
   );
 
   return (

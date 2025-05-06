@@ -143,3 +143,14 @@ a, a:hover, a:focus {
   width: 100%;
   height: 100%;
 }
+.custom-rangepicker input{
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+.custom-rangepicker .ant-picker-range-separator {
+  display: none;
+}
+
+.custom-input-number input{
+  padding: 0 !important;
+}

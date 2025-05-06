@@ -68,6 +68,9 @@ export const antd = {
       labelColor: '#6A6A6A',
       marginLG: 24,
       verticalLabelPadding: '0 0 2px',
+      controlHeight: 0,
+      controlHeightLG: 0,
+      controlHeightSM: 0,
     },
     Input: {
       fontSize: 14,

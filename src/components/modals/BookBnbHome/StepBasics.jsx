@@ -1,6 +1,6 @@
 import { Col, Divider, Flex, Form, InputNumber, Row, Space, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import StepTitle from './StepTitle.jsx';
 
 function StepBasics({ form }) {
@@ -55,4 +55,4 @@ function StepBasics({ form }) {
   );
 }
 
-export default StepBasics;
+export default memo(StepBasics);

@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
+import { lazy, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import HeaderHome from '../components/header/HeaderHome.jsx';
-import Container from '../components/Container.jsx';
-import HomeList from '../components/home/HomeList.jsx';
-import Footer from '../components/Footer.jsx';
-import Navigation from '../components/nav/Navigation.jsx';
-import MainContainer from '../components/MainContainer.jsx';
-import SignupModal from '../components/modals/SignupModal.jsx';
-import LoginModal from '../components/modals/LoginModal.jsx';
-import BookBnbHomeModal from '../components/modals/BookBnbHome/BookBnbHomeModal.jsx';
+const HeaderHome = lazy(() => import('../components/header/HeaderHome.jsx'));
+const Container = lazy(() => import('../components/Container.jsx'));
+const HomeList = lazy(() => import('../components/home/HomeList.jsx'));
+const Footer = lazy(() => import('../components/Footer.jsx'));
+const Navigation = lazy(() => import('../components/nav/Navigation.jsx'));
+const MainContainer = lazy(() => import('../components/MainContainer.jsx'));
+const SignupModal = lazy(() => import('../components/modals/SignupModal.jsx'));
+const LoginModal = lazy(() => import('../components/modals/LoginModal.jsx'));
+const BookBnbHomeModal = lazy(() => import('../components/modals/BookBnbHome/BookBnbHomeModal.jsx'));
 
 function Home() {
   const { t } = useTranslation();

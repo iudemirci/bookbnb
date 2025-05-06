@@ -25,7 +25,7 @@ function Navigation() {
 
   const [selectedTab, setSelectedTab] = useState(tabs[0].label);
 
-  const scrollDirection = useScrollDirection({ threshold: 200 });
+  const scrollDirection = useScrollDirection({ threshold: 60 });
 
   return (
     <nav

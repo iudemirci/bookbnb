@@ -1,19 +1,23 @@
 import Container from '../Container.jsx';
 import { Button, Flex } from 'antd';
 import Logo from '../Logo.jsx';
-import CenteredSearchBar from './CenteredSearchBar.jsx';
 import ButtonBookBnb from '../buttons/ButtonBookBnb.jsx';
 import ButtonLanguage from '../buttons/ButtonLanguage.jsx';
 import HeaderAccount from './HeaderAccount.jsx';
 import { Icon } from '@iconify/react';
 import ButtonWishlist from '../buttons/ButtonWishlist.jsx';
 import { useTranslation } from 'react-i18next';
+import SearchBar from './SearchBar.jsx';
+import SearchBarExpanded from './SearchBarExpanded.jsx';
+import { useRef } from 'react';
 
 function HeaderGeneral() {
   const { t } = useTranslation('details');
+  const containerRef = useRef(null);
+
   return (
     <>
-      <header className='bg-bg-primary z-20 w-full'>
+      <header ref={containerRef} className='bg-bg-primary z-20 w-full'>
         <Container>
           <Flex align='center' justify='space-between' className='!flex h-[64px] md:!hidden'>
             <Button type='text' href='/'>
@@ -31,7 +35,7 @@ function HeaderGeneral() {
 
             {/* Search small */}
             <div className='flex min-w-0 flex-none shrink-1 basis-auto origin-center justify-center px-6'>
-              <CenteredSearchBar />
+              <SearchBar />
             </div>
 
             {/* buttons */}
@@ -44,6 +48,9 @@ function HeaderGeneral() {
             </nav>
           </Flex>
         </Container>
+        <div className='hidden md:block'>
+          <SearchBarExpanded containerRef={containerRef} />
+        </div>
       </header>
     </>
   );

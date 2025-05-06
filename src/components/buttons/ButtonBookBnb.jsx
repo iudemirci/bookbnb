@@ -2,6 +2,7 @@ import { Button } from 'antd';
 import { setIsBookBnbOpen, setIsLoginOpen } from '../../store/modalSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { memo, useCallback } from 'react';
 
 function ButtonBookBnb() {
   const session = useSelector((state) => state.auth.session);
@@ -9,13 +10,13 @@ function ButtonBookBnb() {
   const dispatch = useDispatch();
   const { t } = useTranslation('bookbnb');
 
-  function handleClick() {
+  const handleClick = useCallback(() => {
     if (!session) {
       dispatch(setIsLoginOpen());
     } else {
       dispatch(setIsBookBnbOpen());
     }
-  }
+  }, [dispatch, session]);
 
   return (
     <Button type='text' onClick={handleClick}>
@@ -24,4 +25,4 @@ function ButtonBookBnb() {
   );
 }
 
-export default ButtonBookBnb;
+export default memo(ButtonBookBnb);

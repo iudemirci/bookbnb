@@ -1,6 +1,6 @@
 import { Divider, Flex, Form, Input, Space, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import StepTitle from './StepTitle.jsx';
 
 function StepDescription() {
@@ -41,4 +41,4 @@ function StepDescription() {
   );
 }
 
-export default StepDescription;
+export default memo(StepDescription);
