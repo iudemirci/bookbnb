@@ -35,7 +35,7 @@ a, a:hover, a:focus {
 }
 
 .swiper-pagination-bullet {
-  background-color: var(--color-bg-primary-hover);
+  background-color: var(--color-bg-primary-hover) !important;
   width: 6px;
   height: 6px;
   margin: 0 2px 0 2px !important;
@@ -43,7 +43,7 @@ a, a:hover, a:focus {
 }
 
 .swiper-pagination-bullet-active {
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-bg-primary) !important;
   opacity: 1;
 }
 

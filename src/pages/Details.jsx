@@ -11,14 +11,14 @@ import Footer from '../components/Footer.jsx';
 import DetailsImageMobile from '../components/details/DetailsImageMobile.jsx';
 import Container from '../components/Container.jsx';
 import DetailsMap from '../components/details/DetailsMap.jsx';
-import BedroomCard from '../components/details/BedroomCard.jsx';
+import BedroomCard from '../components/cards/BedroomCard.jsx';
 import FixedBarMobile from '../components/details/FixedBarMobile.jsx';
 import DotDivider from '../components/DotDivider.jsx';
-import PriceCard from '../components/details/PriceCard.jsx';
+import PriceCard from '../components/cards/PriceCard.jsx';
 import DetailsImageDesktop from '../components/details/DetailsImageDesktop.jsx';
 import FixedDetailsHeader from '../components/details/FixedDetailsHeader.jsx';
 import RangeAndGuestPicker from '../components/RangeAndGuestPicker.jsx';
-import ButtonWishlist from '../components/buttons/ButtonWishlist.jsx';
+import ButtonWishlist from '../components/buttons/ButtonLiked.jsx';
 
 import { useGetUser } from '../hooks/useGetUser.js';
 import { useListing } from '../hooks/listings/useListing.js';
@@ -33,7 +33,7 @@ const { specs, amenities } = listingData;
 function Details() {
   const { id } = useParams();
   const { listing, isListingPending } = useListing(id);
-  const { data: user, isPending: isUserNamePending } = useGetUser(listing?.user_id);
+  const { data: user } = useGetUser(listing?.user_id);
   const { t: tabs } = useTranslation('tabs');
   const { t } = useTranslation('details');
   const { photos, title, description, location, rooms, bathrooms, guests, coords, price, category } = listing || [];
@@ -88,9 +88,10 @@ function Details() {
           </Flex>
           <Flex vertical={true} align='start'>
             {/* Image masonary */}
-            <DetailsImageMobile photos={photos} isPending={isListingPending} />
-            <DetailsImageDesktop id='photos' photos={photos} isPending={isListingPending} />
-
+            <div className='w-full'>
+              <DetailsImageMobile photos={photos} isPending={isListingPending} />
+              <DetailsImageDesktop id='photos' photos={photos} isPending={isListingPending} />
+            </div>
             <Flex className='!w-full'>
               <Flex vertical={true} className='w-full md:w-[66.6%]'>
                 {/* details */}

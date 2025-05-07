@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
 
-function ButtonBookBnb() {
+function ButtonBookBnb({ type = 'text' }) {
   const session = useSelector((state) => state.auth.session);
 
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function ButtonBookBnb() {
   }, [dispatch, session]);
 
   return (
-    <Button type='text' onClick={handleClick}>
+    <Button type={type} onClick={handleClick}>
       {t('your_home')}
     </Button>
   );

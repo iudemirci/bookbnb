@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { useScrollDirection } from '../../hooks/useScrollPosition.js';
+import { useScrollDirection } from '../hooks/useScrollPosition.js';
 import { useTranslation } from 'react-i18next';
 
 function Navigation() {

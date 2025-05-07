@@ -14,36 +14,25 @@ function ConfirmationModal() {
   const { id: listing_id } = useParams();
   const user = useSelector((state) => state.auth.user);
   const isOpen = useSelector((state) => state.modal.isConfirmationOpen);
-  const formData = useSelector((state) => state.app.finalForm);
   const currency = useSelector((state) => state.app.currency);
+  const formData = useSelector((state) => state.app.finalForm);
   const dispatch = useDispatch();
   const { mutate: reserve, isPending: isReservePending } = useReserve();
-  const { mutate: convertCurrency, isPending: isConvertingPending } = useConvertCurrency();
   const { t } = useTranslation('details');
 
-  const isPending = isReservePending || isConvertingPending;
+  const isPending = isReservePending;
   function handleClose() {
     if (isPending) return null;
     dispatch(setIsConfirmationOpen(false));
   }
 
   async function handleSubmit() {
-    const convertedPrice = await new Promise((resolve, reject) => {
-      convertCurrency(
-        { amount: formData.price, fromCurrency: currency, toCurrency: 'USD' },
-        {
-          onSuccess: (data) => resolve(data),
-          onError: (error) => reject(error),
-        },
-      );
-    });
-
     const finalFormData = {
       ...formData,
       listing_id,
       user_id: user.id,
-      price: convertedPrice,
     };
+    console.log('🚀 ~ handleSubmit ~ finalFormData: ', finalFormData);
     await new Promise((resolve, reject) => {
       reserve(finalFormData, {
         onSuccess: () => {
@@ -91,8 +80,8 @@ function ConfirmationModal() {
             size='large'
             className='w-full'
             onClick={handleSubmit}
-            loading={isPending}
-            disabled={isPending}
+            loading={isReservePending}
+            disabled={isReservePending}
           >
             {t('confirm')}
           </Button>

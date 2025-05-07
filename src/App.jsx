@@ -4,11 +4,9 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import 'dayjs/locale/tr';
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 function App() {
-  const { i18n } = useTranslation();
-
   useSession();
 
   useEffect(() => {

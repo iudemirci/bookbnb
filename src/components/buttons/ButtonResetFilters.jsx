@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import { useSearchParams } from 'react-router-dom';
 import { useMemo } from 'react';
+import { t } from 'i18next';
 
 function ButtonResetFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,7 +16,7 @@ function ButtonResetFilters() {
 
   return (
     <Button size='large' onClick={handleClick}>
-      Reset Filters
+      {t('reset')}
     </Button>
   );
 }

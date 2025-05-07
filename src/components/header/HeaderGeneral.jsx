@@ -5,7 +5,7 @@ import ButtonBookBnb from '../buttons/ButtonBookBnb.jsx';
 import ButtonLanguage from '../buttons/ButtonLanguage.jsx';
 import HeaderAccount from './HeaderAccount.jsx';
 import { Icon } from '@iconify/react';
-import ButtonWishlist from '../buttons/ButtonWishlist.jsx';
+import ButtonWishlist from '../buttons/ButtonLiked.jsx';
 import { useTranslation } from 'react-i18next';
 import SearchBar from './SearchBar.jsx';
 import SearchBarExpanded from './SearchBarExpanded.jsx';

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsBookBnbOpen, setIsLoginOpen, setIsSignupOpen } from '../../store/modalSlice.js';
 import useLogout from '../../hooks/auth/useLogout.js';
+import { Link } from 'react-router-dom';
 
 function HeaderAccount() {
   const session = useSelector((state) => state.auth.session);
@@ -15,7 +16,7 @@ function HeaderAccount() {
   const handleBookbnb = useCallback(() => {
     if (session) return dispatch(setIsBookBnbOpen());
     else dispatch(setIsLoginOpen());
-  }, [dispatch]);
+  }, [dispatch, session]);
 
   const menuItems = useMemo(() => {
     return [
@@ -45,10 +46,18 @@ function HeaderAccount() {
         type: 'divider',
       },
       session && {
-        key: 'wishlist',
-        label: <Typography.Text>{t('wishlist')}</Typography.Text>,
+        key: 'my_homes',
+        label: <Link to='/my_homes'>{t('my_homes')}</Link>,
       },
       session && {
+        key: 'liked',
+        label: <Link to='/liked'>{t('liked')}</Link>,
+      },
+      session && {
+        key: 'trips',
+        label: <Link to='/trips'>{t('trips')}</Link>,
+      },
+      {
         type: 'divider',
       },
       session && {

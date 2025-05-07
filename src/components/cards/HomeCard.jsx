@@ -3,14 +3,14 @@ const { Title, Text } = Typography;
 import { Typography } from 'antd';
 import { Icon } from '@iconify/react';
 
-import HomeCardCarousel from './HomeCardCarousel.jsx';
 import { memo, useMemo } from 'react';
 import { getRandomDateRangeForNextWeek } from '../../utils/getRandomDateRangeForNextWeek.js';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import ButtonWishlist from '../buttons/ButtonWishlist.jsx';
+import ButtonWishlist from '../buttons/ButtonLiked.jsx';
 import HomeCardPrice from './HomeCardPrice.jsx';
 import clsx from 'clsx';
+import CardCarousel from './CardCarousel.jsx';
 
 function HomeCard({ listing, idx }) {
   const { t } = useTranslation();
@@ -34,7 +34,7 @@ function HomeCard({ listing, idx }) {
           <span className='absolute top-4 right-4 z-10'>
             <ButtonWishlist listID={id} card={true} />
           </span>
-          <HomeCardCarousel photos={photos} />
+          <CardCarousel photos={photos} />
         </div>
         <div className='cursor-pointer pt-2'>
           <Row justify='space-between' align='middle' wrap={false}>

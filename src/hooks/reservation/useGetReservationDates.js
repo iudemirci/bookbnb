@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import supabase from '../../services/supabase.js';
 
-export const useGetReservations = (listingId) => {
+export const useGetReservationDates = (listingId) => {
   return useQuery({
     queryKey: ['reservations', listingId],
     queryFn: async () => {

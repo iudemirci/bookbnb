@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDateRange } from '../store/appSlice.js';
 import { Typography } from 'antd';
 import clsx from 'clsx';
-import { useGetReservations } from '../hooks/reservation/useGetReservations.js';
+import { useGetReservationDates } from '../hooks/reservation/useGetReservationDates.js';
 import { useParams } from 'react-router-dom';
 import { memo, useCallback, useMemo } from 'react';
 import { getDisabledDatesSet } from '../utils/getDisabledDatesSet.js';
@@ -20,7 +20,7 @@ function BookbnbRangePicker({ className }) {
   const dateRange = useSelector((state) => state.app.dateRange);
   const { t } = useTranslation('details');
 
-  const { data: reservations } = useGetReservations(id);
+  const { data: reservations } = useGetReservationDates(id);
 
   const disabledDatesSet = getDisabledDatesSet(reservations);
 

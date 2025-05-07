@@ -24,7 +24,10 @@ export function useListings() {
       const from = pageParam * 20;
       const to = from + 19;
 
-      let listingQuery = supabase.from('listings').select('*').order('created_at', { ascending: false });
+      let listingQuery = supabase
+        .from('listings')
+        .select('id, location, photos, price, category')
+        .order('created_at', { ascending: false });
 
       // applying filters conditionally
       if (params.query) {

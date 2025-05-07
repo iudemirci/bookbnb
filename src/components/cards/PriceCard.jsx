@@ -5,7 +5,7 @@ import { calculateTotalPrice, formatPrice, getStayDurationText } from '../../uti
 import RangeAndGuestPicker from '../RangeAndGuestPicker.jsx';
 import { useConvertedPrice } from '../../hooks/useConvertedPrice.js';
 import { memo, useCallback } from 'react';
-import { setIsConfirmationOpen } from '../../store/modalSlice.js';
+import { setIsConfirmationOpen, setIsLoginOpen } from '../../store/modalSlice.js';
 import { setFinalForm } from '../../store/appSlice.js';
 import { useTranslation } from 'react-i18next';
 const { Title, Text } = Typography;
@@ -21,6 +21,7 @@ function PriceCard({ price, guests }) {
     toCurrency: currency === 'USD' ? null : currency,
   });
 
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const guestsValue = useSelector((state) => state.app.guests);
   const finalPrice = calculateTotalPrice(convertedPrice || price, dateRange);
@@ -28,16 +29,20 @@ function PriceCard({ price, guests }) {
   const durationText = getStayDurationText(dateRange);
 
   const onFinish = useCallback(() => {
+    if (!user) {
+      return dispatch(setIsLoginOpen());
+    }
+
     switch (true) {
       case !dateRange:
         return message.warning(t('select_date_warning'));
       case !guestsValue:
         return message.warning(t('select_guests_warning'));
       default:
-        dispatch(setFinalForm({ date: dateRange, guests: guestsValue, price: Math.round(finalPrice) }));
+        dispatch(setFinalForm({ date: dateRange, guests: guestsValue, price: finalPrice, currency: currency }));
         dispatch(setIsConfirmationOpen());
     }
-  }, [dispatch, guestsValue, dateRange, finalPrice, t]);
+  }, [dispatch, guestsValue, dateRange, finalPrice, t, user, currency]);
 
   return (
     <Card className='!cursor-auto shadow-md' hoverable>

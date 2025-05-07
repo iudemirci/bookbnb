@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import supabase from '../../services/supabase.js';
 
-export function useWishlistToggle() {
+export function useLikedToggle() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['wishlist', 'toggle'],
+    mutationKey: ['liked', 'toggle'],
     mutationFn: async ({ userId, listingId }) => {
       const { data: existing, error: selectError } = await supabase
         .from('wishlists')
@@ -30,6 +30,6 @@ export function useWishlistToggle() {
       }
     },
 
-    onSuccess: () => queryClient.invalidateQueries(['wishlist']),
+    onSuccess: () => queryClient.invalidateQueries(['liked']),
   });
 }

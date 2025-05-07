@@ -34,6 +34,9 @@ export const antd = {
       lineHeightHeading4: 1,
       lineHeightHeading5: 1,
     },
+    Carousel: {
+      arrowSize: 28,
+    },
     Dropdown: {
       paddingBlock: 8,
       boxShadowPopoverArrow: '0 6px 20px 0 rgba(0, 0, 0, 0.1)',

@@ -2,9 +2,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css/pagination';
 
-import { Image, Skeleton } from 'antd';
+import { Carousel, Image, Skeleton } from 'antd';
 import { useCallback, useState } from 'react';
 import clsx from 'clsx';
+import { CUSTOM } from '../../config/motionConfig.js';
 
 const BASE_URL = import.meta.env.VITE_SUPABASE_IMG_URL;
 
@@ -29,11 +30,7 @@ function DetailsImageMobile({ photos, isPending, className }) {
   const renderSkeletonSlides = () => {
     return Array(3)
       .fill(null)
-      .map((_, index) => (
-        <SwiperSlide key={`skeleton-${index}`}>
-          <ImageSkeleton />
-        </SwiperSlide>
-      ));
+      .map((_, index) => <ImageSkeleton key={`skeleton-${index}`} />);
   };
 
   const renderImageSlides = () => {
@@ -42,9 +39,10 @@ function DetailsImageMobile({ photos, isPending, className }) {
       const fullUrl = `${BASE_URL}${path}`.replace(/&quot;|"/g, '').replace(/;/g, '');
 
       return (
-        <SwiperSlide key={`image-${index}`} className='aspect-[6/4] size-full'>
+        <div className='spect-[6/4] size-full'>
           {!isLoaded && <ImageSkeleton />}
           <Image
+            key={`image-${index}`}
             src={fullUrl}
             alt={`listing image ${index + 1}`}
             loading='lazy'
@@ -58,21 +56,21 @@ function DetailsImageMobile({ photos, isPending, className }) {
             style={{ objectFit: 'cover', objectPosition: 'center' }}
             wrapperClassName='w-full h-full'
           />
-        </SwiperSlide>
+        </div>
       );
     });
   };
 
   return (
     <Image.PreviewGroup>
-      <Swiper
-        className='aspect-[6/4] w-full overflow-hidden rounded-lg md:!hidden'
-        modules={[Pagination]}
-        pagination={{ clickable: true }}
-        slidesPerView={1}
+      <Carousel
+        arrows
+        easing={CUSTOM}
+        infinite={false}
+        className='relative !aspect-[6/4] !w-full overflow-hidden rounded-3xl md:!hidden'
       >
         {isPending ? renderSkeletonSlides() : renderImageSlides()}
-      </Swiper>
+      </Carousel>
     </Image.PreviewGroup>
   );
 }
