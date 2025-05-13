@@ -12,8 +12,20 @@ export function useInsertListing() {
     },
   });
 
+  const { mutate: deleteListing, isPending: isDeletePending } = useMutation({
+    mutationKey: ['listing', 'delete'],
+    mutationFn: async (listing_id) => {
+      const { error } = await supabase.from('listings').delete().eq('id', listing_id).select();
+    },
+    if(error) {
+      throw new Error(error.message);
+    },
+  });
+
   return {
     isInsertPending,
     insertListing,
+    isDeletePending,
+    deleteListing,
   };
 }
