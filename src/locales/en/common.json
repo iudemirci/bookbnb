@@ -44,6 +44,9 @@
   "check-in": "Check in",
   "check-out": "Check out",
   "where": "Where",
+  "where_form": "Where?",
+  "when": "When?",
+  "who": "Who?",
   "search_destinations": "Search destinations",
   "reset": "Reset filters",
   "home_no_results_title": "No results found",
@@ -59,5 +62,16 @@
   "favourites_subtitle": "List of places you have liked",
   "trips_title":  "Trips",
   "trips_subtitle": "Where you've been and where you're going",
-  "cancel_reservation": "Cancel reservation"
+  "cancel_reservation": "Cancel reservation",
+  "search": "Search",
+  "delete_listing": "Delete listing",
+  "delete_title": "Are you sure to delete your listing?",
+  "delete_success": "Listing deleted successfully",
+  "delete_error": "Something went wrong deleting listing",
+  "cancel_success": "Reservation canceled successfully",
+  "cancel_error": "Something went wrong canceling reservation",
+  "accept": "Accept",
+  "cancel": "Cancel",
+  "edit": "Edit",
+  "account": "Account"
 }

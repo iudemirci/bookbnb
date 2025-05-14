@@ -11,10 +11,13 @@ import ButtonLanguage from '../buttons/ButtonLanguage.jsx';
 import ButtonResetFilters from '../buttons/ButtonResetFilters.jsx';
 import SearchBarExpanded from './SearchBarExpanded.jsx';
 import HeaderCarousel from './HeaderCarousel.jsx';
-import SearchBar from './SearchBar.jsx';
+import SearchBar from './SearchBarPlaceholder.jsx';
+import ButtonDashboard from '../buttons/ButtonDashboard.jsx';
+import { useSelector } from 'react-redux';
 
 function HeaderHome() {
   const containerRef = useRef(null);
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <>
@@ -39,7 +42,7 @@ function HeaderHome() {
             {/* buttons */}
             <nav className='min-w-0 flex-1 shrink-0 basis-auto xl:basis-[140px]'>
               <Flex align='center' justify='end'>
-                <ButtonBookBnb />
+                {user?.user_metadata?.role === 'admin' ? <ButtonDashboard /> : <ButtonBookBnb />}
                 <ButtonLanguage text={false} />
                 <HeaderAccount />
               </Flex>

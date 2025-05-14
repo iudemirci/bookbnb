@@ -1,0 +1,21 @@
+{
+  "users": "Users",
+  "user": "User",
+  "listings": "Listings",
+  "listing": "Listing",
+  "number_of_listings": "No. of Listings",
+  "number_of_reservations": "No. of Reservations",
+  "reservations": "Reservations",
+  "reservation": "Reservation",
+  "active": "Active",
+  "listings_last_week": "Listings last week",
+  "reservations_last_week": "Reservations last week",
+  "total": "Total",
+  "categories": "Popular Categories",
+  "avg_price": "Average Price",
+  "avg_stay_duration": "Average stay duration",
+  "day": "Day",
+  "most_listed_countries": "Most Listed Countries",
+  "revenue_this_month": "Revenue this month",
+  "users_this_month": "Users this month"
+}

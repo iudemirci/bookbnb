@@ -9,11 +9,13 @@ import { useIsLiked } from '../hooks/liked/useIsLiked.js';
 import { useSelector } from 'react-redux';
 import { map } from 'lodash';
 import { useLikedListings } from '../hooks/liked/useLikedListings.js';
-import { t } from 'i18next';
 import CardList from '../components/cards/CardList.jsx';
+import { useTranslation } from 'react-i18next';
+import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
 
 function Favourites() {
   const user = useSelector((state) => state.auth.user);
+  const { t } = useTranslation();
   const { data: likedData, isPending: isLikedDataPending } = useIsLiked(user?.id);
   const listingIds = map(likedData, 'listing_id');
   const {
@@ -28,6 +30,7 @@ function Favourites() {
     <MainContainer>
       <HeaderGeneral />
 
+      <MobileSearchModal />
       <BookBnbHomeModal />
 
       <Container as='main' className='py-8'>

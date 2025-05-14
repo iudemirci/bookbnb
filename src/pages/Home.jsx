@@ -12,6 +12,7 @@ const BookBnbHomeModal = lazy(() => import('../components/modals/BookBnbHome/Boo
 const CardList = lazy(() => import('../components/cards/CardList.jsx'));
 
 import { useListings } from '../hooks/listings/useListings.js';
+import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
 
 function Home() {
   const { t } = useTranslation();
@@ -27,6 +28,7 @@ function Home() {
       <SignupModal />
       <LoginModal />
       <BookBnbHomeModal />
+      <MobileSearchModal />
 
       <Container as='main'>
         <CardList

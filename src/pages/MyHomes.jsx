@@ -1,7 +1,6 @@
 import { lazy, memo } from 'react';
 import { Space, Typography } from 'antd';
 import { useSelector } from 'react-redux';
-import { t } from 'i18next';
 
 const HeaderGeneral = lazy(() => import('../components/header/HeaderGeneral.jsx'));
 const BookBnbHomeModal = lazy(() => import('../components/modals/BookBnbHome/BookBnbHomeModal.jsx'));
@@ -11,9 +10,12 @@ const CardList = lazy(() => import('../components/cards/CardList.jsx'));
 import MainContainer from '../components/MainContainer.jsx';
 import Container from '../components/Container.jsx';
 import { useUserListings } from '../hooks/listings/useUserListings.jsx';
+import { useTranslation } from 'react-i18next';
+import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
 
 function MyHomes() {
   const user = useSelector((state) => state.auth.user);
+  const { t } = useTranslation();
   const {
     fetchNextPage,
     hasNextPage,
@@ -27,6 +29,7 @@ function MyHomes() {
       <HeaderGeneral />
 
       <BookBnbHomeModal />
+      <MobileSearchModal />
 
       <Container as='main' className='py-8'>
         <Space direction='vertical' size={4}>

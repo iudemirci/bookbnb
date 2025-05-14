@@ -16,6 +16,7 @@
 
   --shadow-theme:0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-theme-hover: 0px 0px 0px 1px rgba(0, 0, 0, 0.02), 0px 2px 4px 0px rgba(0, 0, 0, 0.16);
+  --shadow-dashboard-card:  rgba(183, 43, 70, 0.24) 0px 1px 4px;
 
   --breakpoint-3xl: 100rem;
   --breakpoint-4xl: 115rem;
@@ -61,8 +62,9 @@ a, a:hover, a:focus {
 }
 
 
-.mobile-range-picker .ant-picker-panels {
+.ant-picker-panels {
   flex-direction: column;
+  z-index: 100;
 }
 
 .ant-picker-suffix .anticon {
@@ -70,7 +72,7 @@ a, a:hover, a:focus {
 }
 
 @media (min-width: 600px) {
-  .mobile-range-picker .ant-picker-panels {
+   .ant-picker-panels {
     flex-direction: row;
   }
 }
@@ -153,4 +155,12 @@ a, a:hover, a:focus {
 
 .custom-input-number input{
   padding: 0 !important;
+}
+
+.slick-dots {
+  z-index: -5 !important;
+}
+
+.slick-list {
+  z-index: -10 !important;
 }

@@ -10,6 +10,8 @@ import enBookbnb from './en/bookbnb.json';
 import trBookbnb from './tr/bookbnb.json';
 import enDetails from './en/details.json';
 import trDetails from './tr/details.json';
+import enDashboard from './en/dashboard.json';
+import trDashboard from './tr/dashboard.json';
 
 const storedLocale = localStorage.getItem('locale');
 const defaultLocale = 'en';
@@ -22,6 +24,7 @@ i18n.use(initReactI18next).init({
       bookbnb: enBookbnb,
       footer: enFooter,
       details: enDetails,
+      dashboard: enDashboard,
     },
     tr: {
       translation: trCommon,
@@ -29,6 +32,7 @@ i18n.use(initReactI18next).init({
       bookbnb: trBookbnb,
       footer: trFooter,
       details: trDetails,
+      dashboard: trDashboard,
     },
   },
   lng: storedLocale || defaultLocale,

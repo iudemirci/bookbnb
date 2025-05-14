@@ -1,0 +1,21 @@
+{
+  "users": "Kullanıcılar",
+  "user": "Kullanıcı",
+  "listings": "İlanlar",
+  "listing": "İlan",
+  "number_of_listings": "İlan sayısı",
+  "number_of_reservations": "Reservasyon sayısı",
+  "reservations": "Reservasyonlar",
+  "reservation": "Reservasyon",
+  "active": "Aktif",
+  "listings_last_week": "Son haftadaki ilanlar",
+  "reservations_last_week": "Son haftadaki reservasyonlar",
+  "total": "Toplam",
+  "categories": "Popüler Kategoriler",
+  "avg_price": "Ortalama Ücret",
+  "avg_stay_duration": "Ortalama Konaklama",
+  "day": "Gün",
+  "most_listed_countries": "En çok listelenen ülkeler",
+  "revenue_this_month": "Bu ayki gelir",
+  "users_this_month": "Bu ayki kullanıcılar"
+}

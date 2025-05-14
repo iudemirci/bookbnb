@@ -1,7 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import supabase from '../../services/supabase.js';
 
-export function useInsertListing() {
+export function useListingMutate() {
+  const queryClient = useQueryClient();
+
   const { mutate: insertListing, isPending: isInsertPending } = useMutation({
     mutationKey: ['listing', 'insert'],
     mutationFn: async (listing) => {
@@ -20,6 +22,8 @@ export function useInsertListing() {
     if(error) {
       throw new Error(error.message);
     },
+
+    onSuccess: () => queryClient.invalidateQueries(['userListings']),
   });
 
   return {

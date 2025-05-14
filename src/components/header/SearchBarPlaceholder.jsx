@@ -8,7 +8,7 @@ import { setExpanded } from '../../store/appSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 
-function SearchBar() {
+function SearchBarPlaceholder() {
   const { t } = useTranslation();
   const expanded = useSelector((state) => state.app.expanded);
   const dispatch = useDispatch();
@@ -62,4 +62,4 @@ function SearchBar() {
   );
 }
 
-export default memo(SearchBar);
+export default memo(SearchBarPlaceholder);

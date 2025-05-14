@@ -7,6 +7,7 @@ const initialState = {
   isLoginOpen: false,
   isBookBnbOpen: false,
   isConfirmationOpen: false,
+  isMobileSearchOpen: false,
 };
 
 const modalSlice = createSlice({
@@ -32,6 +33,9 @@ const modalSlice = createSlice({
     setIsConfirmationOpen: (state) => {
       state.isConfirmationOpen = !state.isConfirmationOpen;
     },
+    setIsMobileSearchOpen: (state) => {
+      state.isMobileSearchOpen = !state.isMobileSearchOpen;
+    },
   },
 });
 
@@ -42,5 +46,6 @@ export const {
   setIsLoginOpen,
   setIsBookBnbOpen,
   setIsConfirmationOpen,
+  setIsMobileSearchOpen,
 } = modalSlice.actions;
 export default modalSlice.reducer;

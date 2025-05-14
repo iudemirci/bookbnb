@@ -25,7 +25,7 @@ function HomeCard({ listing, idx }) {
         <div className='relative aspect-14/13 w-full rounded-3xl shadow-sm'>
           <span
             className={clsx(
-              'bg-bg-primary pointer-events-none absolute top-4 left-4 z-10 rounded-full px-3 py-1.5 font-medium shadow-xl',
+              'bg-bg-primary/85 pointer-events-none absolute top-4 left-4 z-10 rounded-full px-3 py-1.5 font-medium shadow-xl',
               idx >= 5 && 'hidden',
             )}
           >

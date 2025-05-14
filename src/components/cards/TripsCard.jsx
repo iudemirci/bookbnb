@@ -1,6 +1,4 @@
-import { Button, Col, Flex, Row } from 'antd';
-const { Title, Text } = Typography;
-import { Typography } from 'antd';
+import { Col, Flex, Row, Typography } from 'antd';
 
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,11 +8,15 @@ import clsx from 'clsx';
 import CardCarousel from './CardCarousel.jsx';
 import dayjs from 'dayjs';
 import { formatPrice } from '../../utils/bookingUtils.js';
+import ButtonCancelReservation from '../buttons/ButtonCancelReservation.jsx';
+
+const { Title, Text } = Typography;
 
 function TripsCard({ listing, idx }) {
+  console.log('🚀 ~ TripsCard ~ listing: ', listing);
   const { t } = useTranslation();
 
-  const { id, location, photos, price, date, currency } = listing;
+  const { id, listing_id, location, photos, price, date, currency } = listing;
   const [from, to] = date;
   const count = dayjs(to).diff(dayjs(from), 'day');
   const isPast = dayjs().isAfter(dayjs(from), 'day');
@@ -28,7 +30,7 @@ function TripsCard({ listing, idx }) {
   }, [from, to]);
 
   return (
-    <Link to={`/listing/${id}`}>
+    <Link to={`/listing/${listing_id}`}>
       <Flex vertical={true}>
         <div className='relative aspect-14/13 w-full rounded-3xl shadow-sm'>
           <span
@@ -70,9 +72,7 @@ function TripsCard({ listing, idx }) {
           {!isPast && (
             <Row>
               <Col className='w-full !pt-2'>
-                <Button type='primary' block className='!rounded-xl'>
-                  {t('cancel_reservation')}
-                </Button>
+                <ButtonCancelReservation reservationId={id} />
               </Col>
             </Row>
           )}

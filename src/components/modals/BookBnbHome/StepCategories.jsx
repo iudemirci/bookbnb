@@ -7,7 +7,7 @@ import { memo } from 'react';
 
 const newCategories = categories.slice(1, categories.length);
 
-function StepCategories({ form }) {
+function StepCategories({ form, edit }) {
   const { t } = useTranslation('bookbnb');
   const selectedCategory = Form.useWatch('category', form);
 

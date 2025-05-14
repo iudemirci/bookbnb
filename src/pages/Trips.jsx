@@ -8,11 +8,13 @@ import Footer from '../components/Footer.jsx';
 import { useSelector } from 'react-redux';
 import { useReservations } from '../hooks/reservation/useReservations.js';
 import CardList from '../components/cards/CardList.jsx';
-import { t } from 'i18next';
 import { sortReservationsByDate } from '../utils/sortReservationsByDate.js';
+import { useTranslation } from 'react-i18next';
+import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
 
 function Trips() {
   const user = useSelector((state) => state.auth.user);
+  const { t } = useTranslation();
   const {
     fetchNextPage,
     hasNextPage,
@@ -26,6 +28,7 @@ function Trips() {
     <MainContainer>
       <HeaderGeneral />
 
+      <MobileSearchModal />
       <BookBnbHomeModal />
 
       <Container as='main' className='py-8'>

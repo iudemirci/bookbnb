@@ -19,10 +19,7 @@ const signupUser = async (credentials) => {
   });
   if (error) throw error;
 
-  const { error: usersError } = await supabase
-    .from('users')
-    .insert([{ username: username }])
-    .select();
+  const { error: usersError } = await supabase.from('users').insert([{ username, role }]).select();
 
   if (usersError) throw usersError;
   return data;

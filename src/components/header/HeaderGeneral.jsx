@@ -7,24 +7,38 @@ import HeaderAccount from './HeaderAccount.jsx';
 import { Icon } from '@iconify/react';
 import ButtonWishlist from '../buttons/ButtonLiked.jsx';
 import { useTranslation } from 'react-i18next';
-import SearchBar from './SearchBar.jsx';
+import SearchBar from './SearchBarPlaceholder.jsx';
 import SearchBarExpanded from './SearchBarExpanded.jsx';
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
+import SearchBarMobile from './SearchBarMobile.jsx';
+import { useLocation } from 'react-router-dom';
+import clsx from 'clsx';
+import { useSelector } from 'react-redux';
+import ButtonDashboard from '../buttons/ButtonDashboard.jsx';
 
 function HeaderGeneral() {
   const { t } = useTranslation('details');
   const containerRef = useRef(null);
+  const { pathname } = useLocation();
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <>
       <header ref={containerRef} className='bg-bg-primary z-20 w-full'>
-        <Container>
+        <Container
+          className={clsx(
+            'mx-auto',
+            pathname.startsWith('/listing') && '!max-w-[1280px]',
+            pathname.startsWith('/dashboard') && '!px-2',
+          )}
+        >
           <Flex align='center' justify='space-between' className='!flex h-[64px] md:!hidden'>
             <Button type='text' href='/'>
               <Icon icon='mdi:chevron-left' width={20} />
               {t('homes')}
             </Button>
-            <ButtonWishlist text={false} iconSize={20} />
+            <SearchBarMobile className='mx-2' />
+            {pathname.startsWith('/listing') && <ButtonWishlist text={false} iconSize={20} />}
           </Flex>
 
           <Flex align='center' justify='between' className='!relative !hidden !min-h-[80px] w-full px-4 md:!flex'>
@@ -34,14 +48,14 @@ function HeaderGeneral() {
             </div>
 
             {/* Search small */}
-            <div className='flex min-w-0 flex-none shrink-1 basis-auto origin-center justify-center px-6'>
+            <div className='flex min-w-0 origin-center justify-center px-6'>
               <SearchBar />
             </div>
 
             {/* buttons */}
             <nav className='min-w-0 flex-1 shrink-0 basis-auto xl:basis-[140px]'>
               <Flex align='center' justify='end'>
-                <ButtonBookBnb />
+                {user?.user_metadata?.role === 'admin' ? <ButtonDashboard /> : <ButtonBookBnb />}
                 <ButtonLanguage text={false} />
                 <HeaderAccount />
               </Flex>
@@ -56,4 +70,4 @@ function HeaderGeneral() {
   );
 }
 
-export default HeaderGeneral;
+export default memo(HeaderGeneral);

@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Col, DatePicker, Typography, Row, Input, Divider, Flex, InputNumber, Button, Form } from 'antd';
 import { memo, useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { lowerCase } from 'lodash';
@@ -13,6 +13,7 @@ import HeaderTabs from './HeaderTabs.jsx';
 import { SMOOTH } from '../../config/motionConfig.js';
 import { setExpanded } from '../../store/appSlice.js';
 import Counter from '../Counter.jsx';
+import { createSearchParams } from '../../../.vite/deps/react-router-dom.js';
 
 const today = dayjs();
 const threeDaysLater = dayjs().add(3, 'day');
@@ -48,6 +49,7 @@ function SearchBarExpanded({ containerRef }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const inputRef = useRef(null);
   const inputNumberRef = useRef(null);
   const expanded = useSelector((state) => state.app.expanded);
@@ -92,10 +94,6 @@ function SearchBarExpanded({ containerRef }) {
       const { query, date, guests } = values;
       let newParams = {};
 
-      if (query) {
-        newParams.query = lowerCase(query);
-      }
-
       if (date) {
         const formattedDateRange = date?.map((d) => d.format('YYYY-MM-DD'));
         const [fromDate, toDate] = formattedDateRange;
@@ -107,9 +105,16 @@ function SearchBarExpanded({ containerRef }) {
         newParams.guests = guests;
       }
 
-      setSearchParams(newParams);
+      if (query) {
+        newParams.query = lowerCase(query);
+      }
+
+      navigate({
+        pathname: '/',
+        search: `?${createSearchParams(newParams)}`,
+      });
     },
-    [setSearchParams],
+    [navigate],
   );
 
   useEffect(() => {

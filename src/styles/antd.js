@@ -13,6 +13,13 @@ export const antd = {
   },
 
   components: {
+    Layout: {
+      bodyBg: 'rgb(255,255,255)',
+      footerBg: 'rgb(255,255,255)',
+      headerBg: 'rgb(255,255,255)',
+      siderBg: 'rgb(255,255,255)',
+      headerPadding: '0 0',
+    },
     Typography: {
       titleMarginBottom: 0,
       titleMarginTop: 0,
@@ -33,6 +40,9 @@ export const antd = {
       lineHeightHeading3: 1,
       lineHeightHeading4: 1,
       lineHeightHeading5: 1,
+    },
+    Drawer: {
+      paddingLG: 12,
     },
     Carousel: {
       arrowSize: 28,
@@ -88,9 +98,6 @@ export const antd = {
       borderRadiusLG: 0,
       colorBorder: 'rgb(0,0,0)',
       hoverBorderColor: 'rgb(0,0,0)',
-    },
-    Menu: {
-      lineType: 'none',
     },
   },
 };

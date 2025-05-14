@@ -1,4 +1,4 @@
-import { Button, Col, Flex, Row, Space } from 'antd';
+import { Button, Col, Flex, Popconfirm, Row, Space } from 'antd';
 const { Title, Text } = Typography;
 import { Typography } from 'antd';
 
@@ -8,6 +8,7 @@ import ButtonLiked from '../buttons/ButtonLiked.jsx';
 import { useTranslation } from 'react-i18next';
 import HomeCardPrice from './HomeCardPrice.jsx';
 import CardCarousel from './CardCarousel.jsx';
+import ButtonDeleteListing from '../buttons/ButtonDeleteListing.jsx';
 
 function MyHomeCard({ listing }) {
   const { t } = useTranslation();
@@ -44,9 +45,7 @@ function MyHomeCard({ listing }) {
           </Row>
           <Row>
             <Col className='w-full !pt-2'>
-              <Button type='primary' block className='!rounded-xl'>
-                {t('delete_listing')}
-              </Button>
+              <ButtonDeleteListing id={id} />
             </Col>
           </Row>
         </div>

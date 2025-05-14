@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import Container from '../Container.jsx';
 import { Menu } from 'antd';
 
@@ -42,7 +41,7 @@ function FixedDetailsHeader() {
                 el.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className='w-full'
+            className='w-full !border-none'
           />
         </Container>
       </div>

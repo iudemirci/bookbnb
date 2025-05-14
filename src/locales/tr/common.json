@@ -39,11 +39,13 @@
   "added_to_wishlist": "Favorilerime kaydedildi",
   "removed_from_wishlist": "Favorilerimden kaldırıldı",
   "error_saving": "Favorilerime kaydedilemedi",
-  "guest_fav": "Misafir Favorisi",
+  "guest_fav": "Misafirlerin Favorisi",
   "guests": "Misafirler",
   "check-in": "Giriş",
   "check-out": "Çıkış",
-  "where": "Nereye",
+  "where": "Nereye?",
+  "when": "Tarih",
+  "who": "Kişiler",
   "search_destinations": "Gideceğiniz yeri arayın",
   "reset": "Filtreleri kaldır",
   "home_no_results_title": "Sonuç bulunamadı",
@@ -60,6 +62,15 @@
   "trips_title":  "Yolculuklar",
   "trips_subtitle": "Gittiğin ve gideceğin yerler",
   "cancel_reservation": "Reservasyonu iptal et",
-  "delete_listing": "İlanı sil"
-
+  "search": "Arama",
+  "delete_listing": "İlanı sil",
+  "delete_title": "İlanı kaldırmak istediğinden emin misin?",
+  "delete_success": "İlan başarıyla kaldırıldı",
+  "delete_error": "İlanı kaldırırken bir sorun oluştu",
+  "cancel_success": "Rezervasyon başarıyla iptal edildi",
+  "cancel_error": "Rezervasyon iptal edilirken bir hata oluştu",
+  "accept": "Onayla",
+  "cancel": "İptal",
+  "edit": "Düzenle",
+  "account": "Hesap"
 }

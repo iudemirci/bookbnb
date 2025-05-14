@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  edit: null,
   latlng: null,
   fileList: [],
 };
@@ -27,9 +28,12 @@ const bookbnbSlice = createSlice({
     clearFiles: (state) => {
       state.fileList = [];
     },
+    setEdit: (state, action) => {
+      state.edit = action.payload;
+    },
   },
 });
 
-export const { setLatlng, setFileList, clearFiles, clearLatlng, removeFile } = bookbnbSlice.actions;
+export const { setEdit, setLatlng, setFileList, clearFiles, clearLatlng, removeFile } = bookbnbSlice.actions;
 
 export default bookbnbSlice.reducer;

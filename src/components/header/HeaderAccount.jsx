@@ -57,7 +57,7 @@ function HeaderAccount() {
         key: 'trips',
         label: <Link to='/trips'>{t('trips')}</Link>,
       },
-      {
+      session && {
         type: 'divider',
       },
       session && {

@@ -30,6 +30,7 @@
     "react-leaflet": "^5.0.0-rc.2",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.5.2",
+    "recharts": "^2.15.3",
     "swiper": "^11.2.6",
     "world-countries": "^5.1.0"
   },

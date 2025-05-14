@@ -26,6 +26,8 @@ import listingData from '../data/listingData.json';
 import { getElapsedHostingTime } from '../utils/getElapsedHostingTime.js';
 import { categories } from '../data/categories.js';
 import ConfirmationModal from '../components/modals/ConfirmationModal.jsx';
+import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
+import ButtonEdit from '../components/buttons/ButtonEdit.jsx';
 
 const { Title, Text, Paragraph } = Typography;
 const { specs, amenities } = listingData;
@@ -39,6 +41,7 @@ function Details() {
   const { photos, title, description, location, rooms, bathrooms, guests, coords, price, category } = listing || [];
   const categoryIcon = categories.find((cat) => cat.key === category)?.icon;
   const { created_at, username } = user || {};
+  const isOwnedByUser = listing?.user_id === user?.user_id;
 
   const details = [
     {
@@ -58,12 +61,13 @@ function Details() {
   return (
     <>
       <FixedDetailsHeader />
+      <HeaderGeneral />
       <div className='relative mx-auto max-w-[1280px]'>
-        <HeaderGeneral />
         <SignupModal />
         <LoginModal />
         <BookBnbHomeModal />
         <ConfirmationModal />
+        <MobileSearchModal />
 
         <Container as='main' className='pb-6'>
           <Flex align='center' justify='space-between'>
@@ -82,9 +86,16 @@ function Details() {
                 </Title>
               </div>
             )}
-            <div className='!hidden md:!block'>
-              {isListingPending ? <Skeleton.Button size='small' style={{ width: '70px' }} /> : <ButtonWishlist />}
-            </div>
+            <Flex align='end' justify='start'>
+              {isListingPending ? (
+                <Skeleton.Button size='small' style={{ width: '80px' }} />
+              ) : (
+                <>
+                  {isOwnedByUser && <ButtonEdit listing={listing} />}
+                  <ButtonWishlist className='!hidden md:!flex' />
+                </>
+              )}
+            </Flex>
           </Flex>
           <Flex vertical={true} align='start'>
             {/* Image masonary */}
@@ -240,13 +251,13 @@ function Details() {
               {t('where_be')}
             </Title>
 
-            <div className='-z-10 h-[470px] min-w-full overflow-hidden rounded-xl'>
+            <div className='h-[470px] min-w-full overflow-hidden rounded-xl'>
               {isListingPending ? <Skeleton.Input active className='!size-full' /> : <DetailsMap coords={coords} />}
             </div>
           </Space>
           <Divider className='block md:!hidden' />
 
-          {/* mobile calendar */}
+          {/* mobile rangePicker */}
           <Space direction='vertical' className='!flex w-full !py-5 md:!hidden'>
             <Title level={1} className='!py-2'>
               {t('select_checkout_date')}

@@ -3,7 +3,7 @@ import supabase from '../services/supabase.js';
 
 export function useGetUser(userId) {
   return useQuery({
-    queryKey: ['username', userId],
+    queryKey: ['user', userId],
     queryFn: async () => {
       if (!userId) throw new Error('No user ID provided');
 

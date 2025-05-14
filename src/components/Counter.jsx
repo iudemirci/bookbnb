@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useSearchParams } from 'react-router-dom';
 
-export default function Counter({ form, initialValue }) {
+export default function Counter({ form }) {
   const [searchParams] = useSearchParams();
   const guests = searchParams.get('guests');
   const [count, setCount] = useState(+guests || 1);

@@ -9,6 +9,8 @@ const Liked = lazy(() => import('../pages/Favourites.jsx'));
 const MyHomes = lazy(() => import('../pages/MyHomes.jsx'));
 
 import ScrollToTop from '../components/ScrollToTop.jsx';
+import Dashboard from '../pages/Dashboard.jsx';
+import ProtectedAdminRoute from './ProtectedAdminRoute.jsx';
 
 function Router() {
   return (
@@ -39,6 +41,14 @@ function Router() {
             <ProtectedRoute>
               <Trips />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/dashboard'
+          element={
+            <ProtectedAdminRoute>
+              <Dashboard />
+            </ProtectedAdminRoute>
           }
         />
       </Routes>

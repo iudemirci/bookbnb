@@ -22,7 +22,7 @@ export function useReservations(userId) {
       // reservations
       const { data: reservations, error: reservationError } = await supabase
         .from('reservations')
-        .select('price, date, listing_id, currency')
+        .select('price, date, id, listing_id, currency')
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
         .range(from, to);
@@ -47,10 +47,14 @@ export function useReservations(userId) {
 
       const listingMap = Object.fromEntries(listings.map((l) => [l.id, l]));
 
-      const combined = reservations.map((r) => ({
-        ...r,
-        ...listingMap[r.listing_id],
-      }));
+      const combined = reservations.map((r) => {
+        const listing = listingMap[r.listing_id];
+        const { id: _, ...restListing } = listing || {};
+        return {
+          ...r,
+          ...restListing,
+        };
+      });
 
       return combined;
     },

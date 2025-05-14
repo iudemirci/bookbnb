@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useMemo } from 'react';
 import { t } from 'i18next';
 
-function ButtonResetFilters() {
+function ButtonResetFilters({ ...params }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const hasFilters = useMemo(() => {
     return searchParams.size > 0;
@@ -15,7 +15,7 @@ function ButtonResetFilters() {
   };
 
   return (
-    <Button size='large' onClick={handleClick}>
+    <Button size='large' onClick={handleClick} {...params}>
       {t('reset')}
     </Button>
   );

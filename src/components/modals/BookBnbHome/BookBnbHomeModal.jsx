@@ -9,7 +9,7 @@ import StepBasics from './StepBasics.jsx';
 import StepPhoto from './StepPhoto.jsx';
 import StepDescription from './StepDescription.jsx';
 import StepPrice from './StepPrice.jsx';
-import { useInsertListing } from '../../../hooks/listings/useInsertListing.js';
+import { useListingMutate } from '../../../hooks/listings/useListingMutate.js';
 import { useConvertCurrency } from '../../../hooks/useConvertCurrency.js';
 import { clearFiles, clearLatlng } from '../../../store/bookbnbSlice.js';
 import { usePhotoUpload } from '../../../hooks/usePhotoUpload.js';
@@ -34,12 +34,13 @@ function BookBnbHomeModal() {
   const dispatch = useDispatch();
   const { t } = useTranslation('bookbnb');
   const [form] = Form.useForm();
-  const { insertListing, isInsertPending } = useInsertListing();
+  const { insertListing, isInsertPending } = useListingMutate();
   const currentCurrency = useSelector((state) => state.app.currency);
   const { mutate: convertCurrency, isPending: isConvertingPending } = useConvertCurrency();
   const { deletePhoto, isDeleting } = usePhotoUpload();
   const submitRef = useRef(null);
   const { mutate: reverseGeocode, isPending: isReversePending } = useReverseGeocode();
+  const edit = useSelector((state) => state.bookbnb.edit);
 
   const hideModal = useCallback(() => {
     dispatch(setIsBookBnbOpen());
@@ -124,7 +125,7 @@ function BookBnbHomeModal() {
     return [
       {
         title: t('category'),
-        content: <StepCategories form={form} />,
+        content: <StepCategories form={form} edit={edit} />,
       },
       {
         title: t('location'),
@@ -158,6 +159,7 @@ function BookBnbHomeModal() {
     <Modal
       open={isModalOpen}
       onCancel={hideModal}
+      x
       onOk={onFinish}
       width={500}
       onFinish={onFinish}
