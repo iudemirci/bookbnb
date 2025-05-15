@@ -3,8 +3,8 @@ import { map, orderBy, take } from 'lodash';
 import { countBy } from 'lodash/collection.js';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { useTranslation } from 'react-i18next';
-import { useCallback } from 'react';
-import { COLORS } from '../../data/chartColors.js';
+import { memo, useCallback } from 'react';
+import { COLORS } from '../../../../data/chartColors.js';
 
 function CategoriesPieChart({ listings }) {
   const { t } = useTranslation();
@@ -73,4 +73,4 @@ function CategoriesPieChart({ listings }) {
   );
 }
 
-export default CategoriesPieChart;
+export default memo(CategoriesPieChart);

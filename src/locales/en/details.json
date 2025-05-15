@@ -38,6 +38,21 @@
   "double_plural": "doubles",
   "for_nights": "For {{count}} nights",
   "homes": "Homes",
+  "report": "Report",
+  "report_title": "What's happening?",
+  "report_subtitle": "Let us know if you think there is something wrong with this listing.",
+  "report_let_us_know": "Let us know what's going on",
+  "report_warning": "Tell us what’s wrong before submitting your report.",
+  "report_something_else": "It's something else",
+  "report_inappropriate_title": "Inappropriate content",
+  "report_inappropriate_subtitle": "This listing contains objectionable content",
+  "report_price_title": "Suspicious pricing",
+  "report_price_subtitle": "This listing appears to have an unusually high or low price.",
+  "report_location_title": "Incorrect location",
+  "report_location_subtitle": "The location shown doesn't match where the listing is actually located.",
+  "report_success": "Listing reported successfully",
+  "report_error":"Something went wrong reporting the listing",
+
 
   "amenities": {
     "wifi": "Free WiFi",

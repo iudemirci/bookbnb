@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import ChartCard from './ChartCard.jsx';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { COLORS } from '../../data/chartColors.js';
+import { COLORS } from '../../../../data/chartColors.js';
 import { useTranslation } from 'react-i18next';
+import { memo } from 'react';
 
 function SignupLastMonthChart({ users }) {
   const { t } = useTranslation('dashboard');
@@ -54,4 +55,4 @@ function SignupLastMonthChart({ users }) {
   );
 }
 
-export default SignupLastMonthChart;
+export default memo(SignupLastMonthChart);

@@ -164,3 +164,8 @@ a, a:hover, a:focus {
 .slick-list {
   z-index: -10 !important;
 }
+
+.ant-checkbox-inner {
+  width: 23px !important;
+  height: 23px !important;
+}

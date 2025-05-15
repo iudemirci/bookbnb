@@ -74,7 +74,7 @@ function HeaderAccount() {
         menu={{ items: menuItems }}
         trigger={['click']}
         placement='bottomRight'
-        getPopupContainer={() => document.getElementById('test')}
+        getPopupContainer={() => document.getElementById('overview')}
       >
         <Flex
           id='test'

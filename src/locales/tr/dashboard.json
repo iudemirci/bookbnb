@@ -17,5 +17,18 @@
   "day": "Gün",
   "most_listed_countries": "En çok listelenen ülkeler",
   "revenue_this_month": "Bu ayki gelir",
-  "users_this_month": "Bu ayki kullanıcılar"
+  "users_this_month": "Bu ayki kullanıcılar",
+  "reports": "Bildirilen İlanlar",
+  "language": "Dil ve para birimi",
+  "title": "Başlık",
+  "category": "Kategori",
+  "rooms": "Oda Sayısı",
+  "bathrooms": "Banyo Sayısı",
+  "guests": "Misafir Sayısı",
+  "location": "Konum",
+  "price": "Fiyat",
+  "search_location": "Konum ara",
+  "search_title": "Başlık ara",
+  "search": "Ara",
+  "reset": "Sıfırla"
 }

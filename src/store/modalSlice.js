@@ -8,6 +8,8 @@ const initialState = {
   isBookBnbOpen: false,
   isConfirmationOpen: false,
   isMobileSearchOpen: false,
+  isSidebarOpen: true,
+  isReportOpen: false,
 };
 
 const modalSlice = createSlice({
@@ -36,6 +38,12 @@ const modalSlice = createSlice({
     setIsMobileSearchOpen: (state) => {
       state.isMobileSearchOpen = !state.isMobileSearchOpen;
     },
+    setIsSidebarOpen: (state) => {
+      state.isSidebarOpen = !state.isSidebarOpen;
+    },
+    setIsReportOpen: (state) => {
+      state.isReportOpen = !state.isReportOpen;
+    },
   },
 });
 
@@ -47,5 +55,7 @@ export const {
   setIsBookBnbOpen,
   setIsConfirmationOpen,
   setIsMobileSearchOpen,
+  setIsSidebarOpen,
+  setIsReportOpen,
 } = modalSlice.actions;
 export default modalSlice.reducer;

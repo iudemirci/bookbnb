@@ -1,22 +1,22 @@
-import { useAdmin } from '../../hooks/useAdmin.js';
+import { useAdmin } from '../../../hooks/useAdmin.js';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { Col, Flex, Row, Spin } from 'antd';
-import ListingsLastWeekChart from './ListingsLastWeekChart.jsx';
-import TotalListingsChart from './TotalListingsChart.jsx';
-import TotalUsersChart from './TotalUsersChart.jsx';
-import ActiveReservationsChart from './ActiveReservationsChart.jsx';
-import CategoriesPieChart from './CategoriesPieChart.jsx';
-import AveragePriceChart from './AveragePriceChart.jsx';
-import ReservationsLastWeekChart from './ReservationsLastweekChart.jsx';
-import ReservationAverageDurationChart from './ReservationAverageDurationChart.jsx';
-import CountriesChart from './ CountriesChart.jsx';
-import RevenueThisMonthChart from './RevenueThisMonthChart.jsx';
-import SignupLastMonthChart from './SignupLastMonthChart.jsx';
+import ListingsLastWeekChart from './charts/ListingsLastWeekChart.jsx';
+import TotalListingsChart from './charts/TotalListingsChart.jsx';
+import TotalUsersChart from './charts/TotalUsersChart.jsx';
+import ActiveReservationsChart from './charts/ActiveReservationsChart.jsx';
+import CategoriesPieChart from './charts/CategoriesPieChart.jsx';
+import AveragePriceChart from './charts/AveragePriceChart.jsx';
+import ReservationsLastWeekChart from './charts/ReservationsLastweekChart.jsx';
+import ReservationAverageDurationChart from './charts/ReservationAverageDurationChart.jsx';
+import CountriesChart from './charts/ CountriesChart.jsx';
+import RevenueThisMonthChart from './charts/RevenueThisMonthChart.jsx';
+import SignupLastMonthChart from './charts/SignupLastMonthChart.jsx';
 
 dayjs.extend(isSameOrAfter);
 
-function DashboardOverview() {
+function OverviewContent() {
   const { listings, users, reservations, isUsersPending, isListingsPending, isReservationsPending } = useAdmin();
 
   if (isUsersPending || isListingsPending || isReservationsPending)
@@ -27,7 +27,7 @@ function DashboardOverview() {
     );
 
   return (
-    <div className='p-5 py-8'>
+    <>
       <Row gutter={[20, 20]} className='w-full'>
         <Col xs={24} md={12} lg={6} xxl={4} className='!min-h-80'>
           <TotalListingsChart listings={listings} />
@@ -41,7 +41,6 @@ function DashboardOverview() {
         <Col xs={24} lg={16} xxl={8}>
           <CategoriesPieChart listings={listings} />
         </Col>
-
         <Col xs={24} md={24} lg={8} xxl={6} className='!min-h-80'>
           <RevenueThisMonthChart reservations={reservations} />
         </Col>
@@ -64,8 +63,8 @@ function DashboardOverview() {
           <ReservationAverageDurationChart reservations={reservations} />
         </Col>
       </Row>
-    </div>
+    </>
   );
 }
 
-export default DashboardOverview;
+export default OverviewContent;

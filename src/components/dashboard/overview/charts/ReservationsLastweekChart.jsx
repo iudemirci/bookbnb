@@ -1,9 +1,10 @@
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import dayjs from 'dayjs';
 import ChartCard from './ChartCard.jsx';
 import { useTranslation } from 'react-i18next';
+import { memo } from 'react';
 
-function ListingsLastWeekChart({ listings }) {
+function ReservationsLastWeekChart({ reservations }) {
   const { t } = useTranslation('dashboard');
   const theme = getComputedStyle(document.documentElement);
   const primaryColor = theme.getPropertyValue('--color-primary').trim();
@@ -12,28 +13,30 @@ function ListingsLastWeekChart({ listings }) {
   const startOfRange = today.subtract(6, 'day');
 
   // filter listings of last week
-  const lastWeekListings = listings?.filter((listing) => dayjs(listing?.created_at).isSameOrAfter(startOfRange, 'day'));
-  const listingsPerDay = {};
+  const lastWeekListings = reservations?.filter((reservation) =>
+    dayjs(reservation?.created_at).isSameOrAfter(startOfRange, 'day'),
+  );
+  const reservationsPerDay = {};
 
   // fill days with data
   lastWeekListings?.forEach((listing) => {
     const day = dayjs(listing?.created_at).format('YYYY-MM-DD');
-    listingsPerDay[day] = (listingsPerDay[day] || 0) + 1;
+    reservationsPerDay[day] = (reservationsPerDay[day] || 0) + 1;
   });
 
   const chartData = Array.from({ length: 7 }, (_, i) => {
     const date = startOfRange.add(i, 'day').format('YYYY-MM-DD');
     return {
       date,
-      Count: listingsPerDay[date] || 0,
+      Count: reservationsPerDay[date] || 0,
     };
   });
 
   return (
-    <ChartCard title={t('listings_last_week')}>
+    <ChartCard title={t('reservations_last_week')}>
       <div className='h-75 w-full'>
         <ResponsiveContainer>
-          <AreaChart data={chartData}>
+          <LineChart data={chartData}>
             <CartesianGrid vertical={false} />
 
             <YAxis
@@ -43,7 +46,7 @@ function ListingsLastWeekChart({ listings }) {
               domain={[0, 'dataMax ']}
               tick={{ fontSize: 14 }}
               label={{
-                value: t('number_of_listings'),
+                value: t('number_of_reservations'),
                 angle: -90,
                 dx: -20,
                 fontSize: 14,
@@ -57,12 +60,18 @@ function ListingsLastWeekChart({ listings }) {
               tick={{ fontSize: 13 }}
             />
             <Tooltip labelFormatter={(label) => dayjs(label).format('MMMM D, YYYY')} />
-            <Area type='monotone' dataKey='Count' stroke={primaryColor + '80'} fill={primaryColor + '60'} />
-          </AreaChart>
+            <Line
+              type='monotone'
+              dataKey='Count'
+              stroke={primaryColor + '80'}
+              fill={primaryColor + '20'}
+              isAnimationActive={false}
+            />
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </ChartCard>
   );
 }
 
-export default ListingsLastWeekChart;
+export default memo(ReservationsLastWeekChart);

@@ -38,6 +38,21 @@
   "double_plural": "çiftli",
   "for_nights": "{{count}} gece için",
   "homes": "Evler",
+  "report": "Bildir",
+  "report_title": "Sorun nedir?",
+  "report_subtitle": "Bu ilanla ilgili bir sorun olduğunu düşünüyorsanız, lütfen bize bildirin.",
+  "report_let_us_know": "Neler olduğunu bize bildirin",
+  "report_warning": "Raporu göndermeden önce neyin yanlış olduğunu belirtin.",
+  "report_something_else": "Başka bir durum",
+  "report_inappropriate_title": "Uygunsuz içerik",
+  "report_inappropriate_subtitle": "Bu ilan sakıncalı içerikler barındırıyor.",
+  "report_price_title": "Şüpheli fiyatlandırma",
+  "report_price_subtitle": "Bu ilandaki fiyat olağandışı derecede yüksek veya düşük görünüyor.",
+  "report_location_title": "Hatalı konum",
+  "report_location_subtitle": "Gösterilen konum, ilanın bulunduğu yerle uyuşmuyor.",
+  "report_success": "İlan başarıyla şikayet edildi",
+  "report_error": "İlanı şikayet ederken bir hata oluştu",
+
 
   "amenities": {
     "wifi": "Ücretsiz WiFi",

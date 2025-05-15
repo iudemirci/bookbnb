@@ -24,10 +24,10 @@ function HeaderTabs() {
         translateY: -200,
       }}
       animate={{
-        translateY: expanded ? 20 : -200,
+        translateY: expanded ? -60 : -200,
       }}
       transition={{ duration: 0.2, ease: SMOOTH }}
-      className='absolute top-0 left-1/2 hidden -translate-x-[110%] md:block lg:-translate-x-1/2'
+      className='absolute top-0 left-1/2 z-10 hidden -translate-x-[110%] md:block lg:-translate-x-1/2'
     >
       <Flex align='center' justify='center' gap={8}>
         {tabs.map(({ label, to }, idx) => (

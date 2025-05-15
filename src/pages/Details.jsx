@@ -28,6 +28,8 @@ import { categories } from '../data/categories.js';
 import ConfirmationModal from '../components/modals/ConfirmationModal.jsx';
 import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
 import ButtonEdit from '../components/buttons/ButtonEdit.jsx';
+import ButtonReportListing from '../components/buttons/ButtonReportListing.jsx';
+import ListingReportModal from '../components/modals/ListingReportModal.jsx';
 
 const { Title, Text, Paragraph } = Typography;
 const { specs, amenities } = listingData;
@@ -68,6 +70,7 @@ function Details() {
         <BookBnbHomeModal />
         <ConfirmationModal />
         <MobileSearchModal />
+        <ListingReportModal />
 
         <Container as='main' className='pb-6'>
           <Flex align='center' justify='space-between'>
@@ -236,9 +239,7 @@ function Details() {
                   ) : (
                     <PriceCard price={price} guests={guests} />
                   )}{' '}
-                  <Button type='text' className='underline' icon={<Icon icon='mdi:flag-outline' width={20} />}>
-                    {t('report_listing')}
-                  </Button>
+                  <ButtonReportListing />
                 </Flex>
               </Flex>
             </Flex>

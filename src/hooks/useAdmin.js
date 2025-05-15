@@ -1,6 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import supabase from '../services/supabase.js';
 
+const defaultQueryOptions = {
+  staleTime: 1000 * 60 * 5,
+  cacheTime: 1000 * 60 * 30,
+};
+
 export function useAdmin() {
   const { data: listings, isPending: isListingsPending } = useQuery({
     queryKey: ['admin', 'listings'],
@@ -10,6 +15,7 @@ export function useAdmin() {
       if (error) throw error;
       return listings;
     },
+    ...defaultQueryOptions,
   });
 
   const { data: users, isPending: isUsersPending } = useQuery({
@@ -20,6 +26,7 @@ export function useAdmin() {
       if (error) throw error;
       return users;
     },
+    ...defaultQueryOptions,
   });
 
   const { data: reservations, isPending: isReservationsPending } = useQuery({
@@ -30,6 +37,7 @@ export function useAdmin() {
       if (error) throw error;
       return reservations;
     },
+    ...defaultQueryOptions,
   });
 
   return { listings, isListingsPending, users, isUsersPending, reservations, isReservationsPending };

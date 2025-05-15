@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import { useScrollDirection } from '../hooks/useScrollPosition.js';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,6 @@ function Navigation() {
   const navigate = useNavigate();
   const session = useSelector((state) => state.auth.session);
   const role = session?.user?.user_metadata?.role || 'user';
-  console.log('🚀 ~ Navigation ~ session: ', session);
   const dispatch = useDispatch();
   const { mutate: logout } = useLogout();
 
@@ -42,7 +41,7 @@ function Navigation() {
             onClick: () => navigate('/liked'),
           },
     ];
-  }, [t, navigate]);
+  }, [t, navigate, role]);
 
   const menuItems = useMemo(() => {
     return [
@@ -130,4 +129,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default memo(Navigation);

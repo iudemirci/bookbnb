@@ -160,7 +160,7 @@ function SearchBarExpanded({ containerRef }) {
       },
       animate: {
         opacity: expanded ? 1 : 0,
-        translateY: expanded ? 75 : 0,
+        translateY: expanded ? -10 : -75,
         scale: expanded ? 1 : 0.5,
         pointerEvents: expanded ? 'auto' : 'none',
       },
@@ -175,8 +175,11 @@ function SearchBarExpanded({ containerRef }) {
   // form
   const formComponent = useMemo(
     () => (
-      <Form form={form} onFinish={onFinish} initialValues={initialValues}>
-        <motion.div {...motionProps} className='border-border-grey bg-bg-primary border-b'>
+      <motion.div
+        {...motionProps}
+        className='border-border-grey bg-bg-primary absolute top-[80px] z-100 w-full border-b'
+      >
+        <Form form={form} onFinish={onFinish} initialValues={initialValues}>
           <HeaderTabs />
           <motion.div
             {...innerMotionProps}
@@ -237,8 +240,8 @@ function SearchBarExpanded({ containerRef }) {
               </Col>
             </Row>
           </motion.div>
-        </motion.div>
-      </Form>
+        </Form>
+      </motion.div>
     ),
     [
       form,

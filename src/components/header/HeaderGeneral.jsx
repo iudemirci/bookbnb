@@ -15,6 +15,7 @@ import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import ButtonDashboard from '../buttons/ButtonDashboard.jsx';
+import ButtonDashboardDrawer from '../buttons/ButtonDashboardDrawer.jsx';
 
 function HeaderGeneral() {
   const { t } = useTranslation('details');
@@ -24,19 +25,23 @@ function HeaderGeneral() {
 
   return (
     <>
-      <header ref={containerRef} className='bg-bg-primary z-20 w-full'>
+      <header ref={containerRef} className='bg-bg-primary z-10 w-full'>
         <Container
           className={clsx(
             'mx-auto',
             pathname.startsWith('/listing') && '!max-w-[1280px]',
-            pathname.startsWith('/dashboard') && '!px-2',
+            pathname.startsWith('/dashboard') && '!px-2 md:!px-6',
           )}
         >
           <Flex align='center' justify='space-between' className='!flex h-[64px] md:!hidden'>
-            <Button type='text' href='/'>
-              <Icon icon='mdi:chevron-left' width={20} />
-              {t('homes')}
-            </Button>
+            {pathname.startsWith('/dashboard') ? (
+              <ButtonDashboardDrawer />
+            ) : (
+              <Button type='text' href='/'>
+                <Icon icon='mdi:chevron-left' width={20} />
+                {t('homes')}
+              </Button>
+            )}
             <SearchBarMobile className='mx-2' />
             {pathname.startsWith('/listing') && <ButtonWishlist text={false} iconSize={20} />}
           </Flex>

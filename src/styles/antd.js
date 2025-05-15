@@ -99,11 +99,18 @@ export const antd = {
       colorBorder: 'rgb(0,0,0)',
       hoverBorderColor: 'rgb(0,0,0)',
     },
+    Table: {
+      headerBg: 'rgb(236,236,236)',
+      headerSortActiveBg: 'rgba(255,200,207,0.66)',
+      headerSortHoverBg: 'rgba(255,204,209,0.66)',
+      rowHoverBg: 'rgba(255,200,207,0.66)',
+      bodySortBg: '#fff5f5',
+      fontSize: 15,
+    },
   },
 };
 
 message.config({
   duration: 2,
   maxCount: 2,
-  rtl: true,
 });
