@@ -163,7 +163,7 @@ function BookBnbHomeModal() {
       onOk={onFinish}
       width={500}
       onFinish={onFinish}
-      // destroyOnClose={true}
+      getContainer={(trigger) => trigger?.parentNode || document.querySelector('header')}
       styles={{
         body: {
           maxHeight: '50vh',

@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, Flex, Skeleton, Space, Typography } from 'antd';
+import { Avatar, Divider, Flex, Skeleton, Space, Typography } from 'antd';
 import { useParams } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
@@ -20,13 +20,13 @@ import FixedDetailsHeader from '../components/details/FixedDetailsHeader.jsx';
 import RangeAndGuestPicker from '../components/RangeAndGuestPicker.jsx';
 import ButtonWishlist from '../components/buttons/ButtonLiked.jsx';
 
-import { useGetUser } from '../hooks/useGetUser.js';
+import { useGetUser } from '../hooks/auth/useGetUser.js';
 import { useListing } from '../hooks/listings/useListing.js';
 import listingData from '../data/listingData.json';
 import { getElapsedHostingTime } from '../utils/getElapsedHostingTime.js';
 import { categories } from '../data/categories.js';
 import ConfirmationModal from '../components/modals/ConfirmationModal.jsx';
-import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
+import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
 import ButtonEdit from '../components/buttons/ButtonEdit.jsx';
 import ButtonReportListing from '../components/buttons/ButtonReportListing.jsx';
 import ListingReportModal from '../components/modals/ListingReportModal.jsx';
@@ -69,7 +69,7 @@ function Details() {
         <LoginModal />
         <BookBnbHomeModal />
         <ConfirmationModal />
-        <MobileSearchModal />
+        <MobileNavigationDrawer />
         <ListingReportModal />
 
         <Container as='main' className='pb-6'>

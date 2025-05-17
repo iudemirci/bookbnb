@@ -114,7 +114,13 @@ function LanguageAndCurrencyModal() {
   }
 
   return (
-    <Modal open={isModalOpen} onCancel={hideModal} width={410} footer={null}>
+    <Modal
+      open={isModalOpen}
+      onCancel={hideModal}
+      width={410}
+      footer={null}
+      getContainer={(trigger) => trigger?.parentNode || document.querySelector('header')}
+    >
       <Tabs
         defaultActiveKey='1'
         activeKey={currentTab}

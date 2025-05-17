@@ -11,7 +11,7 @@ import MainContainer from '../components/MainContainer.jsx';
 import Container from '../components/Container.jsx';
 import { useUserListings } from '../hooks/listings/useUserListings.jsx';
 import { useTranslation } from 'react-i18next';
-import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
+import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
 
 function MyHomes() {
   const user = useSelector((state) => state.auth.user);
@@ -29,7 +29,7 @@ function MyHomes() {
       <HeaderGeneral />
 
       <BookBnbHomeModal />
-      <MobileSearchModal />
+      <MobileNavigationDrawer />
 
       <Container as='main' className='py-8'>
         <Space direction='vertical' size={4}>

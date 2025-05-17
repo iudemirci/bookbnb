@@ -9,7 +9,7 @@ function CardCarousel({ photos }) {
   const [loadedIndexes, setLoadedIndexes] = useState({});
 
   const imageUrls = useMemo(
-    () => photos.map((path) => `${BASE_URL}${path}`.replace(/&quot;|"/g, '').replace(/;/g, '')),
+    () => photos?.map((path) => `${BASE_URL}${path}`.replace(/&quot;|"/g, '').replace(/;/g, '')),
     [photos],
   );
 

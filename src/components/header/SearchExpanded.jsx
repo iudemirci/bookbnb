@@ -45,7 +45,7 @@ const MemoizedGuestInput = memo(({ form }) => {
   );
 });
 
-function SearchBarExpanded({ containerRef }) {
+function SearchExpanded({ containerRef }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -261,4 +261,4 @@ function SearchBarExpanded({ containerRef }) {
   return formComponent;
 }
 
-export default memo(SearchBarExpanded);
+export default memo(SearchExpanded);

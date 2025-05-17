@@ -4,14 +4,14 @@ import { Flex } from 'antd';
 
 import Container from '../Container.jsx';
 import HeaderAccount from './HeaderAccount.jsx';
-import SearchBarMobile from './SearchBarMobile.jsx';
+import MobileSearchPlaceholder from './MobileSearchPlaceholder.jsx';
 import HeaderPrices from './HeaderPrices.jsx';
 import ButtonBookBnb from '../buttons/ButtonBookBnb.jsx';
 import ButtonLanguage from '../buttons/ButtonLanguage.jsx';
 import ButtonResetFilters from '../buttons/ButtonResetFilters.jsx';
-import SearchBarExpanded from './SearchBarExpanded.jsx';
+import SearchBarExpanded from './SearchExpanded.jsx';
 import HeaderCarousel from './HeaderCarousel.jsx';
-import SearchBar from './SearchBarPlaceholder.jsx';
+import SearchBar from './SearchPlaceholder.jsx';
 import ButtonDashboard from '../buttons/ButtonDashboard.jsx';
 import { useSelector } from 'react-redux';
 
@@ -26,7 +26,7 @@ function HeaderHome() {
         className='bg-bg-primary fixed z-20 w-full shadow-md shadow-gray-200/50 md:shadow-none'
       >
         <Container>
-          <SearchBarMobile />
+          <MobileSearchPlaceholder />
 
           <Flex align='center' justify='between' className='!relative !hidden !min-h-[80px] w-full px-4 md:!flex'>
             {/*  Logo */}

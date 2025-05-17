@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsReportOpen } from '../../store/modalSlice.js';
-import { useIsReported } from '../../hooks/report/useIsReported.jsx';
+import { useIsReported } from '../../hooks/report/useIsReported.js';
 import { useParams } from 'react-router-dom';
 import { memo } from 'react';
 

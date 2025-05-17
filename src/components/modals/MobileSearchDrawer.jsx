@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 import Counter from '../Counter.jsx';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { lowerCase } from 'lodash';
 import { createSearchParams } from '../../../.vite/deps/react-router-dom.js';
 import ButtonResetFilters from '../buttons/ButtonResetFilters.jsx';
@@ -14,7 +14,7 @@ import ButtonResetFilters from '../buttons/ButtonResetFilters.jsx';
 const today = dayjs();
 const threeDaysLater = dayjs().add(3, 'day');
 
-function MobileSearchModal() {
+function MobileSearchDrawer() {
   const isOpen = useSelector((state) => state.modal.isMobileSearchOpen);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -139,4 +139,4 @@ function MobileSearchModal() {
   );
 }
 
-export default MobileSearchModal;
+export default memo(MobileSearchDrawer);

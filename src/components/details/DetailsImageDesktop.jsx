@@ -53,13 +53,13 @@ function DetailsImageDesktop({ photos, isPending, className, ...props }) {
     <Image.PreviewGroup>
       <Flex className='!hidden h-110 w-full md:!flex' gap={8} {...props}>
         <div className='size-full w-[50%] overflow-hidden rounded-l-2xl'>
-          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos[0], 0)}</div>
+          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos?.[0], 0)}</div>
         </div>
         <div className='grid size-full w-[50%] grid-cols-2 grid-rows-2 gap-2 overflow-hidden rounded-r-2xl'>
-          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos[1], 1)}</div>
-          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos[2], 2)}</div>
-          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos[3], 3)}</div>
-          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos[4], 4)}</div>
+          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos?.[1], 1)}</div>
+          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos?.[2], 2)}</div>
+          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos?.[3], 3)}</div>
+          <div className='size-full'>{isPending ? <ImageSkeleton /> : renderImageSlides(photos?.[4], 4)}</div>
         </div>
       </Flex>
     </Image.PreviewGroup>

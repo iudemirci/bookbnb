@@ -1,6 +1,7 @@
 {
   "users": "Users",
   "user": "Users",
+  "username": "User",
   "listings": "Listings",
   "listing": "Listings",
   "number_of_listings": "No. of Listings",
@@ -30,5 +31,18 @@
   "search_location": "Search location",
   "search_title": "Search title",
   "search": "Search",
-  "reset": "Reset"
+  "reset": "Reset",
+  "date": "Date",
+  "actions": "Actions",
+  "delete_success" : "Deleted succesfully",
+  "delete_error" : "Something went wrong while deleting",
+  "edit_success": "Edited successfully",
+  "edit_error": "Something went wrong while editing",
+  "form_fill_required": "Please fill all the editable fields",
+  "total_row": " {{count}} row",
+  "total_rows": "{{count}} rows",
+  "popconfirm_delete_single": "Are you sure you want to delete the selected item?",
+  "popconfirm_delete_multiple": "Are you sure you want to delete the selected items?",
+  "yes": "Yes",
+  "No": "No"
 }

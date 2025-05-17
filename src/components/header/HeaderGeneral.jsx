@@ -7,10 +7,10 @@ import HeaderAccount from './HeaderAccount.jsx';
 import { Icon } from '@iconify/react';
 import ButtonWishlist from '../buttons/ButtonLiked.jsx';
 import { useTranslation } from 'react-i18next';
-import SearchBar from './SearchBarPlaceholder.jsx';
-import SearchBarExpanded from './SearchBarExpanded.jsx';
+import SearchBar from './SearchPlaceholder.jsx';
+import SearchBarExpanded from './SearchExpanded.jsx';
 import { memo, useRef } from 'react';
-import SearchBarMobile from './SearchBarMobile.jsx';
+import MobileSearchPlaceholder from './MobileSearchPlaceholder.jsx';
 import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
@@ -42,7 +42,7 @@ function HeaderGeneral() {
                 {t('homes')}
               </Button>
             )}
-            <SearchBarMobile className='mx-2' />
+            <MobileSearchPlaceholder className='mx-2' />
             {pathname.startsWith('/listing') && <ButtonWishlist text={false} iconSize={20} />}
           </Flex>
 

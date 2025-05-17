@@ -1,5 +1,7 @@
 import { lazy, memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useListings } from '../hooks/listings/useListings.js';
+import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
 
 const HeaderHome = lazy(() => import('../components/header/HeaderHome.jsx'));
 const Container = lazy(() => import('../components/Container.jsx'));
@@ -10,9 +12,6 @@ const SignupModal = lazy(() => import('../components/modals/SignupModal.jsx'));
 const LoginModal = lazy(() => import('../components/modals/LoginModal.jsx'));
 const BookBnbHomeModal = lazy(() => import('../components/modals/BookBnbHome/BookBnbHomeModal.jsx'));
 const CardList = lazy(() => import('../components/cards/CardList.jsx'));
-
-import { useListings } from '../hooks/listings/useListings.js';
-import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
 
 function Home() {
   const { t } = useTranslation();
@@ -28,7 +27,7 @@ function Home() {
       <SignupModal />
       <LoginModal />
       <BookBnbHomeModal />
-      <MobileSearchModal />
+      <MobileNavigationDrawer />
 
       <Container as='main'>
         <CardList

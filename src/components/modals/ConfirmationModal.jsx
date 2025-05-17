@@ -32,7 +32,6 @@ function ConfirmationModal() {
       listing_id,
       user_id: user.id,
     };
-    console.log('🚀 ~ handleSubmit ~ finalFormData: ', finalFormData);
     await new Promise((resolve, reject) => {
       reserve(finalFormData, {
         onSuccess: () => {
@@ -70,6 +69,7 @@ function ConfirmationModal() {
       open={isOpen}
       onCancel={handleClose}
       width={350}
+      getContainer={(trigger) => trigger?.parentNode || document.querySelector('header')}
       footer={
         <Flex align='center' justify='center' gap={6} className='!w-full'>
           <Button type='default' size='large' className='w-full' onClick={handleClose}>

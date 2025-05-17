@@ -11,7 +11,7 @@ import { map } from 'lodash';
 import { useLikedListings } from '../hooks/liked/useLikedListings.js';
 import CardList from '../components/cards/CardList.jsx';
 import { useTranslation } from 'react-i18next';
-import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
+import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
 
 function Favourites() {
   const user = useSelector((state) => state.auth.user);
@@ -30,7 +30,7 @@ function Favourites() {
     <MainContainer>
       <HeaderGeneral />
 
-      <MobileSearchModal />
+      <MobileNavigationDrawer />
       <BookBnbHomeModal />
 
       <Container as='main' className='py-8'>

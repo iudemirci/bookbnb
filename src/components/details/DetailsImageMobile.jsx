@@ -1,5 +1,3 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
 import 'swiper/css/pagination';
 
 import { Carousel, Image, Skeleton } from 'antd';

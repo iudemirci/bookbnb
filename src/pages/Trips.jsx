@@ -10,7 +10,7 @@ import { useReservations } from '../hooks/reservation/useReservations.js';
 import CardList from '../components/cards/CardList.jsx';
 import { sortReservationsByDate } from '../utils/sortReservationsByDate.js';
 import { useTranslation } from 'react-i18next';
-import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
+import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
 
 function Trips() {
   const user = useSelector((state) => state.auth.user);
@@ -28,7 +28,7 @@ function Trips() {
     <MainContainer>
       <HeaderGeneral />
 
-      <MobileSearchModal />
+      <MobileNavigationDrawer />
       <BookBnbHomeModal />
 
       <Container as='main' className='py-8'>

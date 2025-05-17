@@ -35,6 +35,7 @@ function SignupModal() {
       destroyOnClose={true}
       width={450}
       footer={null}
+      getContainer={(trigger) => trigger?.parentNode || document.querySelector('header')}
       title={
         <Typography.Title level={4} className='text-center'>
           {t('register')}

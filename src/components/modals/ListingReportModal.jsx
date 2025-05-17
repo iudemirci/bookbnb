@@ -4,7 +4,7 @@ import { setIsReportOpen } from '../../store/modalSlice.js';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { useReportListing } from '../../hooks/report/useReportListing.jsx';
+import { useReportListing } from '../../hooks/report/useReportListing.js';
 
 const initialValues = {
   inappropriate: false,
@@ -69,7 +69,14 @@ function ListingReportModal() {
   }
 
   return (
-    <Modal open={isOpen} onCancel={handleClose} footer={null} destroyOnClose width={650}>
+    <Modal
+      open={isOpen}
+      onCancel={handleClose}
+      footer={null}
+      destroyOnClose
+      width={650}
+      getContainer={(trigger) => trigger?.parentNode || document.querySelector('header')}
+    >
       <div className='p-2 md:p-6'>
         <Flex vertical gap={6}>
           <Typography.Title level={1}>{t('report_title')}</Typography.Title>

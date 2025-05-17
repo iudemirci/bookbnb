@@ -105,6 +105,7 @@ export const antd = {
       headerSortHoverBg: 'rgba(255,204,209,0.66)',
       rowHoverBg: 'rgba(255,200,207,0.66)',
       bodySortBg: '#fff5f5',
+
       fontSize: 15,
     },
   },

@@ -1,6 +1,7 @@
 {
   "users": "Kullanıcılar",
   "user": "Kullanıcı",
+  "username": "Kullanıcı",
   "listings": "İlanlar",
   "listing": "İlan",
   "number_of_listings": "İlan sayısı",
@@ -30,5 +31,18 @@
   "search_location": "Konum ara",
   "search_title": "Başlık ara",
   "search": "Ara",
-  "reset": "Sıfırla"
+  "reset": "Sıfırla",
+  "date": "Tarih",
+  "actions": "İşlemler",
+  "delete_success": "Başarıyla silindi",
+  "delete_error": "Silinirken bir hata oluştu",
+  "edit_success": "Başarıyla düzenlendi",
+  "edit_error": "Düzenleme sırasında bir hata oluştu",
+  "form_fill_required": "Lütfen bütün düzenlenebilir alanları doldurun",
+  "total_row": "{{count}} sonuç",
+  "total_rows": "{{count}} sonuç",
+  "popconfirm_delete_single": "Seçilen öğeyi silmek istediğinizden emin misiniz?",
+  "popconfirm_delete_multiple": "Seçilen öğeleri silmek istediğinizden emin misiniz?",
+  "yes": "Evet",
+  "no": "Hayır"
 }

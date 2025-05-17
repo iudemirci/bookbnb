@@ -27,7 +27,8 @@ createRoot(document.getElementById('root')).render(
         <ConfigProvider
           locale={i18n.language === 'tr' ? trTR : enUS}
           theme={antd}
-          getPopupContainer={(trigger) => trigger?.parentNode || document.querySelector('header')}
+          // getPopupContainer={(trigger) => trigger?.parentNode || document.querySelector('header')}
+          getPopupContainer={() => document.body}
           message={{
             prefixCls: 'custom-msg',
             top: 80,

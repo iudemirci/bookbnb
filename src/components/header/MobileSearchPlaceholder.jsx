@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { setIsMobileSearchOpen } from '../../store/modalSlice.js';
 
-function SearchBarMobile({ className }) {
+function MobileSearchPlaceholder({ className }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -26,4 +26,4 @@ function SearchBarMobile({ className }) {
   );
 }
 
-export default SearchBarMobile;
+export default MobileSearchPlaceholder;

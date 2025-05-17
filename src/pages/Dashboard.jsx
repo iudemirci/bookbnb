@@ -2,16 +2,17 @@ import HeaderGeneral from '../components/header/HeaderGeneral.jsx';
 import BookBnbHomeModal from '../components/modals/BookBnbHome/BookBnbHomeModal.jsx';
 import { Button, Drawer, Layout, Menu } from 'antd';
 import MainContainer from '../components/MainContainer.jsx';
-import { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useCallback, useState } from 'react';
 import { Icon } from '@iconify/react';
 import OverviewContent from '../components/dashboard/overview/OverviewContent.jsx';
 import useLogout from '../hooks/auth/useLogout.js';
-import MobileSearchModal from '../components/modals/MobileSearchModal.jsx';
+import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
 import useBreakpoint from '../hooks/useBreakpoint.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsLanguageAndCurrencyOpen, setIsSidebarOpen } from '../store/modalSlice.js';
 import ListingsContent from '../components/dashboard/listings/ListingsContent.jsx';
+import { useDashboardMenuItems } from '../hooks/dashboard/useDashboardMenuItems.jsx';
+import { setSelectedKeys } from '../store/dashboardSlice.js';
 
 const { Sider, Content } = Layout;
 
@@ -41,92 +42,13 @@ function SideBar({ collapsed, setCollapsed, menuItems, selectedKey, setSelectedK
 }
 
 function Dashboard() {
-  const isSideBarOpen = useSelector((state) => state.modal.isSidebarOpen);
   const dispatch = useDispatch();
+  const isSideBarOpen = useSelector((state) => state.modal.isSidebarOpen);
   const [selectedKey, setSelectedKey] = useState('dashboard');
-  const { t } = useTranslation();
-  const { mutate: logout, isPending: isLogoutPending } = useLogout();
+
   const { isMdUp } = useBreakpoint();
-
-  const menuItems = useMemo(() => {
-    return [
-      {
-        label: 'Dashboard',
-        key: 'dashboard',
-        icon: <Icon icon='material-symbols:dashboard-outline' width={20} />,
-      },
-
-      {
-        label: t('dashboard:listings'),
-        key: 'listings',
-        icon: <Icon icon='uil:home' width={20} />,
-      },
-      {
-        label: t('dashboard:reservations'),
-        key: 'reservations',
-        icon: <Icon icon='uil:calendar' width={20} />,
-      },
-      {
-        label: t('dashboard:users'),
-        key: 'users',
-        icon: <Icon icon='uil:user' width={20} />,
-      },
-      {
-        label: t('dashboard:reports'),
-        key: 'reports',
-        icon: <Icon icon='uil:ticket' width={20} />,
-      },
-    ];
-  }, [t]);
-
-  const menuItemsDrawer = useMemo(() => {
-    return [
-      {
-        label: 'Dashboard',
-        key: 'dashboard',
-        icon: <Icon icon='material-symbols:dashboard-outline' width={20} />,
-      },
-      {
-        label: t('dashboard:listings'),
-        key: 'listings',
-        icon: <Icon icon='uil:home' width={20} />,
-      },
-      {
-        label: t('dashboard:reservations'),
-        key: 'reservations',
-        icon: <Icon icon='uil:calendar' width={20} />,
-      },
-      {
-        label: t('dashboard:users'),
-        key: 'users',
-        icon: <Icon icon='uil:user' width={20} />,
-      },
-      {
-        label: t('dashboard:reports'),
-        key: 'reports',
-        icon: <Icon icon='uil:ticket' width={20} />,
-      },
-      {
-        type: 'divider',
-      },
-      {
-        label: t('explore'),
-        key: 'explore',
-        icon: <Icon icon='uil:search-alt' width={20} />,
-      },
-      {
-        label: t('dashboard:language'),
-        key: 'languageAndCurrency',
-        icon: <Icon icon='uil:globe' width={20} />,
-      },
-      {
-        label: t('logout'),
-        key: 'logout',
-        icon: <Icon icon='uil:signout' width={20} />,
-        disabled: isLogoutPending,
-      },
-    ];
-  }, [t, isLogoutPending]);
+  const { mutate: logout, isPending: isLogoutPending } = useLogout();
+  const { menuItems, menuItemsDrawer } = useDashboardMenuItems(isLogoutPending);
 
   const renderContent = useCallback(() => {
     switch (selectedKey) {
@@ -139,10 +61,18 @@ function Dashboard() {
     }
   }, [selectedKey]);
 
+  const handleKeyChange = useCallback(
+    (key) => {
+      setSelectedKey(key);
+      dispatch(setSelectedKeys([]));
+    },
+    [dispatch],
+  );
+
   return (
     <MainContainer>
       <BookBnbHomeModal />
-      <MobileSearchModal />
+      <MobileNavigationDrawer />
       <Layout style={{ minHeight: '100vh', width: '100%' }}>
         <HeaderGeneral />
 
@@ -153,7 +83,7 @@ function Dashboard() {
               setCollapsed={() => dispatch(setIsSidebarOpen(false))}
               menuItems={menuItems}
               selectedKey={selectedKey}
-              setSelectedKey={setSelectedKey}
+              setSelectedKey={handleKeyChange}
             />
           ) : (
             <Drawer

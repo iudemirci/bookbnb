@@ -1,4 +1,4 @@
-import { useAdmin } from '../../../hooks/useAdmin.js';
+import { useAdmin } from '../../../hooks/dashboard/useAdmin.js';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { Col, Flex, Row, Spin } from 'antd';
