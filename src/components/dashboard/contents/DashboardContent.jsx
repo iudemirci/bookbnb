@@ -16,7 +16,7 @@ import SignupLastMonthChart from './charts/SignupLastMonthChart.jsx';
 
 dayjs.extend(isSameOrAfter);
 
-function OverviewContent() {
+function DashboardContent() {
   const { listings, users, reservations, isUsersPending, isListingsPending, isReservationsPending } = useAdmin();
 
   if (isUsersPending || isListingsPending || isReservationsPending)
@@ -67,4 +67,4 @@ function OverviewContent() {
   );
 }
 
-export default OverviewContent;
+export default DashboardContent;
