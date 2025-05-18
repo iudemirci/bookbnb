@@ -1,15 +1,29 @@
-import { Button, Flex, Form, Input, InputNumber, message, Popconfirm, Table, Typography } from 'antd';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { Button, Flex, Form, Input, InputNumber, Popconfirm, Select, Table, Typography } from 'antd';
+import { memo, useCallback, useMemo } from 'react';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedKeys } from '../../store/dashboardSlice.js';
+import { setEditingKey, setSelectedKeys } from '../../store/dashboardSlice.js';
 import clsx from 'clsx';
-import { useAdminActions } from '../../hooks/dashboard/useAdminActions.jsx';
-import { useQueryClient } from '@tanstack/react-query';
 
 function EditableCell({ editing, dataIndex, inputType, children, ...restProps }) {
-  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+  let inputNode;
+
+  switch (inputType) {
+    case 'number':
+      inputNode = <InputNumber />;
+      break;
+    case 'select':
+      inputNode = (
+        <Select>
+          <Select.Option value='user'>user</Select.Option>
+          <Select.Option value='admin'>admin</Select.Option>
+        </Select>
+      );
+      break;
+    default:
+      inputNode = <Input />;
+  }
 
   return (
     <td {...restProps}>
@@ -33,81 +47,35 @@ function EditableCell({ editing, dataIndex, inputType, children, ...restProps })
   );
 }
 
-function CustomTable({ dataSource, columns, isPending }) {
-  const selectedKeys = useSelector((state) => state.dashboard.selectedKeys);
+function CustomTable({
+  form,
+  dataSource,
+  columns,
+  isPending,
+  handleDelete,
+  handleEdit,
+  isEditPending,
+  editAllowed = false,
+}) {
   const dispatch = useDispatch();
   const { t } = useTranslation('dashboard');
 
-  const queryClient = useQueryClient();
-  const { editListing, isEditPending, deleteListings, isListingsDeleting } = useAdminActions();
+  const selectedKeys = useSelector((state) => state.dashboard.selectedKeys);
+  const editingKey = useSelector((state) => state.dashboard.editingKey);
 
-  const [form] = Form.useForm();
-  const [editingKey, setEditingKey] = useState('');
-
-  // delete function
-  const handleDelete = useCallback(
-    (id) => {
-      deleteListings([id], {
-        onSuccess: () => {
-          message.success(t('delete_success'));
-          queryClient.invalidateQueries(['admin', 'listings']);
-          dispatch(setSelectedKeys([]));
-        },
-        onError: () => {
-          message.error(t('delete_error'));
-        },
-      });
-    },
-    [deleteListings, queryClient, t, dispatch],
-  );
-
-  const handleEdit = useCallback(
+  const edit = useCallback(
     (record) => {
       form.setFieldsValue({
         ...record,
       });
-      setEditingKey(record.key);
+      dispatch(setEditingKey(record.key));
     },
-    [form],
+    [form, dispatch],
   );
 
   const cancel = useCallback(() => {
-    setEditingKey('');
-  }, []);
-
-  // edit function
-  const save = useCallback(
-    async (key) => {
-      try {
-        const row = await form.validateFields();
-        const newData = [...dataSource];
-        const index = newData.findIndex((item) => key === item.key);
-
-        if (index > -1) {
-          const item = newData[index];
-          const { key: _key, username: _username, ...cleanItem } = { ...item, ...row };
-
-          editListing(cleanItem, {
-            onSuccess: () => {
-              message.success(t('edit_success'));
-              queryClient.invalidateQueries(['admin', 'listings']);
-              setEditingKey('');
-            },
-            onError: () => {
-              message.error(t('edit_error'));
-            },
-          });
-        }
-      } catch (error) {
-        if (error) {
-          message.error(t('form_fill_required'));
-        } else {
-          message.error(t('edit_error'));
-        }
-      }
-    },
-    [form, dataSource, queryClient, editListing, t],
-  );
+    dispatch(setEditingKey(''));
+  }, [dispatch]);
 
   const rowSelection = useMemo(
     () => ({
@@ -115,13 +83,24 @@ function CustomTable({ dataSource, columns, isPending }) {
       onChange: (newSelectedRowKeys) => {
         dispatch(setSelectedKeys(newSelectedRowKeys));
       },
+      getCheckboxProps: (record) => ({
+        disabled: record?.role === 'superadmin',
+      }),
     }),
     [dispatch, selectedKeys],
   );
 
   const isEditing = useCallback((record) => record.key === editingKey, [editingKey]);
-  const actionColumn = useMemo(
-    () => ({
+  const actionColumn = useMemo(() => {
+    const commonBtnProps = {
+      type: 'primary',
+      size: 'small',
+      className: '!h-[24px] !rounded-none',
+      block: true,
+    };
+    const wrapperClass = 'overflow-hidden !rounded-md';
+
+    return {
       title: t('dashboard:actions'),
       key: 'actions',
       width: 93,
@@ -129,30 +108,31 @@ function CustomTable({ dataSource, columns, isPending }) {
       className: '!bg-bg-primary',
       render: (_, record) => {
         const editable = isEditing(record);
+        const isSuperAdmin = String(record?.role) === 'superadmin';
+
+        if (isSuperAdmin) return null;
+
         return editable ? (
-          <Flex align='center' justify='center' className='overflow-hidden !rounded-md'>
-            <Button type='primary' size='small' className='!h-[24px] !rounded-none' danger block onClick={cancel}>
+          <Flex align='center' justify='center' className={wrapperClass}>
+            <Button {...commonBtnProps} danger onClick={cancel}>
               <Icon icon='mdi:close' width={20} />
             </Button>
             <Button
-              type='primary'
-              size='small'
-              className='!h-[24px] !rounded-none !bg-green-500'
-              block
-              onClick={() => save(record.key)}
+              {...commonBtnProps}
+              className={`${commonBtnProps.className} !bg-green-500`}
+              onClick={() => handleEdit(record.key)}
               disabled={isEditPending}
             >
               <Icon icon='mdi:check' width={20} />
             </Button>
           </Flex>
         ) : (
-          <Flex align='center' justify='center' className='overflow-hidden !rounded-md'>
+          <Flex align='center' justify='center' className={wrapperClass}>
             <Button
-              type='primary'
-              size='small'
-              className='!h-[24px] !rounded-none !bg-green-500'
-              block
-              onClick={() => handleEdit(record)}
+              {...commonBtnProps}
+              className={`${commonBtnProps.className} !bg-green-500`}
+              disabled={!editAllowed}
+              onClick={() => edit(record)}
             >
               <Icon icon='mdi:edit' width={18} />
             </Button>
@@ -162,16 +142,15 @@ function CustomTable({ dataSource, columns, isPending }) {
               okText={t('dashboard:yes')}
               cancelText={t('dashboard:no')}
             >
-              <Button type='primary' size='small' className='!h-[24px] !rounded-none' danger block>
+              <Button {...commonBtnProps} danger>
                 <Icon icon='mdi:delete' width={18} />
               </Button>
             </Popconfirm>
           </Flex>
         );
       },
-    }),
-    [t, isEditing, save, cancel, handleEdit, handleDelete, isEditPending],
-  );
+    };
+  }, [t, isEditing, cancel, edit, handleDelete, handleEdit, isEditPending, editAllowed]);
 
   const mergedColumns = useMemo(
     () =>
@@ -184,7 +163,10 @@ function CustomTable({ dataSource, columns, isPending }) {
           ...col,
           onCell: (record) => ({
             record,
-            inputType: typeof record[col.dataIndex] === 'number' ? 'number' : 'text',
+            inputType:
+              typeof col.inputType === 'function'
+                ? col.inputType(record)
+                : (col.inputType ?? (typeof record[col.dataIndex] === 'number' ? 'number' : 'text')),
             dataIndex: col.dataIndex,
             title: col.title,
             editing: isEditing(record),
@@ -202,6 +184,7 @@ function CustomTable({ dataSource, columns, isPending }) {
             cell: EditableCell,
           },
         }}
+        size='middle'
         rowSelection={rowSelection}
         dataSource={dataSource}
         columns={mergedColumns}
@@ -223,7 +206,7 @@ function CustomTable({ dataSource, columns, isPending }) {
               )}
             >
               <Button icon={<Icon icon='proicons:cancel' width={13} />} danger type='primary'>
-                Delete Selected Listings
+                {t('delete_selected')}
               </Button>
             </Popconfirm>
 

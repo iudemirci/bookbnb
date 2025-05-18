@@ -2,17 +2,17 @@ import { useAdmin } from '../../../hooks/dashboard/useAdmin.js';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { Col, Flex, Row, Spin } from 'antd';
-import ListingsLastWeekChart from './charts/ListingsLastWeekChart.jsx';
-import TotalListingsChart from './charts/TotalListingsChart.jsx';
-import TotalUsersChart from './charts/TotalUsersChart.jsx';
-import ActiveReservationsChart from './charts/ActiveReservationsChart.jsx';
-import CategoriesPieChart from './charts/CategoriesPieChart.jsx';
-import AveragePriceChart from './charts/AveragePriceChart.jsx';
-import ReservationsLastWeekChart from './charts/ReservationsLastweekChart.jsx';
-import ReservationAverageDurationChart from './charts/ReservationAverageDurationChart.jsx';
-import CountriesChart from './charts/ CountriesChart.jsx';
-import RevenueThisMonthChart from './charts/RevenueThisMonthChart.jsx';
-import SignupLastMonthChart from './charts/SignupLastMonthChart.jsx';
+import ListingsLastWeekChart from '../charts/ListingsLastWeekChart.jsx';
+import TotalListingsChart from '../charts/TotalListingsChart.jsx';
+import TotalUsersChart from '../charts/TotalUsersChart.jsx';
+import ActiveReservationsChart from '../charts/ActiveReservationsChart.jsx';
+import CategoriesPieChart from '../charts/CategoriesPieChart.jsx';
+import AveragePriceChart from '../charts/AveragePriceChart.jsx';
+import ReservationsLastWeekChart from '../charts/ReservationsLastweekChart.jsx';
+import ReservationAverageDurationChart from '../charts/ReservationAverageDurationChart.jsx';
+import CountriesChart from '../charts/ CountriesChart.jsx';
+import RevenueThisMonthChart from '../charts/RevenueThisMonthChart.jsx';
+import SignupLastMonthChart from '../charts/SignupLastMonthChart.jsx';
 
 dayjs.extend(isSameOrAfter);
 

@@ -2,7 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 import supabase from '../../services/supabase.js';
 
 export function useAdminActions(tableName) {
-  console.log('🚀 ~ useAdminActions ~ tableName: ', tableName);
   // delete rows
   const { mutate: deleteRow, isPending: isDeletePending } = useMutation({
     mutationKey: ['adminActions', 'delete'],
@@ -20,8 +19,8 @@ export function useAdminActions(tableName) {
   // edit rows
   const { mutate: editRow, isPending: isEditPending } = useMutation({
     mutationKey: ['adminActions', 'edit'],
-    mutationFn: async (newRow) => {
-      const { error } = await supabase.from(tableName).update(newRow).eq('id', newRow.id);
+    mutationFn: async (updates) => {
+      const { error } = await supabase.from(tableName).update(updates).eq('id', updates.id);
 
       if (error) {
         throw new Error(error.message);

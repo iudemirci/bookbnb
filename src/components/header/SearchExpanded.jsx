@@ -121,7 +121,10 @@ function SearchExpanded({ containerRef }) {
     if (!expanded) return;
 
     const handleScrollOrClickOutside = (event) => {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
+      const isInsideContainer = containerRef.current?.contains(event.target);
+      const isInsidePickerDropdown = event.target.closest('.ant-picker-dropdown');
+
+      if (!isInsideContainer && !isInsidePickerDropdown) {
         dispatch(setExpanded(false));
       }
     };

@@ -1,18 +1,16 @@
 import dayjs from 'dayjs';
-import { memo, useCallback, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
-import { Form, message, Tag } from 'antd';
-import { useQueryClient } from '@tanstack/react-query';
+import { memo, useMemo } from 'react';
+import { Form, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import CustomTable from './CustomTable.jsx';
+import CustomTable from '../CustomTable.jsx';
 
-import { getCheckboxFilter } from '../../utils/dashboard/getCheckboxFilter.jsx';
-import { useAdminActions } from '../../hooks/dashboard/useAdminActions.jsx';
-import { getTextSearchFilter } from '../../utils/dashboard/getTextSearchFilter.jsx';
-import { categories } from '../../data/categories.js';
-import { setEditingKey, setSelectedKeys } from '../../store/dashboardSlice.js';
-import { useAdmin } from '../../hooks/dashboard/useAdmin.js';
+import { getCheckboxFilter } from '../../../utils/dashboard/getCheckboxFilter.jsx';
+import { getTextSearchFilter } from '../../../utils/dashboard/getTextSearchFilter.jsx';
+import { categories } from '../../../data/categories.js';
+import { useAdmin } from '../../../hooks/dashboard/useAdmin.js';
+import { useDeleteRow } from '../../../hooks/dashboard/useDeleteRow.js';
+import { useEditRow } from '../../../hooks/dashboard/useEditRow.jsx';
 
 function useCategoryFilterOptions() {
   const { t } = useTranslation();
@@ -28,15 +26,12 @@ function useCategoryFilterOptions() {
 }
 
 function ListingsContent() {
-  const queryClient = useQueryClient();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
   const categoryFilterOptions = useCategoryFilterOptions();
 
   const { listings, isListingsPending } = useAdmin();
-  const { deleteRow, editRow, isEditPending } = useAdminActions('listings');
 
   const dataSource = useMemo(
     () =>
@@ -152,56 +147,11 @@ function ListingsContent() {
     [t, categoryFilterOptions, categoryMap],
   );
 
-  // edit function
-  const handleEdit = useCallback(
-    async (key) => {
-      try {
-        const row = await form.validateFields();
-        const newData = [...dataSource];
-        const index = newData.findIndex((item) => key === item.key);
-
-        if (index > -1) {
-          const item = newData[index];
-          const { key: _key, username: _username, ...cleanItem } = { ...item, ...row };
-
-          editRow(cleanItem, {
-            onSuccess: () => {
-              message.success(t('dashboard:edit_success'));
-              queryClient.invalidateQueries(['admin', 'listings']);
-              dispatch(setEditingKey(''));
-            },
-            onError: () => {
-              message.error(t('dashboard:edit_error'));
-            },
-          });
-        }
-      } catch (error) {
-        if (error) {
-          message.error(t('dashboard:form_fill_required'));
-        } else {
-          message.error(t('dashboard:edit_error'));
-        }
-      }
-    },
-    [form, dataSource, queryClient, editRow, t, dispatch],
-  );
-
   // delete function
-  const handleDelete = useCallback(
-    (id) => {
-      deleteRow([id], {
-        onSuccess: () => {
-          message.success(t('dashboard:delete_success'));
-          queryClient.invalidateQueries(['admin', 'listings']);
-          dispatch(setSelectedKeys([]));
-        },
-        onError: () => {
-          message.error(t('dashboard:delete_error'));
-        },
-      });
-    },
-    [deleteRow, queryClient, t, dispatch],
-  );
+  const handleDelete = useDeleteRow('listings');
+
+  // edit function
+  const { handleEdit, isEditPending } = useEditRow('listings', form);
 
   return (
     <div className='flex size-full flex-col pr-4'>
@@ -213,6 +163,7 @@ function ListingsContent() {
         handleDelete={(ids) => handleDelete(ids)}
         handleEdit={(row) => handleEdit(row)}
         isEditPending={isEditPending}
+        editAllowed={true}
       />
     </div>
   );

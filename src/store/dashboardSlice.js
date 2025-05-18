@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   selectedKeys: [],
+  editingKey: '',
 };
 
 const dashboardSlice = createSlice({
@@ -11,8 +12,11 @@ const dashboardSlice = createSlice({
     setSelectedKeys: (state, action) => {
       state.selectedKeys = action.payload;
     },
+    setEditingKey: (state, action) => {
+      state.editingKey = action.payload;
+    },
   },
 });
 
-export const { setSelectedKeys } = dashboardSlice.actions;
+export const { setSelectedKeys, setEditingKey } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import supabase from '../../services/supabase.js';
+import dayjs from 'dayjs';
 
 const defaultQueryOptions = {
   staleTime: 0,
@@ -29,10 +30,18 @@ export function useAdmin() {
   const { data: users, isPending: isUsersPending } = useQuery({
     queryKey: ['admin', 'users'],
     queryFn: async () => {
-      const { data: users, error } = await supabase.from('users').select('*').order('created_at', { ascending: false });
+      const { data: users, error } = await supabase
+        .from('users')
+        .select('*, listings (id), reservations (id), reports(id)')
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
-      return users;
+      return users?.map((user) => ({
+        ...user,
+        listings: user?.listings?.length || 0,
+        reservations: user?.reservations?.length || 0,
+        reports: user?.reports?.length || 0,
+      }));
     },
     ...defaultQueryOptions,
   });
@@ -42,11 +51,17 @@ export function useAdmin() {
     queryFn: async () => {
       const { data: reservations, error } = await supabase
         .from('reservations')
-        .select('*')
+        .select(
+          `
+        *,
+          users(username)
+      `,
+        )
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      return reservations;
+
+      return reservations?.filter((reservation) => dayjs(reservation?.date?.[1]).isAfter(dayjs()));
     },
     ...defaultQueryOptions,
   });

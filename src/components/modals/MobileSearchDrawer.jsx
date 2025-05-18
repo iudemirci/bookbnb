@@ -4,11 +4,10 @@ import { setIsMobileSearchOpen } from '../../store/modalSlice.js';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
 import dayjs from 'dayjs';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 import Counter from '../Counter.jsx';
 import { memo, useCallback } from 'react';
 import { lowerCase } from 'lodash';
-import { createSearchParams } from '../../../.vite/deps/react-router-dom.js';
 import ButtonResetFilters from '../buttons/ButtonResetFilters.jsx';
 
 const today = dayjs();

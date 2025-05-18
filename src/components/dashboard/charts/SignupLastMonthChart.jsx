@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import ChartCard from './ChartCard.jsx';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { COLORS } from '../../../../data/chartColors.js';
+import { COLORS } from '../../../data/chartColors.js';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
 

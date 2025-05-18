@@ -3,7 +3,7 @@ import { countBy } from 'lodash/collection.js';
 import { map, orderBy, take } from 'lodash';
 import { Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '../../../../data/chartColors.js';
+import { COLORS } from '../../../data/chartColors.js';
 import { memo } from 'react';
 
 function getTopCountries(listings) {

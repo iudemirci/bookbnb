@@ -4,6 +4,7 @@
   "username": "User",
   "listings": "Listings",
   "listing": "Listings",
+  "listing_id": "Listing ID",
   "number_of_listings": "No. of Listings",
   "number_of_reservations": "No. of Reservations",
   "reservations": "Reservations",
@@ -34,6 +35,12 @@
   "reset": "Reset",
   "date": "Date",
   "actions": "Actions",
+  "from":  "From",
+  "to": "To",
+  "duration": "Duration",
+  "duration_day": "{{count}} day",
+  "duration_days": "{{count}} days",
+  "delete_selected": "Delete Selected Rows",
   "delete_success" : "Deleted succesfully",
   "delete_error" : "Something went wrong while deleting",
   "edit_success": "Edited successfully",
@@ -44,5 +51,6 @@
   "popconfirm_delete_single": "Are you sure you want to delete the selected item?",
   "popconfirm_delete_multiple": "Are you sure you want to delete the selected items?",
   "yes": "Yes",
-  "No": "No"
+  "No": "No",
+  "role": "Role"
 }

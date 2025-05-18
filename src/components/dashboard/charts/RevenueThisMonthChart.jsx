@@ -1,6 +1,6 @@
 import ChartCard from './ChartCard.jsx';
 import { groupBy, sumBy } from 'lodash';
-import { useConvertedPrice } from '../../../../hooks/useConvertedPrice.js';
+import { useConvertedPrice } from '../../../hooks/useConvertedPrice.js';
 import { Flex } from 'antd';
 import dayjs from 'dayjs';
 

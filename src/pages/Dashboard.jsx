@@ -4,15 +4,17 @@ import { Button, Drawer, Layout, Menu } from 'antd';
 import MainContainer from '../components/MainContainer.jsx';
 import { useCallback, useState } from 'react';
 import { Icon } from '@iconify/react';
-import OverviewContent from '../components/dashboard/overview/OverviewContent.jsx';
+import DashboardContent from '../components/dashboard/contents/DashboardContent.jsx';
 import useLogout from '../hooks/auth/useLogout.js';
 import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
 import useBreakpoint from '../hooks/useBreakpoint.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsLanguageAndCurrencyOpen, setIsSidebarOpen } from '../store/modalSlice.js';
-import ListingsContent from '../components/dashboard/listings/ListingsContent.jsx';
+import ListingsContent from '../components/dashboard/contents/ListingsContent.jsx';
 import { useDashboardMenuItems } from '../hooks/dashboard/useDashboardMenuItems.jsx';
 import { setSelectedKeys } from '../store/dashboardSlice.js';
+import ReservationsContent from '../components/dashboard/contents/ReservationsContent.jsx';
+import UsersContent from '../components/dashboard/contents/UsersContent.jsx';
 
 const { Sider, Content } = Layout;
 
@@ -53,9 +55,13 @@ function Dashboard() {
   const renderContent = useCallback(() => {
     switch (selectedKey) {
       case 'dashboard':
-        return <OverviewContent />;
+        return <DashboardContent />;
       case 'listings':
         return <ListingsContent />;
+      case 'reservations':
+        return <ReservationsContent />;
+      case 'users':
+        return <UsersContent />;
       default:
         return null;
     }

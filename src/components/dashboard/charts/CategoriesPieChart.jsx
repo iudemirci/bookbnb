@@ -4,7 +4,7 @@ import { countBy } from 'lodash/collection.js';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
-import { COLORS } from '../../../../data/chartColors.js';
+import { COLORS } from '../../../data/chartColors.js';
 
 function CategoriesPieChart({ listings }) {
   const { t } = useTranslation();
