@@ -1,16 +1,26 @@
 import { useMemo } from 'react';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
+import { Badge } from 'antd';
 
-export function useDashboardMenuItems(isLogoutPending = false) {
+export function useDashboardMenuItems(isLogoutPending = false, reportCount = 0) {
   const { t } = useTranslation();
+
   return useMemo(() => {
     const baseItems = [
       { label: 'Dashboard', key: 'dashboard', icon: <Icon icon='material-symbols:dashboard-outline' width={20} /> },
       { label: t('dashboard:listings'), key: 'listings', icon: <Icon icon='uil:home' width={20} /> },
       { label: t('dashboard:reservations'), key: 'reservations', icon: <Icon icon='uil:calendar' width={20} /> },
       { label: t('dashboard:users'), key: 'users', icon: <Icon icon='uil:user' width={20} /> },
-      { label: t('dashboard:reports'), key: 'reports', icon: <Icon icon='uil:ticket' width={20} /> },
+      {
+        label: t('dashboard:reports'),
+        key: 'reports',
+        icon: (
+          <Badge dot={reportCount > 0}>
+            <Icon icon='uil:ticket' width={20} />
+          </Badge>
+        ),
+      },
     ];
 
     const drawerExtras = [
@@ -24,5 +34,5 @@ export function useDashboardMenuItems(isLogoutPending = false) {
       menuItems: baseItems,
       menuItemsDrawer: [...baseItems, ...drawerExtras],
     };
-  }, [t, isLogoutPending]);
+  }, [t, isLogoutPending, reportCount]);
 }

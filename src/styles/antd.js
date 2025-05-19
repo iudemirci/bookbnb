@@ -23,8 +23,6 @@ export const antd = {
     Typography: {
       titleMarginBottom: 0,
       titleMarginTop: 0,
-      paragraphMarginBottom: 0,
-      paragraphMarginTop: 0,
       marginXS: 0,
       marginXXS: 0,
       paddingSM: 0,

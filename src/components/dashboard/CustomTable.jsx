@@ -1,10 +1,10 @@
-import { Button, Flex, Form, Input, InputNumber, Popconfirm, Select, Table, Typography } from 'antd';
-import { memo, useCallback, useMemo } from 'react';
 import { Icon } from '@iconify/react';
+import { Button, Flex, Form, Input, InputNumber, Popconfirm, Select, Table, Typography } from 'antd';
+import clsx from 'clsx';
+import { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEditingKey, setSelectedKeys } from '../../store/dashboardSlice.js';
-import clsx from 'clsx';
 
 function EditableCell({ editing, dataIndex, inputType, children, ...restProps }) {
   let inputNode;
@@ -56,6 +56,10 @@ function CustomTable({
   handleEdit,
   isEditPending,
   editAllowed = false,
+  expandable = false,
+  currentUserId,
+  isUsersTable = false,
+  ...restProps
 }) {
   const dispatch = useDispatch();
   const { t } = useTranslation('dashboard');
@@ -77,17 +81,39 @@ function CustomTable({
     dispatch(setEditingKey(''));
   }, [dispatch]);
 
+  const shouldDisableActions = useCallback(
+    (record) => {
+      const isSuperAdmin = String(record?.role) === 'superadmin';
+      const isSelf = String(record?.user_id) === String(currentUserId);
+
+      let disableActions = false;
+
+      if (isUsersTable) {
+        disableActions = isSelf || isSuperAdmin;
+      } else {
+        disableActions = false;
+      }
+
+      return disableActions;
+    },
+    [isUsersTable, currentUserId],
+  );
+
   const rowSelection = useMemo(
     () => ({
       selectedKeys,
       onChange: (newSelectedRowKeys) => {
         dispatch(setSelectedKeys(newSelectedRowKeys));
       },
-      getCheckboxProps: (record) => ({
-        disabled: record?.role === 'superadmin',
-      }),
+      getCheckboxProps: (record) => {
+        const shouldDisable = shouldDisableActions(record);
+
+        return {
+          disabled: shouldDisable,
+        };
+      },
     }),
-    [dispatch, selectedKeys],
+    [dispatch, selectedKeys, shouldDisableActions],
   );
 
   const isEditing = useCallback((record) => record.key === editingKey, [editingKey]);
@@ -108,9 +134,7 @@ function CustomTable({
       className: '!bg-bg-primary',
       render: (_, record) => {
         const editable = isEditing(record);
-        const isSuperAdmin = String(record?.role) === 'superadmin';
-
-        if (isSuperAdmin) return null;
+        const disableActions = shouldDisableActions(record);
 
         return editable ? (
           <Flex align='center' justify='center' className={wrapperClass}>
@@ -119,9 +143,10 @@ function CustomTable({
             </Button>
             <Button
               {...commonBtnProps}
-              className={`${commonBtnProps.className} !bg-green-500`}
               onClick={() => handleEdit(record.key)}
               disabled={isEditPending}
+              color='green'
+              variant='solid'
             >
               <Icon icon='mdi:check' width={20} />
             </Button>
@@ -130,9 +155,10 @@ function CustomTable({
           <Flex align='center' justify='center' className={wrapperClass}>
             <Button
               {...commonBtnProps}
-              className={`${commonBtnProps.className} !bg-green-500`}
-              disabled={!editAllowed}
+              disabled={!editAllowed || disableActions}
               onClick={() => edit(record)}
+              color='green'
+              variant='solid'
             >
               <Icon icon='mdi:edit' width={18} />
             </Button>
@@ -142,7 +168,7 @@ function CustomTable({
               okText={t('dashboard:yes')}
               cancelText={t('dashboard:no')}
             >
-              <Button {...commonBtnProps} danger>
+              <Button disabled={disableActions} {...commonBtnProps} danger>
                 <Icon icon='mdi:delete' width={18} />
               </Button>
             </Popconfirm>
@@ -150,7 +176,7 @@ function CustomTable({
         );
       },
     };
-  }, [t, isEditing, cancel, edit, handleDelete, handleEdit, isEditPending, editAllowed]);
+  }, [t, isEditing, cancel, edit, handleDelete, handleEdit, isEditPending, editAllowed, shouldDisableActions]);
 
   const mergedColumns = useMemo(
     () =>
@@ -179,6 +205,7 @@ function CustomTable({
   return (
     <Form form={form} component={false}>
       <Table
+        {...restProps}
         components={{
           body: {
             cell: EditableCell,
@@ -189,10 +216,11 @@ function CustomTable({
         dataSource={dataSource}
         columns={mergedColumns}
         loading={isPending}
-        className='size-full'
+        className='size-full pr-4'
         bordered
+        expandable={expandable}
         rowClassName={(record, idx) => (idx % 2 === 0 ? 'bg-bg-primary' : 'bg-zinc-100/40')}
-        scroll={{ x: 100 }}
+        scroll={{ x: 'max-content' }}
         footer={() => (
           <div className='align-center flex justify-between'>
             <Popconfirm

@@ -1,16 +1,17 @@
-import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { Spin } from 'antd';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import useIsAdmin from '../hooks/auth/useIsAdmin';
 
 const ProtectedRoute = ({ children }) => {
-  const { user, isPending } = useSelector((state) => state.auth);
-  const role = user?.user_metadata?.role;
+  const isPending = useSelector((state) => state.auth.isPending);
+  const { isAdmin, isPending: isRolePending } = useIsAdmin();
 
-  if (isPending) {
+  if (isPending || isRolePending) {
     return <Spin size='large' fullscreen />;
   }
 
-  if (!user || role !== 'admin') {
+  if (!isAdmin) {
     return <Navigate to='/' replace />;
   }
 

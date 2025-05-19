@@ -14,7 +14,7 @@ export function getCheckboxFilter(filters, dataIndex) {
         >
           <div className='grid grid-cols-2 items-center gap-y-1' style={{ maxHeight: 330, overflowY: 'auto' }}>
             {filters.map((filter) => (
-              <Radio key={filter.value} value={filter.value} className='truncate'>
+              <Radio key={filter.value} value={JSON.stringify(filter.value)} className='truncate'>
                 {filter.text}
               </Radio>
             ))}
@@ -38,6 +38,16 @@ export function getCheckboxFilter(filters, dataIndex) {
       </div>
     ),
     filterIcon: <Icon icon='mdi:filter' width={20} />,
-    onFilter: (value, record) => record[dataIndex] === value,
+    onFilter: (value, record) => {
+      try {
+        const parsedValue = JSON.parse(value);
+        if (Array.isArray(parsedValue)) {
+          return parsedValue.includes(record[dataIndex]);
+        }
+        return record[dataIndex] === parsedValue;
+      } catch {
+        return record[dataIndex] === value;
+      }
+    },
   };
 }

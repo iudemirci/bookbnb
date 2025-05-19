@@ -1,27 +1,27 @@
-import Container from '../Container.jsx';
+import { Icon } from '@iconify/react';
 import { Button, Flex } from 'antd';
+import clsx from 'clsx';
+import { memo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
+import useIsAdmin from '../../hooks/auth/useIsAdmin.js';
+import Container from '../Container.jsx';
 import Logo from '../Logo.jsx';
 import ButtonBookBnb from '../buttons/ButtonBookBnb.jsx';
-import ButtonLanguage from '../buttons/ButtonLanguage.jsx';
-import HeaderAccount from './HeaderAccount.jsx';
-import { Icon } from '@iconify/react';
-import ButtonWishlist from '../buttons/ButtonLiked.jsx';
-import { useTranslation } from 'react-i18next';
-import SearchBar from './SearchPlaceholder.jsx';
-import SearchBarExpanded from './SearchExpanded.jsx';
-import { memo, useRef } from 'react';
-import MobileSearchPlaceholder from './MobileSearchPlaceholder.jsx';
-import { useLocation } from 'react-router-dom';
-import clsx from 'clsx';
-import { useSelector } from 'react-redux';
 import ButtonDashboard from '../buttons/ButtonDashboard.jsx';
 import ButtonDashboardDrawer from '../buttons/ButtonDashboardDrawer.jsx';
+import ButtonLanguage from '../buttons/ButtonLanguage.jsx';
+import ButtonWishlist from '../buttons/ButtonLiked.jsx';
+import HeaderAccount from './HeaderAccount.jsx';
+import MobileSearchPlaceholder from './MobileSearchPlaceholder.jsx';
+import SearchBarExpanded from './SearchExpanded.jsx';
+import SearchBar from './SearchPlaceholder.jsx';
 
 function HeaderGeneral() {
   const { t } = useTranslation('details');
   const containerRef = useRef(null);
   const { pathname } = useLocation();
-  const user = useSelector((state) => state.auth.user);
+  const { isAdmin } = useIsAdmin();
 
   return (
     <>
@@ -60,7 +60,7 @@ function HeaderGeneral() {
             {/* buttons */}
             <nav className='min-w-0 flex-1 shrink-0 basis-auto xl:basis-[140px]'>
               <Flex align='center' justify='end'>
-                {user?.user_metadata?.role === 'admin' ? <ButtonDashboard /> : <ButtonBookBnb />}
+                {isAdmin ? <ButtonDashboard /> : <ButtonBookBnb />}
                 <ButtonLanguage text={false} />
                 <HeaderAccount />
               </Flex>

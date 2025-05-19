@@ -5,17 +5,24 @@ import { useDispatch } from 'react-redux';
 import { setIsLoginOpen } from '../../store/modalSlice.js';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { setRole } from '../../store/authSlice.js';
 
 const loginUser = async (credentials) => {
   const { email, password } = credentials;
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
+  if (authError) throw authError;
 
-  if (error) throw error;
-  return data;
+  const { data: userData, error: userError } = await supabase
+    .from('users')
+    .select('username, role')
+    .eq('user_id', authData.user.id)
+    .single();
+
+  return { user: authData.user, profile: userData };
 };
 
 export const useLogin = () => {
@@ -26,11 +33,11 @@ export const useLogin = () => {
   return useMutation({
     mutationKey: ['auth', 'login'],
     mutationFn: loginUser,
-    onSuccess: (data) => {
-      const username = data.user.user_metadata.username;
-      const role = data.user.user_metadata.role;
+    onSuccess: ({ user, profile }) => {
+      const { username, role } = profile;
+      dispatch(setRole(role));
 
-      if (role === 'admin') navigate('/dashboard');
+      if (role === 'admin' || role === 'superadmin') navigate('/dashboard');
       else navigate('/');
 
       message.success(`${t('login_success')}, ${username}`);

@@ -35,14 +35,14 @@
   "reset": "Reset",
   "date": "Date",
   "actions": "Actions",
-  "from":  "From",
+  "from": "From",
   "to": "To",
   "duration": "Duration",
   "duration_day": "{{count}} day",
   "duration_days": "{{count}} days",
   "delete_selected": "Delete Selected Rows",
-  "delete_success" : "Deleted succesfully",
-  "delete_error" : "Something went wrong while deleting",
+  "delete_success": "Deleted succesfully",
+  "delete_error": "Something went wrong while deleting",
   "edit_success": "Edited successfully",
   "edit_error": "Something went wrong while editing",
   "form_fill_required": "Please fill all the editable fields",
@@ -52,5 +52,7 @@
   "popconfirm_delete_multiple": "Are you sure you want to delete the selected items?",
   "yes": "Yes",
   "No": "No",
-  "role": "Role"
+  "role": "Role",
+  "reportsWithCount_one": "{{count}} report",
+  "reportsWithCount_other": "{{count}} reports"
 }

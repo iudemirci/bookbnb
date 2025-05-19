@@ -8,12 +8,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Typography } from 'antd';
 import { setIsBookBnbOpen, setIsLoginOpen, setIsSignupOpen } from '../store/modalSlice.js';
 import useLogout from '../hooks/auth/useLogout.js';
+import useIsAdmin from '../hooks/auth/useIsAdmin.js';
 
 function Navigation() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const session = useSelector((state) => state.auth.session);
-  const role = session?.user?.user_metadata?.role || 'user';
+  const { isAdmin } = useIsAdmin();
+
   const dispatch = useDispatch();
   const { mutate: logout } = useLogout();
 
@@ -29,7 +31,7 @@ function Navigation() {
         icon: 'mdi:magnify',
         onClick: () => navigate('/'),
       },
-      role === 'admin'
+      isAdmin
         ? {
             label: 'Dashboard',
             icon: 'material-symbols:dashboard-outline',
@@ -41,7 +43,7 @@ function Navigation() {
             onClick: () => navigate('/liked'),
           },
     ];
-  }, [t, navigate, role]);
+  }, [t, navigate, isAdmin]);
 
   const menuItems = useMemo(() => {
     return [

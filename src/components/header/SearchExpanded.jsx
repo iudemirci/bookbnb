@@ -1,6 +1,6 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Col, DatePicker, Typography, Row, Input, Divider, Flex, InputNumber, Button, Form } from 'antd';
-import { memo, useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { Button, Col, DatePicker, Divider, Flex, Form, Input, Row, Typography } from 'antd';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { lowerCase } from 'lodash';
 import dayjs from 'dayjs';
 import { Icon } from '@iconify/react';
@@ -13,7 +13,6 @@ import HeaderTabs from './HeaderTabs.jsx';
 import { SMOOTH } from '../../config/motionConfig.js';
 import { setExpanded } from '../../store/appSlice.js';
 import Counter from '../Counter.jsx';
-import { createSearchParams } from '../../../.vite/deps/react-router-dom.js';
 
 const today = dayjs();
 const threeDaysLater = dayjs().add(3, 'day');
@@ -46,7 +45,7 @@ const MemoizedGuestInput = memo(({ form }) => {
 });
 
 function SearchExpanded({ containerRef }) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();

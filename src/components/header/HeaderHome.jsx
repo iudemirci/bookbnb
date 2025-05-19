@@ -1,23 +1,23 @@
+import { Flex } from 'antd';
 import { memo, useRef } from 'react';
 import Logo from '../Logo.jsx';
-import { Flex } from 'antd';
 
-import Container from '../Container.jsx';
-import HeaderAccount from './HeaderAccount.jsx';
-import MobileSearchPlaceholder from './MobileSearchPlaceholder.jsx';
-import HeaderPrices from './HeaderPrices.jsx';
+import useIsAdmin from '../../hooks/auth/useIsAdmin.js';
 import ButtonBookBnb from '../buttons/ButtonBookBnb.jsx';
+import ButtonDashboard from '../buttons/ButtonDashboard.jsx';
 import ButtonLanguage from '../buttons/ButtonLanguage.jsx';
 import ButtonResetFilters from '../buttons/ButtonResetFilters.jsx';
-import SearchBarExpanded from './SearchExpanded.jsx';
+import Container from '../Container.jsx';
+import HeaderAccount from './HeaderAccount.jsx';
 import HeaderCarousel from './HeaderCarousel.jsx';
+import HeaderPrices from './HeaderPrices.jsx';
+import MobileSearchPlaceholder from './MobileSearchPlaceholder.jsx';
+import SearchBarExpanded from './SearchExpanded.jsx';
 import SearchBar from './SearchPlaceholder.jsx';
-import ButtonDashboard from '../buttons/ButtonDashboard.jsx';
-import { useSelector } from 'react-redux';
 
 function HeaderHome() {
   const containerRef = useRef(null);
-  const user = useSelector((state) => state.auth.user);
+  const { isAdmin } = useIsAdmin();
 
   return (
     <>
@@ -42,7 +42,7 @@ function HeaderHome() {
             {/* buttons */}
             <nav className='min-w-0 flex-1 shrink-0 basis-auto xl:basis-[140px]'>
               <Flex align='center' justify='end'>
-                {user?.user_metadata?.role === 'admin' ? <ButtonDashboard /> : <ButtonBookBnb />}
+                {isAdmin ? <ButtonDashboard /> : <ButtonBookBnb />}
                 <ButtonLanguage text={false} />
                 <HeaderAccount />
               </Flex>

@@ -66,7 +66,6 @@ function ListingsContent() {
         dataIndex: 'title',
         key: 'title',
         ellipsis: true,
-        width: 350,
         editable: true,
         sorter: (a, b) => a.title.localeCompare(b.title),
         ...getTextSearchFilter('title', t),
@@ -154,18 +153,16 @@ function ListingsContent() {
   const { handleEdit, isEditPending } = useEditRow('listings', form);
 
   return (
-    <div className='flex size-full flex-col pr-4'>
-      <CustomTable
-        form={form}
-        dataSource={dataSource}
-        columns={columns}
-        isPending={isListingsPending}
-        handleDelete={(ids) => handleDelete(ids)}
-        handleEdit={(row) => handleEdit(row)}
-        isEditPending={isEditPending}
-        editAllowed={true}
-      />
-    </div>
+    <CustomTable
+      form={form}
+      dataSource={dataSource}
+      columns={columns}
+      isPending={isListingsPending}
+      handleDelete={(ids) => handleDelete(ids)}
+      handleEdit={(row) => handleEdit(row)}
+      isEditPending={isEditPending}
+      editAllowed={true}
+    />
   );
 }
 

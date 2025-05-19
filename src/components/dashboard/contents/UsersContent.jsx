@@ -1,12 +1,13 @@
-import { Form } from 'antd';
-import CustomTable from '../CustomTable.jsx';
-import { memo, useMemo } from 'react';
-import { useAdmin } from '../../../hooks/dashboard/useAdmin.js';
-import { useTranslation } from 'react-i18next';
+import { Form, Tag } from 'antd';
 import dayjs from 'dayjs';
-import { getCheckboxFilter } from '../../../utils/dashboard/getCheckboxFilter.jsx';
+import { memo, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { useAdmin } from '../../../hooks/dashboard/useAdmin.js';
 import { useDeleteRow } from '../../../hooks/dashboard/useDeleteRow.js';
 import { useEditRow } from '../../../hooks/dashboard/useEditRow.jsx';
+import { getCheckboxFilter } from '../../../utils/dashboard/getCheckboxFilter.jsx';
+import CustomTable from '../CustomTable.jsx';
 
 const checkboxFilterOptions = [
   {
@@ -15,15 +16,22 @@ const checkboxFilterOptions = [
   },
   {
     text: 'Admin',
-    value: 'admin',
+    value: ['superadmin', 'admin'],
   },
 ];
+
+const renderRoleTag = (role) => {
+  const isUser = role === 'user';
+
+  return <Tag color={isUser ? 'blue' : 'red'}>{isUser ? 'User' : 'Admin'}</Tag>;
+};
 
 function UsersContent() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
   const { users, isUsersPending } = useAdmin();
+  const user_id = useSelector((state) => state.auth.user?.id);
 
   const dataSource = useMemo(
     () =>
@@ -78,6 +86,7 @@ function UsersContent() {
         editable: true,
         inputType: 'select',
         width: 150,
+        render: renderRoleTag,
         sorter: (a, b) => a.role.localeCompare(b.role),
         ...getCheckboxFilter(checkboxFilterOptions, 'role'),
       },
@@ -109,6 +118,8 @@ function UsersContent() {
       handleEdit={handleEdit}
       isEditPending={isEditPending}
       editAllowed={true}
+      currentUserId={user_id}
+      isUsersTable={true}
     />
   );
 }

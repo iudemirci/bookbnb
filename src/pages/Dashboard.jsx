@@ -1,20 +1,22 @@
-import HeaderGeneral from '../components/header/HeaderGeneral.jsx';
-import BookBnbHomeModal from '../components/modals/BookBnbHome/BookBnbHomeModal.jsx';
-import { Button, Drawer, Layout, Menu } from 'antd';
-import MainContainer from '../components/MainContainer.jsx';
-import { useCallback, useState } from 'react';
 import { Icon } from '@iconify/react';
-import DashboardContent from '../components/dashboard/contents/DashboardContent.jsx';
-import useLogout from '../hooks/auth/useLogout.js';
-import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
-import useBreakpoint from '../hooks/useBreakpoint.js';
+import { Button, Drawer, Layout, Menu } from 'antd';
+import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsLanguageAndCurrencyOpen, setIsSidebarOpen } from '../store/modalSlice.js';
+import DashboardContent from '../components/dashboard/contents/DashboardContent.jsx';
 import ListingsContent from '../components/dashboard/contents/ListingsContent.jsx';
-import { useDashboardMenuItems } from '../hooks/dashboard/useDashboardMenuItems.jsx';
-import { setSelectedKeys } from '../store/dashboardSlice.js';
+import ReportsContent from '../components/dashboard/contents/ReportsContent.jsx';
 import ReservationsContent from '../components/dashboard/contents/ReservationsContent.jsx';
 import UsersContent from '../components/dashboard/contents/UsersContent.jsx';
+import HeaderGeneral from '../components/header/HeaderGeneral.jsx';
+import MainContainer from '../components/MainContainer.jsx';
+import BookBnbHomeModal from '../components/modals/BookBnbHome/BookBnbHomeModal.jsx';
+import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
+import useLogout from '../hooks/auth/useLogout.js';
+import { useDashboardMenuItems } from '../hooks/dashboard/useDashboardMenuItems.jsx';
+import useBreakpoint from '../hooks/useBreakpoint.js';
+import { setMenuOpen, setSelectedKeys, setSidebarCollapsed } from '../store/dashboardSlice.js';
+import { setIsLanguageAndCurrencyOpen } from '../store/modalSlice.js';
+import { useAdmin } from '../hooks/dashboard/useAdmin.js';
 
 const { Sider, Content } = Layout;
 
@@ -45,12 +47,13 @@ function SideBar({ collapsed, setCollapsed, menuItems, selectedKey, setSelectedK
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const isSideBarOpen = useSelector((state) => state.modal.isSidebarOpen);
+  const { isMenuOpen, isSidebarCollapsed } = useSelector((state) => state.dashboard);
   const [selectedKey, setSelectedKey] = useState('dashboard');
+  const { reports } = useAdmin();
 
   const { isMdUp } = useBreakpoint();
   const { mutate: logout, isPending: isLogoutPending } = useLogout();
-  const { menuItems, menuItemsDrawer } = useDashboardMenuItems(isLogoutPending);
+  const { menuItems, menuItemsDrawer } = useDashboardMenuItems(isLogoutPending, reports?.length);
 
   const renderContent = useCallback(() => {
     switch (selectedKey) {
@@ -62,6 +65,8 @@ function Dashboard() {
         return <ReservationsContent />;
       case 'users':
         return <UsersContent />;
+      case 'reports':
+        return <ReportsContent />;
       default:
         return null;
     }
@@ -85,16 +90,16 @@ function Dashboard() {
         <Layout hasSider>
           {isMdUp ? (
             <SideBar
-              collapsed={isSideBarOpen}
-              setCollapsed={() => dispatch(setIsSidebarOpen(false))}
+              collapsed={isSidebarCollapsed}
+              setCollapsed={() => dispatch(setSidebarCollapsed())}
               menuItems={menuItems}
               selectedKey={selectedKey}
               setSelectedKey={handleKeyChange}
             />
           ) : (
             <Drawer
-              open={isSideBarOpen}
-              onClose={() => dispatch(setIsSidebarOpen(false))}
+              open={isMenuOpen}
+              onClose={() => dispatch(setMenuOpen())}
               placement='top'
               closeIcon={null}
               height={400}
@@ -112,7 +117,7 @@ function Dashboard() {
                   } else {
                     setSelectedKey(key);
                   }
-                  dispatch(setIsSidebarOpen(false));
+                  dispatch(setMenuOpen());
                 }}
                 mode='inline'
                 className='!mt-2 !border-none'

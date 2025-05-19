@@ -1,17 +1,22 @@
 import { Icon } from '@iconify/react';
-import { Dropdown, Flex, Typography } from 'antd';
+import { Avatar, Badge, Dropdown, Flex, Typography } from 'antd';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsBookBnbOpen, setIsLoginOpen, setIsSignupOpen } from '../../store/modalSlice.js';
-import useLogout from '../../hooks/auth/useLogout.js';
 import { Link } from 'react-router-dom';
+import useIsAdmin from '../../hooks/auth/useIsAdmin.js';
+import useLogout from '../../hooks/auth/useLogout.js';
+import { useAdmin } from '../../hooks/dashboard/useAdmin.js';
+import { setIsBookBnbOpen, setIsLoginOpen, setIsSignupOpen } from '../../store/modalSlice.js';
 
 function HeaderAccount() {
   const session = useSelector((state) => state.auth.session);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { mutate: logout } = useLogout();
+
+  const { reports } = useAdmin();
+  const { isAdmin } = useIsAdmin();
 
   const handleBookbnb = useCallback(() => {
     if (session) return dispatch(setIsBookBnbOpen());
@@ -20,6 +25,20 @@ function HeaderAccount() {
 
   const menuItems = useMemo(() => {
     return [
+      isAdmin && {
+        key: 'dashboard',
+        label: (
+          <Badge dot={isAdmin && reports?.length > 0} offset={[5, 0]}>
+            <Link to='/dashboard'>
+              Dashboard{' '}
+              {reports?.length > 0 && <span>({t('dashboard:reportsWithCount', { count: reports?.length })})</span>}
+            </Link>
+          </Badge>
+        ),
+      },
+      isAdmin && {
+        type: 'divider',
+      },
       !session && {
         key: 'signup',
         label: <Typography.Text className='!font-semibold'>{t('sign_up')}</Typography.Text>,
@@ -66,7 +85,7 @@ function HeaderAccount() {
         onClick: () => logout(),
       },
     ];
-  }, [t, dispatch, session, logout, handleBookbnb]);
+  }, [t, dispatch, session, logout, handleBookbnb, isAdmin, reports]);
 
   return (
     <>
@@ -74,7 +93,7 @@ function HeaderAccount() {
         menu={{ items: menuItems }}
         trigger={['click']}
         placement='bottomRight'
-        getPopupContainer={() => document.getElementById('overview')}
+        getPopupContainer={() => document.querySelector('header')}
       >
         <Flex
           id='test'
@@ -84,7 +103,13 @@ function HeaderAccount() {
           className='!ml-2 cursor-pointer rounded-full border border-gray-300/70 !px-3 !py-2 duration-300 hover:shadow-md'
         >
           <Icon icon='material-symbols:menu-rounded' width={20} />
-          <Icon icon='mdi:account-circle' width={32} className='text-text-secondary' />
+          <Badge dot={isAdmin && reports?.length > 0} offset={[-3, 3]}>
+            <Avatar
+              shape='circle'
+              className='!size-8'
+              icon={<Icon icon='mdi:account' width={20} className='text-gray-50' />}
+            />
+          </Badge>
         </Flex>
       </Dropdown>
     </>

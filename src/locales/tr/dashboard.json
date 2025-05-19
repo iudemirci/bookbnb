@@ -52,5 +52,7 @@
   "popconfirm_delete_multiple": "Seçilen öğeleri silmek istediğinizden emin misiniz?",
   "yes": "Evet",
   "no": "Hayır",
-  "role": "Rol"
+  "role": "Rol",
+  "reportsWithCount_one": "{{count}} şikayet",
+  "reportsWithCount_other": "{{count}} şikayet"
 }

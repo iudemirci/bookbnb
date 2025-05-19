@@ -1,13 +1,13 @@
 import { Button } from 'antd';
 import { Icon } from '@iconify/react';
 import { useDispatch } from 'react-redux';
-import { setIsSidebarOpen } from '../../store/modalSlice.js';
+import { setMenuOpen } from '../../store/dashboardSlice';
 
 function ButtonDashboardDrawer() {
   const dispatch = useDispatch();
 
   function handleClick() {
-    dispatch(setIsSidebarOpen(true));
+    dispatch(setMenuOpen());
   }
 
   return (

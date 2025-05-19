@@ -66,5 +66,33 @@ export function useAdmin() {
     ...defaultQueryOptions,
   });
 
-  return { listings, isListingsPending, users, isUsersPending, reservations, isReservationsPending };
+  const { data: reports, isPending: isReportsPending } = useQuery({
+    queryKey: ['admin', 'reports'],
+    queryFn: async () => {
+      const { data: reports, error } = await supabase
+        .from('reports')
+        .select(
+          `
+        *,
+          users(username)
+      `,
+        )
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return reports;
+    },
+    ...defaultQueryOptions,
+  });
+
+  return {
+    listings,
+    isListingsPending,
+    users,
+    isUsersPending,
+    reservations,
+    isReservationsPending,
+    reports,
+    isReportsPending,
+  };
 }

@@ -39,7 +39,9 @@ i18n.use(initReactI18next).init({
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false,
+    pluralSeparator: '_',
   },
+  pluralization: true,
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',
   },
