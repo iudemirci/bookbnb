@@ -1,17 +1,18 @@
 import { lazy, memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useListings } from '../hooks/listings/useListings.js';
-import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
 
-const HeaderHome = lazy(() => import('../components/header/HeaderHome.jsx'));
-const Container = lazy(() => import('../components/Container.jsx'));
-const Footer = lazy(() => import('../components/Footer.jsx'));
-const Navigation = lazy(() => import('../components/Navigation.jsx'));
-const MainContainer = lazy(() => import('../components/MainContainer.jsx'));
-const SignupModal = lazy(() => import('../components/modals/SignupModal.jsx'));
+import Container from '../components/Container.jsx';
+import Footer from '../components/Footer.jsx';
+import MainContainer from '../components/MainContainer.jsx';
+import Navigation from '../components/Navigation.jsx';
+import CardList from '../components/cards/CardList.jsx';
+import HeaderHome from '../components/header/HeaderHome.jsx';
+import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
 const LoginModal = lazy(() => import('../components/modals/LoginModal.jsx'));
+const SignupModal = lazy(() => import('../components/modals/SignupModal.jsx'));
 const BookBnbHomeModal = lazy(() => import('../components/modals/BookBnbHome/BookBnbHomeModal.jsx'));
-const CardList = lazy(() => import('../components/cards/CardList.jsx'));
+
+import { useListings } from '../hooks/listings/useListings.js';
 
 function Home() {
   const { t } = useTranslation();
@@ -22,27 +23,29 @@ function Home() {
   });
 
   return (
-    <MainContainer>
+    <>
       <HeaderHome />
-      <SignupModal />
-      <LoginModal />
-      <BookBnbHomeModal />
-      <MobileNavigationDrawer />
+      <MainContainer>
+        <SignupModal />
+        <LoginModal />
+        <BookBnbHomeModal />
+        <MobileNavigationDrawer />
 
-      <Container as='main'>
-        <CardList
-          listType='home'
-          fetchNextPage={fetchNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-          isInfinitePending={isInfinitePending}
-          listings={listings}
-          hasNextPage={hasNextPage}
-        />
-      </Container>
+        <Container as='main'>
+          <CardList
+            listType='home'
+            fetchNextPage={fetchNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            isInfinitePending={isInfinitePending}
+            listings={listings}
+            hasNextPage={hasNextPage}
+          />
+        </Container>
 
-      <Footer />
-      <Navigation />
-    </MainContainer>
+        <Footer />
+        <Navigation />
+      </MainContainer>
+    </>
   );
 }
 

@@ -1,13 +1,13 @@
-import { Button, Card, Flex, Form, message, Skeleton, Space, Typography } from 'antd';
+import { Button, Card, Flex, message, Space, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { memo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConvertedPrice } from '../../hooks/useConvertedPrice.js';
+import { setFinalForm } from '../../store/appSlice.js';
+import { setIsConfirmationOpen, setIsLoginOpen } from '../../store/modalSlice.js';
 import { calculateTotalPrice, formatPrice, getStayDurationText } from '../../utils/bookingUtils.js';
 import RangeAndGuestPicker from '../RangeAndGuestPicker.jsx';
-import { useConvertedPrice } from '../../hooks/useConvertedPrice.js';
-import { memo, useCallback } from 'react';
-import { setIsConfirmationOpen, setIsLoginOpen } from '../../store/modalSlice.js';
-import { setFinalForm } from '../../store/appSlice.js';
-import { useTranslation } from 'react-i18next';
 const { Title, Text } = Typography;
 
 function PriceCard({ price, guests }) {

@@ -77,12 +77,12 @@ function MobileSearchDrawer() {
           mode='horizontal'
           selectable={false}
           onClick={(e) => navigate(e.key)}
-          className='w-full justify-center font-bold capitalize'
+          className='w-full justify-center !border-none font-bold capitalize'
         />
       }
       className='!h-screen'
     >
-      <Form form={form} className='flex size-full flex-col items-center justify-between' onFinish={onFinish}>
+      <Form form={form} className='flex size-full flex-col items-center gap-8' onFinish={onFinish}>
         <Card className='shadow-theme w-full'>
           <Space direction='vertical' size={16} className='w-full'>
             <Typography.Title level={1} className='!font-extrabold'>
@@ -116,7 +116,7 @@ function MobileSearchDrawer() {
             </Form.Item>
           </Space>
         </Card>
-        <Card className='w-full'>
+        <Card className='shadow-theme w-full'>
           <Space direction='vertical' size={16} className='w-full'>
             <Typography.Title level={1} className='!font-extrabold'>
               {t('who')}

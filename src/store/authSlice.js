@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,
-  role: null,
   session: null,
   isPending: true,
 };
@@ -21,14 +20,11 @@ const authSlice = createSlice({
       state.session = null;
       state.isPending = false;
     },
-    setRole: (state, action) => {
-      state.role = action.payload;
-    },
     setPending: (state, action) => {
       state.isPending = action.payload;
     },
   },
 });
 
-export const { setUser, clearUser, setRole, setPending } = authSlice.actions;
+export const { setUser, clearUser, setPending } = authSlice.actions;
 export default authSlice.reducer;

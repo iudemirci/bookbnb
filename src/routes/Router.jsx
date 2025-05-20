@@ -7,10 +7,10 @@ const Trips = lazy(() => import('../pages/Trips.jsx'));
 const ProtectedRoute = lazy(() => import('./ProtectedRoute.jsx'));
 const Liked = lazy(() => import('../pages/Favourites.jsx'));
 const MyHomes = lazy(() => import('../pages/MyHomes.jsx'));
-
-import ScrollToTop from '../components/ScrollToTop.jsx';
-import Dashboard from '../pages/Dashboard.jsx';
-import ProtectedAdminRoute from './ProtectedAdminRoute.jsx';
+const ProtectedAdminRoute = lazy(() => import('./ProtectedAdminRoute.jsx'));
+const NotFound = lazy(() => import('../pages/NotFound.jsx'));
+const Dashboard = lazy(() => import('../pages/Dashboard.jsx'));
+const ScrollToTop = lazy(() => import('../components/ScrollToTop.jsx'));
 
 function Router() {
   return (
@@ -51,6 +51,7 @@ function Router() {
             </ProtectedAdminRoute>
           }
         />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

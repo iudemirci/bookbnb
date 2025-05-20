@@ -1,11 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import supabase from '../../services/supabase.js';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setIsLoginOpen } from '../../store/modalSlice.js';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { setRole } from '../../store/authSlice.js';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import supabase from '../../services/supabase.js';
+import { setIsLoginOpen } from '../../store/modalSlice.js';
 
 const loginUser = async (credentials) => {
   const { email, password } = credentials;
@@ -35,7 +34,7 @@ export const useLogin = () => {
     mutationFn: loginUser,
     onSuccess: ({ user, profile }) => {
       const { username, role } = profile;
-      dispatch(setRole(role));
+      localStorage.setItem('user_role', role);
 
       if (role === 'admin' || role === 'superadmin') navigate('/dashboard');
       else navigate('/');

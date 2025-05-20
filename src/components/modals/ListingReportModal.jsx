@@ -1,10 +1,10 @@
 import { Button, Checkbox, Flex, Form, Input, message, Modal, Space, Typography } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { setIsReportOpen } from '../../store/modalSlice.js';
-import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useReportListing } from '../../hooks/report/useReportListing.js';
+import { setIsReportOpen } from '../../store/modalSlice.js';
 
 const initialValues = {
   inappropriate: false,
@@ -15,9 +15,10 @@ const initialValues = {
 
 function ListingReportModal() {
   const { id } = useParams();
-  const isOpen = useSelector((state) => state.modal.isReportOpen);
-  const dispatch = useDispatch();
   const { t } = useTranslation('details');
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.modal.isReportOpen);
+
   const { mutate: reportListing, isPending: isReportPending } = useReportListing();
 
   const checkboxes = useMemo(() => {

@@ -21,7 +21,7 @@ function HeaderGeneral() {
   const { t } = useTranslation('details');
   const containerRef = useRef(null);
   const { pathname } = useLocation();
-  const { isAdmin } = useIsAdmin();
+  const isAdmin = useIsAdmin();
 
   return (
     <>

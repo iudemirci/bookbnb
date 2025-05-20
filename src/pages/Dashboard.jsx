@@ -1,21 +1,23 @@
 import { Icon } from '@iconify/react';
 import { Button, Drawer, Layout, Menu } from 'antd';
-import { useCallback, useState } from 'react';
+import { lazy, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import DashboardContent from '../components/dashboard/contents/DashboardContent.jsx';
-import ListingsContent from '../components/dashboard/contents/ListingsContent.jsx';
-import ReportsContent from '../components/dashboard/contents/ReportsContent.jsx';
-import ReservationsContent from '../components/dashboard/contents/ReservationsContent.jsx';
-import UsersContent from '../components/dashboard/contents/UsersContent.jsx';
+
 import HeaderGeneral from '../components/header/HeaderGeneral.jsx';
 import MainContainer from '../components/MainContainer.jsx';
 import BookBnbHomeModal from '../components/modals/BookBnbHome/BookBnbHomeModal.jsx';
 import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
+import DashboardContent from '../components/dashboard/contents/DashboardContent.jsx';
+const ListingsContent = lazy(() => import('../components/dashboard/contents/ListingsContent.jsx'));
+const ReportsContent = lazy(() => import('../components/dashboard/contents/ReportsContent.jsx'));
+const ReservationsContent = lazy(() => import('../components/dashboard/contents/ReservationsContent.jsx'));
+const UsersContent = lazy(() => import('../components/dashboard/contents/UsersContent.jsx'));
+
 import useLogout from '../hooks/auth/useLogout.js';
 import { useDashboardMenuItems } from '../hooks/dashboard/useDashboardMenuItems.jsx';
-import useBreakpoint from '../hooks/useBreakpoint.js';
 import { setMenuOpen, setSelectedKeys, setSidebarCollapsed } from '../store/dashboardSlice.js';
 import { setIsLanguageAndCurrencyOpen } from '../store/modalSlice.js';
+import useBreakpoint from '../hooks/useBreakpoint.js';
 import { useAdmin } from '../hooks/dashboard/useAdmin.js';
 
 const { Sider, Content } = Layout;

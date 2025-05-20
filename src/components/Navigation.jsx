@@ -14,7 +14,7 @@ function Navigation() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const session = useSelector((state) => state.auth.session);
-  const { isAdmin } = useIsAdmin();
+  const isAdmin = useIsAdmin();
 
   const dispatch = useDispatch();
   const { mutate: logout } = useLogout();

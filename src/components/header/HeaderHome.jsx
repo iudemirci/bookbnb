@@ -14,18 +14,19 @@ import HeaderPrices from './HeaderPrices.jsx';
 import MobileSearchPlaceholder from './MobileSearchPlaceholder.jsx';
 import SearchBarExpanded from './SearchExpanded.jsx';
 import SearchBar from './SearchPlaceholder.jsx';
+import MainContainer from '../MainContainer.jsx';
 
 function HeaderHome() {
   const containerRef = useRef(null);
-  const { isAdmin } = useIsAdmin();
+  const isAdmin = useIsAdmin();
 
   return (
     <>
       <header
         ref={containerRef}
-        className='bg-bg-primary fixed z-20 w-full shadow-md shadow-gray-200/50 md:shadow-none'
+        className='bg-bg-primary place fixed z-20 w-full shadow-md shadow-gray-200/50 md:shadow-none'
       >
-        <Container>
+        <Container className='mx-auto'>
           <MobileSearchPlaceholder />
 
           <Flex align='center' justify='between' className='!relative !hidden !min-h-[80px] w-full px-4 md:!flex'>
@@ -53,7 +54,7 @@ function HeaderHome() {
         <SearchBarExpanded containerRef={containerRef} />
 
         <div className='bg-bg-primary shadow-theme absolute top-0 !-z-10 w-full pt-[80px]'>
-          <Container className='flex items-center justify-between'>
+          <Container className='mx-auto flex items-center justify-between'>
             <div className='min-w-0 flex-1 pr-4'>
               <HeaderCarousel />
             </div>

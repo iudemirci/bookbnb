@@ -5,9 +5,9 @@ import useIsAdmin from '../hooks/auth/useIsAdmin';
 
 const ProtectedRoute = ({ children }) => {
   const isPending = useSelector((state) => state.auth.isPending);
-  const { isAdmin, isPending: isRolePending } = useIsAdmin();
+  const isAdmin = useIsAdmin();
 
-  if (isPending || isRolePending) {
+  if (isPending) {
     return <Spin size='large' fullscreen />;
   }
 

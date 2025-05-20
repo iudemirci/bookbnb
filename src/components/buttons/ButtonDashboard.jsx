@@ -1,10 +1,11 @@
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 function ButtonDashboard() {
   return (
-    <Button type='text' href='/dashboard'>
-      Dashboard
-    </Button>
+    <Link to='/dashboard'>
+      <Button type='text'>Dashboard</Button>
+    </Link>
   );
 }
 

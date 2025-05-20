@@ -16,7 +16,7 @@ function HeaderAccount() {
   const { mutate: logout } = useLogout();
 
   const { reports } = useAdmin();
-  const { isAdmin } = useIsAdmin();
+  const isAdmin = useIsAdmin();
 
   const handleBookbnb = useCallback(() => {
     if (session) return dispatch(setIsBookBnbOpen());
@@ -104,11 +104,7 @@ function HeaderAccount() {
         >
           <Icon icon='material-symbols:menu-rounded' width={20} />
           <Badge dot={isAdmin && reports?.length > 0} offset={[-3, 3]}>
-            <Avatar
-              shape='circle'
-              className='!size-8'
-              icon={<Icon icon='mdi:account' width={20} className='text-gray-50' />}
-            />
+            <Avatar shape='circle' className='!size-8' icon={<Icon icon='mdi:account' width={20} />} />
           </Badge>
         </Flex>
       </Dropdown>

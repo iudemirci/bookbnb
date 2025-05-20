@@ -1,17 +1,16 @@
-import { Space, Spin, Typography } from 'antd';
-
-import MainContainer from '../components/MainContainer.jsx';
-import BookBnbHomeModal from '../components/modals/BookBnbHome/BookBnbHomeModal.jsx';
-import HeaderGeneral from '../components/header/HeaderGeneral.jsx';
+import { Space, Typography } from 'antd';
+import { map } from 'lodash';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import CardList from '../components/cards/CardList.jsx';
 import Container from '../components/Container.jsx';
 import Footer from '../components/Footer.jsx';
-import { useIsLiked } from '../hooks/liked/useIsLiked.js';
-import { useSelector } from 'react-redux';
-import { map } from 'lodash';
-import { useLikedListings } from '../hooks/liked/useLikedListings.js';
-import CardList from '../components/cards/CardList.jsx';
-import { useTranslation } from 'react-i18next';
+import HeaderGeneral from '../components/header/HeaderGeneral.jsx';
+import MainContainer from '../components/MainContainer.jsx';
+import BookBnbHomeModal from '../components/modals/BookBnbHome/BookBnbHomeModal.jsx';
 import MobileNavigationDrawer from '../components/modals/MobileSearchDrawer.jsx';
+import { useIsLiked } from '../hooks/liked/useIsLiked.js';
+import { useLikedListings } from '../hooks/liked/useLikedListings.js';
 
 function Favourites() {
   const user = useSelector((state) => state.auth.user);

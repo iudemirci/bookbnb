@@ -1,8 +1,8 @@
-import BookbnbRangePicker from './BookbnbRangePicker.jsx';
 import { Flex, Select, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setGuests } from '../store/appSlice.js';
-import { useTranslation } from 'react-i18next';
+import BookbnbRangePicker from './BookbnbRangePicker.jsx';
 
 function RangeAndGuestPicker({ guests }) {
   const { t } = useTranslation('details');
