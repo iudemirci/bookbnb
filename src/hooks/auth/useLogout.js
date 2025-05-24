@@ -25,6 +25,7 @@ export const useLogout = () => {
       window.location.reload();
       message.success(t('logout_success'));
       dispatch(clearUser());
+      localStorage.removeItem('user_role');
     },
     onError: (error) => {
       message.error(error.message || t('logout_error'));

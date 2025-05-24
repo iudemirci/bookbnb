@@ -14,11 +14,11 @@ function ButtonResetFilters({ ...params }) {
     setSearchParams({});
   };
 
-  return (
+  return hasFilters ? (
     <Button size='large' onClick={handleClick} {...params}>
       {t('reset')}
     </Button>
-  );
+  ) : null;
 }
 
 export default ButtonResetFilters;

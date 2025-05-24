@@ -20,7 +20,6 @@ import BookBnbHomeModal from '../components/modals/BookBnbHome/BookBnbHomeModal.
 import LoginModal from '../components/modals/LoginModal.jsx';
 import SignupModal from '../components/modals/SignupModal.jsx';
 
-import ButtonEdit from '../components/buttons/ButtonEdit.jsx';
 import ButtonReportListing from '../components/buttons/ButtonReportListing.jsx';
 import ConfirmationModal from '../components/modals/ConfirmationModal.jsx';
 import ListingReportModal from '../components/modals/ListingReportModal.jsx';
@@ -43,7 +42,6 @@ function Details() {
   const { photos, title, description, location, rooms, bathrooms, guests, coords, price, category } = listing || [];
   const categoryIcon = categories.find((cat) => cat.key === category)?.icon;
   const { created_at, username } = user || {};
-  const isOwnedByUser = listing?.user_id === user?.user_id;
 
   const details = [
     {
@@ -93,10 +91,7 @@ function Details() {
               {isListingPending ? (
                 <Skeleton.Button size='small' style={{ width: '80px' }} />
               ) : (
-                <>
-                  {isOwnedByUser && <ButtonEdit listing={listing} />}
-                  <ButtonWishlist className='!hidden md:!flex' />
-                </>
+                <ButtonWishlist className='!hidden md:!flex' />
               )}
             </Flex>
           </Flex>
